@@ -8,15 +8,16 @@ export default class Offices extends React.Component {
     constructor() {
         super();
         this.state = {
-            vetsOffices: []
+            vetsOffices: [],
+            isLoading: true
         }
     }
 
     componentWillMount() {
         this.setState({
-            vetsOffices: officesData
+            vetsOffices: officesData,
+            isLoading: false
         });
-        console.dir(officesData);
     }
 
     render() {
@@ -24,6 +25,7 @@ export default class Offices extends React.Component {
 
         return (
             <div className="offices">
+                {this.state.isLoading ? 'Loading list of veterinary offices....' : null}
                 {allOfficesData.map(function (office) {
                     return (
                         <div key={office.id} className="offices">
@@ -40,4 +42,3 @@ export default class Offices extends React.Component {
         )
     }
 }
-
