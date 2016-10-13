@@ -3,10 +3,7 @@
 }
 
 .navbar-inverse {
-    width: 100%;
     border-radius: 0;
-    margin: 0;
-    padding: 0;
 }
 
 .navbar-inverse a {
@@ -20,10 +17,4 @@
 .navbar-inverse a:focus,
 .navbar-inverse .navbar-brand {
     color: white;
-}
-
-.container {
-    width: 98%;
-    margin: 0 1% 0 1%;
-    padding: 0;
 }
