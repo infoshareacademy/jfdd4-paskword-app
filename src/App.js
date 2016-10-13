@@ -2,21 +2,24 @@ import React, { Component } from 'react';
 import {render} from 'react-dom';
 import logo from './logo.svg';
 import './App.css';
-import { Link } from 'react-router';
 import Map from './map/Map';
-import Navbar from './navbar/Navbar'
+
+import { Grid, Row, Col } from 'react-bootstrap';
+import OurNavbar from './navbar/Navbar'
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-          <Navbar>
-              <p>
-                  <Link to={`/vets`}>Nasi weterynarze</Link>
-                  <Link to={`/offices`}>Gabinety</Link>
-              </p>
-              
-          </Navbar>
+          <Grid>
+              <Row>
+                  <Col>
+                      <OurNavbar fluid>
+
+                      </OurNavbar>
+                  </Col>
+              </Row>
+          </Grid>
       {this.props.children}
       </div>
     );

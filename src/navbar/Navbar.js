@@ -1,3 +1,33 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { render } from 'react-dom';
 
-export default (props) => <h1>Vet</h1>
+import { Navbar, Nav, NavItem} from 'react-bootstrap';
+import { Link } from 'react-router';
+
+import './Navbar.css';
+
+export default class OurNavbar extends React.Component {
+
+    render() {
+        return (
+            <Navbar inverse>
+                <Navbar.Header>
+                    <Navbar.Brand>
+                        <Link to={`/`}>Futrzak</Link>
+                    </Navbar.Brand>
+                    <Navbar.Toggle />
+                </Navbar.Header>
+                <Navbar.Collapse>
+                    <Nav pullRight>
+                        <NavItem eventKey={1} href="#">
+                            <Link to={`/vets`}> Nasi weterynarze </Link>
+                        </NavItem>
+                        <NavItem eventKey={2} href="#">
+                            <Link to={`/offices`}> Gabinety </Link>
+                        </NavItem>
+                    </Nav>
+                </Navbar.Collapse>
+            </Navbar>
+        )
+    }
+}
