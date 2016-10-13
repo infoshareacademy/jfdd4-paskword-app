@@ -19,6 +19,11 @@ class App extends Component {
                       </OurNavbar>
                   </Col>
               </Row>
+              <Row>
+                  <Col md={12}>
+                      <Map>{this.props.children}</Map>
+                  </Col>
+              </Row>
           </Grid>
       {this.props.children}
       </div>
