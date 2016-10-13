@@ -1,5 +1,22 @@
 import React from 'react';
-// import Map from '../map/Map';
+import vetData from '../data/vets'
+
+export default class Vets extends React.Component {
+
+    render() {
+        return (
+            <div>
+                {vetData.map(function(vet) {
+                    return (
+                        <div className="vets">
+                            <img src={vet.photo.src}/> {vet.firstName} {vet.lastName} {vet.office} Porady:
+                        </div>
+                    )
+                })}
+            </div>
+        )
+    }
+}
 
 
-export default (props) => <h1>Vet</h1>
+
