@@ -1,6 +1,6 @@
 import React from 'react';
 import vetsData from '../data/vets';
-import advices from '../data/advices'
+import advices from '../data/advices';
 import './Vets.css';
 import {Media} from 'react-bootstrap';
 
@@ -22,32 +22,30 @@ export default class Vets extends React.Component {
             advices: advices,
             isLoading: false
         });
-        this._assignAdvices();
     }
 
     _assignAdvices() {
         var vets = this.state.vets;
         var vetNumber = this.state.vets.length;
-
-        var vetsWith = vets.map(function(vet, i) {
-           vet[i].advices = [];
-
+        var advices = this.state.advices;
+        var vetsWithAdvice = vets.map(function(vet) {
+           vet.advices = [];
+            return vet;
         });
-        console.log(vetsWith);
-        vets.advices.forEach(function(advice) {
+        advices.forEach(function(advice) {
             var randomNumber = Math.floor((Math.random() * vetNumber) +1);
-            vets[randomNumber].advices.push(advice);
+            vetsWithAdvice[randomNumber-1].advices.push(advice);
             }
-        )
+        );
+        this.state.vets = vetsWithAdvice;
     }
 
     render() {
-        var allVetsData = this.state.vets,
-            advices = this.state.advices;
-
+        this._assignAdvices();
+        var allVetsData = this.state.vets;
         return (
             <div>
-                {console.log(advices)};
+                {console.log(allVetsData)};
                 {this.state.isLoading ? 'Loading list of our vets...' : null}
                 {allVetsData.map(function(vet) {
                     return (
