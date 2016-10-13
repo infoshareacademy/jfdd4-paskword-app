@@ -38,7 +38,7 @@ export default class Vet extends React.Component {
         console.log(this.state.vet);
         return (
 
-            <div className="Vet">
+            <div className="Weterynarz">
                 <h1>Vet</h1>
                 <p>{this.state.vet.firstName}</p>
                 <p>{this.state.vet.lastName}</p>
