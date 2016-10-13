@@ -14,9 +14,7 @@ class App extends Component {
           <Grid>
               <Row>
                   <Col>
-                      <OurNavbar fluid>
-
-                      </OurNavbar>
+<OurNavbar></OurNavbar>
                   </Col>
               </Row>
           </Grid>

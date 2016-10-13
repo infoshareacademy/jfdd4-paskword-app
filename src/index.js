@@ -18,9 +18,8 @@ ReactDOM.render(
             <Route path="/offices" component={Offices}>
                 <Route path="/offices/:officeId" component={Office}/>
             </Route>
-            <Route path="/vets" component={Vets}>
-                <Route path="/vets/:vetId" component={Vet}/>
-            </Route>
+            <Route path="/vets" component={Vets} />
+            <Route path="/vets/:vetId" component={Vet}/>
         </Route>
     </Router>,
     document.getElementById('root')

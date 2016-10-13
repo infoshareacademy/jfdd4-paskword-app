@@ -6,34 +6,51 @@ import vets from '../data/vets'
 
 
 
-// export default class Vet extends React.Component {
-//     constructor() {
-//         super()
-//         this.state = {
-//             vet: []
-//         }
-//     }
-//
+export default class Vet extends React.Component {
+    constructor() {
+        super()
 
-class Vet extends Component {
+        this.state = {
+            vet: {
+                firstName: 'Loading',
+                lastName:'Loading',
+                photo: 'Loading',
+                office: 'Loading',
+                email: 'Loading',
+                phone: 'Loading',
+                coordinates: 'Loading'
+            }
+        }
+    }
+
+    componentWillMount() {
+
+        setTimeout( function () {
+            this.setState({
+                vet: vets[0]
+            });
+
+        }.bind(this), 1000);
+    }
+
+
     render() {
+        console.log(this.state.vet);
         return (
 
             <div className="Vet">
                 <h1>Vet</h1>
-                <p>{props.params.firstName}</p>
-                <p>{props.params.lastName}</p>
-                <p>{props.params.photo}</p>
-                <p>{props.params.office}</p>
-                <p>{props.params.email}</p>
-                <p>{props.params.phone}</p>
-                <p>{props.params.coordinates}</p>
+                <p>{this.state.vet.firstName}</p>
+                <p>{this.state.vet.lastName}</p>
+                <p><img src={this.state.vet.photo} /></p>
+                <p>{this.state.vet.office}</p>
+                <p>{this.state.vet.email}</p>
+                <p>{this.state.vet.phone}</p>
+                <p>{this.state.vet.coordinates.latitude}</p>
             </div>
         );
     }
 }
-
-export default Vet
 
 
 
