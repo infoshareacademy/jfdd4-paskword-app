@@ -1,0 +1,20 @@
+.navbar {
+    border-radius: 0;
+}
+
+.navbar-inverse {
+    border-radius: 0;
+}
+
+.navbar-inverse a {
+    color: white;
+}
+
+.navbar-inverse .navbar-brand:hover,
+.navbar-inverse .navbar-brand:focus,
+.navbar-brand,
+.navbar-inverse a:hover,
+.navbar-inverse a:focus,
+.navbar-inverse .navbar-brand {
+    color: white;
+}
