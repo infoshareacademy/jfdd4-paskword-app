@@ -12,8 +12,8 @@ function Vet (firstName, lastName, photo, office, email, phone, coordinates)  {
 var photos = [];
 
 for (var i=0; i<10; i++){
-    photos[i] = new Image();
-    photos[i].src = require('./vet-photos/photo' + i + '.jpg');
+    photos[i] = require('./vet-photos/photo' + i + '.jpg');
+    //don't delete require!
 }
 
 var james = new Vet("James", "Sutherland", photos[0], "Filonek", "jamsuthe@yahoo.com", "55 555 555 555", [{latitude: 32.47, longitude: -107.85}]);
@@ -27,6 +27,6 @@ var jake = new Vet("Jake", "Lavellan", photos[7], "Mruczuś", "jaklavel@yahoo.co
 var mordin = new Vet("Mordin", "Normandy", photos[8], "Klakier", "mornorma@yahoo.com", "88 958 635 585", [{latitude: 32.47, longitude: -107.85}]);
 var garrus = new Vet("Garrus", "Bird", photos[9], "Mruczuś", "garbird@yahoo.com", "88 555 321 369", [{latitude: 32.47, longitude: -107.85}]);
 
-module.exports = [
+export default [
     james, maria, jerry, kate, mary, fawkes, daria, jake, mordin, garrus
 ];
