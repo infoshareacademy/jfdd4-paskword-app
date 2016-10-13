@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../css/offices.css'
+import styles from './offices.css'
 import officesData from '../data/offices.js'
 // import Map from './map/Map';
 
@@ -26,14 +26,14 @@ export default class Offices extends React.Component {
             <div className="offices">
                 {allOfficesData.map(function (office) {
                     return (
-                        <div key={office.id}>
+                        <div key={office.id} className="offices">
+                            <img src="#"/>
                             <span>{office.officeName}</span>
                             <br/>
                             <span>{office.officeAddress}</span>
                             <br/>
-                            <span>{office.vetsNumber}</span>
+                            <span>Liczba lekarzy: {office.vetsNumber}</span>
                         </div>
-
                     )
                 })}
             </div>
