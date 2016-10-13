@@ -1,3 +1,6 @@
+import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap/dist/css/bootstrap-theme.css';
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
@@ -6,6 +9,8 @@ import Vet from './vet/Vet';
 import Vets from './vets/Vets';
 import Office from './office/Office'
 import Offices from './offices/Offices'
+
+
 
 import { Router, Route, browserHistory} from 'react-router';
 
