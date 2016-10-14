@@ -19,10 +19,10 @@ export default class OurNavbar extends React.Component {
                 </Navbar.Header>
                 <Navbar.Collapse>
                     <Nav pullRight>
-                        <NavItem eventKey={1} href="#">
+                        <NavItem eventKey={1}>
                             <Link to={`/vets`}> Nasi weterynarze </Link>
                         </NavItem>
-                        <NavItem eventKey={2} href="#">
+                        <NavItem eventKey={2}>
                             <Link to={`/offices`}> Gabinety </Link>
                         </NavItem>
                     </Nav>

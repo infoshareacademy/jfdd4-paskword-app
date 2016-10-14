@@ -1,0 +1,12 @@
+.vet {
+    border: 1px solid black;
+    margin: 1%;
+}
+
+.media img {
+    max-height: 100px;
+}
+
+.media {
+    margin: 5%;
+}
