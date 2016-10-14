@@ -1,0 +1,55 @@
+var  data = [
+    {
+        "id": 1,
+        "tag": "kot",
+        "advice": "W przełamywaniu lodów pomiędzy kotem a jego nowym opiekunem najlepszą receptą jest dać sobie, a przede wszystkim zwierzakowi trochę czasu.",
+    },
+    {
+        "id": 2,
+        "tag": "kot",
+        "advice": "Ze zwierzakami bardzo chętnie bawią się dzieci musimy jednak nauczyć je odpowiedniego postępowania w stosunku do pupila: ciągnięcie za ogon i uszy, straszenie, całodzienne wożenie w wózku czy przebieranie w ubranka dla lalek z pewnością bardzo się nie spodobają kotu.",
+    },
+    {
+        "id": 3,
+        "tag": "kot",
+        "advice": "Aby uniknąć problemów żołądkowych po przeprowadzce najlepiej podawać kotu karmę którą dostawał w dotychczasowym miejscu zamieszkania i mieszać mu ją z nowym pokarmem.",
+    },
+    {
+        "id": 4,
+        "tag": "pies",
+        "advice": "Podstawową sprawą po pojawieniu się szczeniaka w domu jest – czym go żywić? Ważną rzeczą jest, aby NIE MIESZAĆ karm gotowych i przygotowywanych samodzielnie. Nie jesteśmy wtedy w stanie odpowiednio zbilansować diety psa i najczęściej podajemy za dużo kalorii. Może to prowadzić do otyłości i schorzeń kośćca.",
+    },
+    {
+        "id": 5,
+        "tag": "pies",
+        "advice": "Po osiągnięciu dojrzałości płciowej należy rozważyć możliwość sterylizacji/kastracji psa/suki.",
+    },
+    {
+        "id": 6,
+        "tag": "koszatniczka",
+        "advice": "Chcąc rozpocząć hodowlę koszatniczki, należy w pierwszej kolejności stworzyć jej odpowiednie warunki do zamieszkania. W tym przypadku odpowiednia będzie piętrowa klatka.",
+    },
+    {
+        "id": 7,
+        "tag": "waz",
+        "advice": "Boa Dusiciele należą do węży łatwych do przyzwyczajenia do kontaktów z człowiekiem i jego otoczeniem. Oswajają się z tym, że człowiek sprząta im w terrarium, karmi je, czasami wyciąga z pomieszczenia hodowlanego, przebywa w ich otoczeniu.",
+    },
+    {
+        "id": 8,
+        "tag": "tarantula",
+        "advice": "Dla początkującego hodowcy najlepszym wyborem są ptaszniki z gatunków naziemnych. ",
+    },
+    {
+        "id": 9,
+        "tag": "chomik",
+        "advice": "Po przyniesieniu chomika do domu wybierz odpowiednie miejsce na jego klatkę. Nie może ona znajdować się bezpośrednio w słońcu, jednocześnie powinna być tak ustawiona tak byś mógł często zaglądać do swojego zwierzaka.",
+    },
+    {
+        "id": 10,
+        "tag": "chomik",
+        "advice": "Pokryj dno klatki lub akwarium warstwą trocin o grubości około pięć centymetrów. Najlepsze są wióra z drzewa sosnowego, ponieważ są bardzo chłonne i całkowicie nietoksyczne dla chomika.",
+    },
+
+];
+
+export default data;
