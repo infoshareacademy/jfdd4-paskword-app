@@ -9,6 +9,7 @@ import Vet from './vet/Vet';
 import Vets from './vets/Vets';
 import Office from './office/Office'
 import Offices from './offices/Offices'
+import Map from './map/Map'
 
 import { Router, Route, browserHistory } from 'react-router';
 
