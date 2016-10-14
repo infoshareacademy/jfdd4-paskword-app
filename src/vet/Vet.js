@@ -1,8 +1,8 @@
 import React from 'react';
 import vets from '../data/vets'
-
-// import Advice from './advice/Advice';
 // import Map from './map/Map';
+// import Advice from './advice/Advice';
+
 
 
 
@@ -22,6 +22,8 @@ export default class Vet extends React.Component {
             }
         }
     }
+
+
 
     componentWillMount() {
 
@@ -46,7 +48,6 @@ export default class Vet extends React.Component {
                 <p>{this.state.vet.office}</p>
                 <p>{this.state.vet.email}</p>
                 <p>{this.state.vet.phone}</p>
-                <p>{this.state.vet.coordinates.latitude}</p>
             </div>
         );
     }
