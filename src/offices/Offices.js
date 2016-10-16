@@ -34,10 +34,10 @@ export default class Offices extends React.Component {
                 {this.state.isLoading ? 'Loading list of veterinary offices....' : null}
                 {allOfficesData.map(function (office, index) {
                     return (
-                        <Link to={'/offices/' + index}>
-                        <Row key={office.id} className="offices">
-                            <Col xs={12}  md={2} ><
-                                img src={office.logo} className="responsive"/>
+                        <Link to={`/offices/${office.id}`} key={office.id}>
+                        <Row className="offices">
+                            <Col xs={12}  md={2} >
+                                <img src={office.logo} className="responsive"/>
                             </Col>
                             <Col xs={12} md={10}>
                                 <span>{office.officeName}</span>
