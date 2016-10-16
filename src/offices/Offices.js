@@ -30,7 +30,7 @@ export default class Offices extends React.Component {
         var allOfficesData = this.state.vetsOffices;
 
         return (
-            <div className="offices">
+            <Grid className="offices container">
                 {this.state.isLoading ? 'Loading list of veterinary offices....' : null}
                 {allOfficesData.map(function (office, index) {
                     return (
@@ -50,7 +50,7 @@ export default class Offices extends React.Component {
                         </Link>
                     )
                 })}
-            </div>
+            </Grid>
         )
     }
 }
