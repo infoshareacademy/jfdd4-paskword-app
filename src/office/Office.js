@@ -1,41 +1,95 @@
 import React from 'react';
-import offices from '../data/offices'
-// import Map from './map/Map';
+import officesData from '../data/offices.js';
+import vetsData from '../data/vets.js';
+import Place from '../map/place/Place'
+import styles from './office-style.css';
+import {
+    Grid,
+    Row,
+    Col
+}
+    from 'react-bootstrap';
+import GoogleMap from 'google-map-react';
+
 
 export default class Office extends React.Component {
-    constructor() {
-        super()
+    constructor(props) {
+        super();
 
         this.state = {
-            office: {
-                officeName: 'Loading',
-                officeAddress: 'Loading',
-                vetsNumber: 'Loading'
-            }
+            office: [],
+            vets: [],
+            isLoading: true,
+            officeId: parseInt(props.params.officeId)
         }
+        console.log(props);
     }
 
     componentWillMount() {
-
-        setTimeout( function () {
-            this.setState({
-                office: offices[0]
-            });
-
-        }.bind(this), 1000);
+        this.setState({
+            office: officesData,
+            vets: vetsData,
+            isLoading: false
+        })
     }
 
 
     render() {
-        console.log(this.state.office);
+        var currentOfficeId = this.state.officeId;
+        //finding office object with ID from Router
+        var oneOffice = this.state.office.find(function (office) {
+            return office.id === currentOfficeId;
+        });
+        var allVetsData = this.state.vets;
+        console.log('Gabinet', oneOffice);
+        console.log('Weterynarze', allVetsData);
+        console.log('lokajca', oneOffice.coordinates)
         return (
-
-            <div className="Office">
-                <h1>Gabinet</h1>
-                <p>{this.state.office.officeName}</p>
-                <p>{this.state.office.officeAddress}</p>
-                <p>" Liczba weterynarzy " {this.state.office.vetsNumber}</p>
-            </div>
+            <Grid className="Office container">
+                {this.state.isLoading ? 'Loading iformation about choosen vet office...' : null}
+                <Row>
+                    <h1>Gabinet</h1>
+                </Row>
+                <Row>
+                    <Col xs={12} md={2}>
+                        <img src={oneOffice.logo} className="responsive"/>
+                    </Col>
+                    <Col xs={12} md={10}>
+                        <p>{oneOffice.officeName}</p>
+                        <p>{oneOffice.officeAddress}</p>
+                        <p>"Przyjmujący weterynarze:"
+                            <ul>
+                                {oneOffice.vetIds.map(function (vetID) {
+                                    return (
+                                        <li key={vetID}>
+                                            {allVetsData.length === 0 ?
+                                                <span>Ładuje się lista lekarzy...</span> :
+                                                vetsData.filter(function (vet) {
+                                                    return vet.id === vetID
+                                                }).map(function (oneVet) {
+                                                    return oneVet.firstName + ' ' + oneVet.lastName;
+                                                })
+                                            }
+                                        </li>
+                                    )
+                                })}
+                            </ul>
+                        </p>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col xs={12}>
+                        <div className="office">
+                        <GoogleMap
+                            center={[oneOffice.coordinates.latitude, oneOffice.coordinates.longitude]}
+                            zoom={14}>
+                            <Place key={oneOffice.id}
+                                   lat={oneOffice.coordinates.latitude} lng={oneOffice.coordinates.longitude}
+                                   text={'A'}/>
+                        </GoogleMap>
+</div>                    </Col>
+                </Row>
+            </Grid>
         );
     }
 }

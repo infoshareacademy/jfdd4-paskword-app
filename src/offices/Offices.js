@@ -1,7 +1,13 @@
 import React from 'react';
-import styles from './offices.css'
-import officesData from '../data/offices.js'
-// import Map from './map/Map';
+import styles from './offices.css';
+import officesData from '../data/offices.js';
+import { Link } from 'react-router';
+import {
+    Grid,
+    Row,
+    Col
+}
+    from 'react-bootstrap';
 
 
 export default class Offices extends React.Component {
@@ -24,22 +30,27 @@ export default class Offices extends React.Component {
         var allOfficesData = this.state.vetsOffices;
 
         return (
-            <div className="offices">
+            <Grid className="offices container">
                 {this.state.isLoading ? 'Loading list of veterinary offices....' : null}
-                {allOfficesData.map(function (office) {
+                {allOfficesData.map(function (office, index) {
                     return (
-                        <div key={office.id} className="offices">
-                            <img src="#"/>
-                            <span>{office.officeName}</span>
-                            <br/>
-                            <span>{office.officeAddress}</span>
-                            <br/>
-                            <span>Liczba lekarzy: {office.vetsNumber}</span>
-                        </div>
+                        <Link to={`/offices/${office.id}`} key={office.id}>
+                        <Row className="offices">
+                            <Col xs={12}  md={2} >
+                                <img src={office.logo} className="responsive"/>
+                            </Col>
+                            <Col xs={12} md={10}>
+                                <span>{office.officeName}</span>
+                                <br/>
+                                <span>{office.officeAddress}</span>
+                                <br/>
+                                <span>Liczba lekarzy: {office.vetIds.length}</span>
+                            </Col>
+                        </Row>
+                        </Link>
                     )
                 })}
-            </div>
+            </Grid>
         )
     }
 }
-

@@ -14,7 +14,7 @@ class App extends Component {
       <div className="App">
                       <Menu />
                       <Map>{this.props.children}</Map>
-        {this.props.children}
+      {this.props.children}
       </div>
     );
   }
