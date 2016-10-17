@@ -1,12 +1,15 @@
 import React from 'react';
 import officesData from '../data/offices.js';
 import vetsData from '../data/vets.js';
+import Place from '../map/place/Place'
+import styles from './office-style.css';
 import {
     Grid,
     Row,
     Col
 }
     from 'react-bootstrap';
+import GoogleMap from 'google-map-react';
 
 
 export default class Office extends React.Component {
@@ -40,6 +43,7 @@ export default class Office extends React.Component {
         var allVetsData = this.state.vets;
         console.log('Gabinet', oneOffice);
         console.log('Weterynarze', allVetsData);
+        console.log('lokajca', oneOffice.coordinates)
         return (
             <Grid className="Office container">
                 {this.state.isLoading ? 'Loading iformation about choosen vet office...' : null}
@@ -72,6 +76,18 @@ export default class Office extends React.Component {
                             </ul>
                         </p>
                     </Col>
+                </Row>
+                <Row>
+                    <Col xs={12}>
+                        <div className="office">
+                        <GoogleMap
+                            center={[oneOffice.coordinates.latitude, oneOffice.coordinates.longitude]}
+                            zoom={14}>
+                            <Place key={oneOffice.id}
+                                   lat={oneOffice.coordinates.latitude} lng={oneOffice.coordinates.longitude}
+                                   text={'A'}/>
+                        </GoogleMap>
+</div>                    </Col>
                 </Row>
             </Grid>
         );

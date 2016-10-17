@@ -28,7 +28,6 @@ export default class Map extends React.Component {
                     center={[54.35118909616142, 18.644957542419434]}
                     zoom={9}>
                     {officeP.map(function (officeGPSPoint) {
-                        console.log(officeGPSPoint);
                         return (
                             <Place key={officeGPSPoint.id}
                                    lat={officeGPSPoint.coordinates.latitude} lng={officeGPSPoint.coordinates.longitude}
