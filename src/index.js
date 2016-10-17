@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap-theme.css';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+import App from './app/App';
 import './index.css';
 import Vet from './vet/Vet';
 import Vets from './vets/Vets';

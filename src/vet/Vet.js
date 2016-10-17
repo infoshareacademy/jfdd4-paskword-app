@@ -35,9 +35,17 @@ export default class Vet extends React.Component {
 
 
     render() {
+        console.log(this.state.vet);
         return (
 
             <div className="Weterynarz">
+                <h1>Vet</h1>
+                <p>{this.state.vet.firstName}</p>
+                <p>{this.state.vet.lastName}</p>
+                <p><img src={this.state.vet.photo} /></p>
+                <p>{this.state.vet.office}</p>
+                <p>{this.state.vet.email}</p>
+                <p>{this.state.vet.phone}</p>
                 <h1>Weterynarz</h1>
                 <p>{this.state.vet.firstName} {this.state.vet.lastName}</p>
                 <p><img src={this.state.vet.photo} alt={this.state.vet.lastName} /></p>
