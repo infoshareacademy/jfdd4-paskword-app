@@ -17,6 +17,9 @@ import {
 export default class VetSearch extends React.Component {
     constructor() {
         super();
+        this.state =  {
+            nearestVet: []
+        }
         
         this._onClick  = this._onClick.bind(this);
     }
@@ -26,15 +29,19 @@ export default class VetSearch extends React.Component {
     render() {
         return (
             <Grid>
-
                 <Row>
                     <div className="map">
                         <GoogleMap
+                            bootstrapURLKeys={{
+                                key: 'AIzaSyCJSyocAtUnWSKhjyqZlJtmaf_afdJcOkA',
+                                language: 'pl'
+                            }}
                                onClick={this._onClick}
                                center={[54.35118909616142, 18.644957542419434]}
                                zoom={9}>
 
-                    </GoogleMap></div>
+                    </GoogleMap>
+                    </div>
                 </Row>
             </Grid>
         )
