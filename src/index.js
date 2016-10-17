@@ -12,11 +12,12 @@ import Offices from './offices/Offices'
 import VetSearch from './vet-search/VetSearch'
 import Map from './map/Map'
 
-import { Router, Route, browserHistory } from 'react-router';
+import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 
 ReactDOM.render(
     <Router history={browserHistory}>
         <Route path="/" component={App}>
+            <IndexRoute component={Map}/>
             <Route path="/offices" component={Offices}/>
             <Route path="/offices/:officeId" component={Office}/>
             <Route path="/vets" component={Vets}/>
