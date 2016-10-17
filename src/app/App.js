@@ -12,19 +12,9 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-          <Grid>
-              <Row>
-                  <Col>
                       <Menu />
-                  </Col>
-              </Row>
-              <Row>
-                  <Col md={12}>
                       <Map>{this.props.children}</Map>
-                  </Col>
-              </Row>
-          </Grid>
-      {this.props.children}
+        {this.props.children}
       </div>
     );
   }

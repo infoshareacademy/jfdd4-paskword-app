@@ -7,7 +7,7 @@ export default (props) =>
     <li className="App-Menu-Item">
         <Link
             to={props.path}
-            className={'btn btn-primary'}
+            className={'btn default'}
             activeClassName="active"
             onlyActiveOnIndex={props.activeWhenMatchingExactly}>
             {props.children}
