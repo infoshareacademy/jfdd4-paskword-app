@@ -1,9 +1,5 @@
 .map {
     width: auto;
-    height: 400px;
+    height: 300px;
 }
 
-.place {
-    font-size: 60px;
-    background-image: url("/paw-baloon.png");
-}
