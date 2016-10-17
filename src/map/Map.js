@@ -3,34 +3,34 @@ import GoogleMap from 'google-map-react';
 import Place from './place/Place';
 import styles from './map-style.css';
 import vetsData from '../data/vets.js';
+import officesData from '../data/offices.js'
 
 
 export default class Map extends React.Component {
     constructor() {
         super();
         this.state = {
-            vetsData: []
+            officesData: []
         }
     }
 
     componentWillMount() {
         this.setState({
-            vetsPoint: vetsData
+            officesPoint: officesData
         })
     }
 
     render() {
-        var vetsP = this.state.vetsPoint;
+        var officeP = this.state.officesPoint;
         return (
             <div className="map">
                 <GoogleMap
                     center={[54.35118909616142, 18.644957542419434]}
                     zoom={9}>
-                    {vetsP.map(function (vetGPSPoint) {
-                        console.log(vetGPSPoint);
+                    {officeP.map(function (officeGPSPoint) {
                         return (
-                            <Place key={vetGPSPoint.phone}
-                                   lat={vetGPSPoint.coordinates[0].latitude} lng={vetGPSPoint.coordinates[0].longitude}
+                            <Place key={officeGPSPoint.id}
+                                   lat={officeGPSPoint.coordinates.latitude} lng={officeGPSPoint.coordinates.longitude}
                                    text={'A'}/>
                         )
                     })}
