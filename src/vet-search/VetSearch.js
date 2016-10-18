@@ -6,12 +6,7 @@ import styles from './vet-search-style.css'
 
 import {
     Grid,
-    Row,
-    Col,
-    FormGroup,
-    ControlLabel,
-    FormControl,
-    HelpBlock
+    Row
 } from 'react-bootstrap';
 import Data from '../data/offices'
 
@@ -20,8 +15,7 @@ export default class VetSearch extends React.Component {
     constructor() {
         super();
         this.state = {
-            officesData: [],
-            currentCoordinates: []
+            officesData: []
         }
 
         this._onClick = this._onClick.bind(this);
@@ -30,17 +24,23 @@ export default class VetSearch extends React.Component {
     componentWillMount() {
         this.setState = {
             officesData: Data,
-            currentCoordinates: {}
+            xPoint: 0
         }
     }
 
-    _onClick = (markerPosition, mousePosition, markerProps) => {
-        console.log('mouse',mousePosition,'marker', markerPosition);
-        const x = markerPosition.x;
-        const y = markerPosition.y;
-        const distanceKoef = markerProps.text !== 'A' ? 1.5 : 1;
-        return distanceKoef * Math.sqrt((x - mousePosition.x) * (x - mousePosition.x) + (y - mousePosition.y) * (y - mousePosition.y));
-
+    _onClick(mapClick) {
+        var xPoint = mapClick.lat;
+        var yPoint = mapClick.lng;
+        var result = [];
+        var idOfNearesOffice;
+        Data.forEach(function (office) {
+            result.push(Math
+                .sqrt(
+                    Math.pow((office.coordinates.latitude - xPoint), 2) +
+                    Math.pow((office.coordinates.longitude - yPoint), 2)
+                ));
+        });
+        idOfNearesOffice = result.indexOf(Math.min(...result)) + 1;
     }
 
     render() {
@@ -60,9 +60,7 @@ export default class VetSearch extends React.Component {
                             <Place
                                 lat={54.35118909616142} lng={18.644957542419434} text={'A'} zIndex={2}
                             >
-                                
                             </Place>
-                            <Place></Place>
                         </GoogleMap>
                     </div>
                 </Row>
