@@ -72,14 +72,47 @@ export default class Vet extends React.Component {
     }
 
     render() {
+        var filterButtons = [
+            {
+                name: 'every',
+                component: filterButton(this._handleClickEvery, 'every', activeFilterName, 'Wszystkie')
+            },
+            {
+                name: 'kot',
+                component: filterButton(this._handleCat, 'cat', activeFilterName, 'Koty'),
+            },
+            {
+                name: 'pies',
+                component: filterButton(this._handleDog, 'dog', activeFilterName, 'Psy'),
+            },
+            {
+                name: 'koszatniczka',
+                component: filterButton(this._handleDegu, 'degu', activeFilterName, 'Koszatniczki'),
+            },
+            {
+                name: 'wąż',
+                component: filterButton(this._handleSnake, 'snake', activeFilterName, 'Węże'),
+            },
+            {
+                name: 'pająk',
+                component: filterButton(this._handleSpider, 'spider', activeFilterName, 'Pająki'),
+            },
+            {
+                name: 'chomik',
+                component: filterButton(this._handleHamster, 'hamster', activeFilterName, 'chomik'),
+            }
+
+
+        ]
+
         var isLoading = this.state.isLoading,
             allFilters = this.state.filters,
             activeFilterName = this.state.activeFilter,
             selectedFilter = allFilters[activeFilterName],
             hasAdvices = this.state.vet.advices.length == 0,
-            vetId = this.state.vet.id;
+            vetId = this.state.vet.id,
+            newFilterButtons = [];
 
-        console.log(this.state.offices)
         return (
             <div className="Weterynarz">
                 {isLoading ? 'Ładuję wybranego weterynarza...' : null}
@@ -92,7 +125,7 @@ export default class Vet extends React.Component {
                     <ul>
                         {this.state.offices
                             .filter(function (office) {
-                                var result = office.vetIds.indexOf(vetId) !== -1
+                                var result = office.vetIds.indexOf(vetId) !== -1;
                                 return result
                             })
                             .map(function (item) {
@@ -112,16 +145,21 @@ export default class Vet extends React.Component {
 
                 <p>Liczba porad: {this.state.vet.advices.length}</p>
                 {hasAdvices ? null :
-                    <p>
-                        {filterButton(this._handleClickEvery, 'every', activeFilterName, 'Wszystkie')}
-                        {filterButton(this._handleCat, 'cat', activeFilterName, 'Koty')}
-                        {filterButton(this._handleDog, 'dog', activeFilterName, 'Psy')}
-                        {filterButton(this._handleDegu, 'degu', activeFilterName, 'Koszatniczki')}
-                        {filterButton(this._handleSnake, 'snake', activeFilterName, 'Gady')}
-                        {filterButton(this._handleSpider, 'spider', activeFilterName, 'Pająki')}
-                        {filterButton(this._handleHamster, 'hamster', activeFilterName, 'Chomiki')}
-                    </p>
+                    this.state.vet.advices.forEach(function(advice) {
+                        filterButtons
+                            .filter(function(button) {
+
+                                return button._shadowChildren == advice.tag
+                            })
+                            .map(function(button) {
+                                return <p> {button} </p>
+                            })
+                    })
                 }
+                {console.log(newFilterButtons)}
+                {console.log(filterButtons)}
+                {filterButtons}
+
                 <p>{this.state.vet.advices
                     .filter(selectedFilter)
                     .map(function(advice) {

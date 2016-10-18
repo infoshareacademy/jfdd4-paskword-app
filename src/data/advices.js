@@ -31,12 +31,12 @@ var  data = [
     },
     {
         "id": 7,
-        "tag": "waz",
+        "tag": "wąż",
         "advice": "Boa Dusiciele należą do węży łatwych do przyzwyczajenia do kontaktów z człowiekiem i jego otoczeniem. Oswajają się z tym, że człowiek sprząta im w terrarium, karmi je, czasami wyciąga z pomieszczenia hodowlanego, przebywa w ich otoczeniu.",
     },
     {
         "id": 8,
-        "tag": "tarantula",
+        "tag": "pająk",
         "advice": "Dla początkującego hodowcy najlepszym wyborem są ptaszniki z gatunków naziemnych. ",
     },
     {
