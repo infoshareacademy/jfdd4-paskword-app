@@ -89,6 +89,10 @@ export default class Vet extends React.Component {
                         {filterButton(this._handleClickEvery, 'every', activeFilterName, 'Wszystkie')}
                         {filterButton(this._handleCat, 'cat', activeFilterName, 'Koty')}
                         {filterButton(this._handleDog, 'dog', activeFilterName, 'Psy')}
+                        {filterButton(this._handleDegu, 'degu', activeFilterName, 'Koszatniczki')}
+                        {filterButton(this._handleSnake, 'snake', activeFilterName, 'Gady')}
+                        {filterButton(this._handleSpider, 'spider', activeFilterName, 'Pająki')}
+                        {filterButton(this._handleHamster, 'hamster', activeFilterName, 'Chomiki')}
                     </p>
                 }
                 <p>{this.state.vet.advices
