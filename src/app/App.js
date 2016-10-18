@@ -13,7 +13,6 @@ class App extends Component {
     return (
       <div className="App">
                       <Menu />
-                      <Map>{this.props.children}</Map>
       {this.props.children}
       </div>
     );
