@@ -20,6 +20,7 @@ ReactDOM.render(
             <Route path="/offices/:officeId" component={Office}/>
             <Route path="/vets" component={Vets}/>
             <Route path="/vets/:vetId" component={Vet}/>
+            <Route path="/calendar" component={Calendar}/>
         </Route>
     </Router>,
     document.getElementById('root')
