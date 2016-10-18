@@ -7,4 +7,5 @@ export default (props) =>
         <Item path={`/`} activeWhenMatchingExactly={true} customClasses="">Futrzak</Item>
         <Item path={`/vets`}>Nasi weterynarze</Item>
         <Item path={`/offices`}>Gabinety</Item>
+        <Item path={`/calendar`}>Kalendarz</Item>
     </ul>

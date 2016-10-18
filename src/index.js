@@ -10,6 +10,7 @@ import Vets from './vets/Vets';
 import Office from './office/Office'
 import Offices from './offices/Offices'
 import Map from './map/Map'
+import Calendar from './calendar/Calendar'
 
 import { Router, Route, browserHistory } from 'react-router';
 
