@@ -2,7 +2,7 @@ import React from 'react';
 import vetsWithAdvices from '../data/vetsWithAdvices';
 import officesData from '../data/offices.js';
 import './Vets.css';
-import {Media} from 'react-bootstrap';
+import { Media, Col } from 'react-bootstrap';
 import { Link } from 'react-router';
 
 export default class Vets extends React.Component {
@@ -33,8 +33,9 @@ export default class Vets extends React.Component {
                 {this.state.isLoading ? 'Loading list of our vets...' : null}
                 {allVetsData.map(function(vet, index) {
                     return (
-                        <Media>
-                            <Media.Left align="top">
+                   <Col xs={12} sm={6}  >
+                       <Media>
+                            <Media.Left align="top" >
                                 <img src={vet.photo} alt={vet.firstName}/>
                             </Media.Left>
                             <Media.Body>
@@ -66,6 +67,7 @@ export default class Vets extends React.Component {
                                 <p>Liczba porad lekarza: {vet.advices.length}</p>
                             </Media.Body>
                         </Media>
+                   </Col>
                     )
                 })}
             </div>
