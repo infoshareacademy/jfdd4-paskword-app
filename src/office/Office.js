@@ -54,7 +54,7 @@ export default class Office extends React.Component {
                     <Col xs={12} md={2}>
                         <img src={oneOffice.logo} className="responsive"/>
                     </Col>
-                    <Col xs={12} md={10}>
+                    <Col xs={12} md={5}>
                         <p>{oneOffice.officeName}</p>
                         <p>{oneOffice.officeAddress}</p>
                         <p>"Przyjmujący weterynarze:"
@@ -76,18 +76,21 @@ export default class Office extends React.Component {
                             </ul>
                         </p>
                     </Col>
-                </Row>
-                <Row>
-                    <Col xs={12}>
+                    <Col xs={12} md={5}>
                         <div className="office">
-                        <GoogleMap
-                            center={[oneOffice.coordinates.latitude, oneOffice.coordinates.longitude]}
-                            zoom={14}>
-                            <Place key={oneOffice.id}
-                                   lat={oneOffice.coordinates.latitude} lng={oneOffice.coordinates.longitude}
-                                   text={'A'}/>
-                        </GoogleMap>
-</div>                    </Col>
+                            <GoogleMap
+                                bootstrapURLKeys={{
+                                key: 'AIzaSyCJSyocAtUnWSKhjyqZlJtmaf_afdJcOkA',
+                                language: 'pl'
+                            }}
+                                center={[oneOffice.coordinates.latitude, oneOffice.coordinates.longitude]}
+                                zoom={13}>
+                                <Place key={oneOffice.id}
+                                       lat={oneOffice.coordinates.latitude} lng={oneOffice.coordinates.longitude}
+                                       text={'A'}/>
+                            </GoogleMap>
+                        </div>
+                    </Col>
                 </Row>
             </Grid>
         );
