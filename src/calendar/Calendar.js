@@ -4,7 +4,7 @@ import moment from 'moment';
 import events from './events'
 import 'react-big-calendar/lib/css/react-big-calendar.css'
 
-BigCalendar.momentLocalizer(moment); // or globalizeLocalizer
+BigCalendar.momentLocalizer(moment);
 
 export default class Calendar extends React.Component {
     constructor() {
@@ -25,7 +25,7 @@ export default class Calendar extends React.Component {
             <BigCalendar
                 {...this.props}
                 events={events}
-                defaultDate={new Date(2016, 10, 1)}
+                defaultDate={new Date(moment())}
             />
         )
     }
