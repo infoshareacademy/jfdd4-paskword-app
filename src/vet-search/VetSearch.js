@@ -1,7 +1,10 @@
 import React from 'react';
 import GoogleMap from 'google-map-react';
-import Place from '../map/place/Place'
-import styles from './vet-search-style.css'
+import Place from '../map/place/Place';
+import styles from './vet-search-style.css';
+import startMark from '../map/place/start.png';
+import finishMark from '../map/place/finish.png'
+import placeStyles from '../map/place/place-styles.css';
 
 import {
     Grid,
@@ -17,45 +20,49 @@ export default class VetSearch extends React.Component {
             officesData: [],
             xPoint: 0,
             yPoint: 0,
-            markerStart: null,
             idOfNearestOffice: null
         };
 
         this._onClick = this._onClick.bind(this);
-    }
-
-    componentWillMount() {
-
+        console.log('1X', this.state.xPoint)
     }
 
     _onClick(mapClick) {
-        this.setState = {
+        this.setState({
             officesData: Data,
             xPoint: mapClick.lat,
             yPoint: mapClick.lng,
-            markerStart: 'A',
-            idOfNearestOffice: function () {
+            idOfNearestOffice: (function () {
                 var result = [];
                 Data.forEach(function (office) {
                     result.push(Math
                         .sqrt(
-                            Math.pow((office.coordinates.latitude - mapClick.lat), 2) +
-                            Math.pow((office.coordinates.longitude - mapClick.lng), 2)
+                            Math.pow((office.coordinates.latitude - mapClick.lat), 2)
+                            + Math.pow((office.coordinates.longitude - mapClick.lng), 2)
                         ));
                 });
+                console.log('click',mapClick);
+                console.log('lattitude',mapClick.lat);
+                console.log('longtitude',mapClick.lng);
+
                 return result.indexOf(Math.min(...result)) + 1;
-            }
-        };
+            })()
+
+        });
+        console.log('2X', this.state.xPoint)
     }
 
     render() {
+        var x = this.state.xPoint;
+        var y = this.state.yPoint;
+        var nearestOffice = this.state.idOfNearestOffice;
         return (
             <Grid>
                 <Row>
                     <div className="map">
                         <GoogleMap
                             bootstrapURLKeys={{
-                                key: 'AIzaSyCJSyocAtUnWSKhjyqZlJtmaf_afdJcOkA',
+key: 'AIzaSyCJSyocAtUnWSKhjyqZlJtmaf_afdJcOkA',
                                 language: 'pl'
                             }}
                             onClick={this._onClick}
@@ -63,23 +70,26 @@ export default class VetSearch extends React.Component {
                             zoom={9}>
 
                             <Place
-                                lat={this.state.xPoint}
-                                lng={this.state.yPoint}
-                                text={"A"}
+                                className="img-responsive"
+                                lat={x}
+                                lng={y}
+                                text={
+                                <img src={startMark} alt="Start Mark" />}
                             >
-
                             </Place>
+
                             {this.state.officesData.filter(function (office) {
-                                console.log(this.state.idOfNearestOffice)
-                                return office.id === this.state.idOfNearestOffice
+                                console.log(nearestOffice);
+                                return office.id === nearestOffice
                             })
                                 .map(function (officeId) {
-                                    console.log(officeId)
+                                    console.log(officeId);
                                     return (
                                         <Place key={officeId.id}
+                                               className="mark img-responsive"
                                                lat={officeId.coordinates.latitude}
                                                lng={officeId.coordinates.longitude}
-                                               text={'B'}
+                                               text={<img src={finishMark} alt="Finish Mark"/>}
                                         >
                                         </Place>
                                     )
@@ -89,17 +99,7 @@ export default class VetSearch extends React.Component {
                     </div>
                 </Row>
                 <Row>
-                    <span>Twoja najbliższa przychodnia weterynaryjna to: </span>
-                    {this.state.officesData.filter(function (office) {
-                        return office.id === this.state.idOfNearestOffice
-                    })
-                        .map(function (officeId) {
-                            return (
-                                <p key={officeId.id}>
-                                    <span>{officeId.officeName}</span>
-                                </p>
-                            )
-                        })}
+
                 </Row>
             </Grid>
         )

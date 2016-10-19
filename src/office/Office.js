@@ -10,6 +10,7 @@ import {
 }
     from 'react-bootstrap';
 import GoogleMap from 'google-map-react';
+import { Link } from 'react-router';
 
 
 export default class Office extends React.Component {
@@ -54,10 +55,10 @@ export default class Office extends React.Component {
                     <Col xs={12} md={2}>
                         <img src={oneOffice.logo} className="responsive"/>
                     </Col>
-                    <Col xs={12} md={10}>
+                    <Col xs={12} md={5}>
                         <p>{oneOffice.officeName}</p>
                         <p>{oneOffice.officeAddress}</p>
-                        <p>"Przyjmujący weterynarze:"
+                        <p>Przyjmujący weterynarze:
                             <ul>
                                 {oneOffice.vetIds.map(function (vetID) {
                                     return (
@@ -67,7 +68,11 @@ export default class Office extends React.Component {
                                                 vetsData.filter(function (vet) {
                                                     return vet.id === vetID
                                                 }).map(function (oneVet) {
-                                                    return oneVet.firstName + ' ' + oneVet.lastName;
+                                                    return (
+                                                        <Link to={`/vets/` + parseInt(oneVet.id, 10) }>
+                                                            {oneVet.firstName + ' ' + oneVet.lastName}
+                                                        </Link>
+                                                    )
                                                 })
                                             }
                                         </li>
@@ -76,18 +81,21 @@ export default class Office extends React.Component {
                             </ul>
                         </p>
                     </Col>
-                </Row>
-                <Row>
-                    <Col xs={12}>
+                    <Col xs={12} md={5}>
                         <div className="office">
-                        <GoogleMap
-                            center={[oneOffice.coordinates.latitude, oneOffice.coordinates.longitude]}
-                            zoom={14}>
-                            <Place key={oneOffice.id}
-                                   lat={oneOffice.coordinates.latitude} lng={oneOffice.coordinates.longitude}
-                                   text={'A'}/>
-                        </GoogleMap>
-</div>                    </Col>
+                            <GoogleMap
+                                bootstrapURLKeys={{
+                                key: 'AIzaSyCJSyocAtUnWSKhjyqZlJtmaf_afdJcOkA',
+                                language: 'pl'
+                            }}
+                                center={[oneOffice.coordinates.latitude, oneOffice.coordinates.longitude]}
+                                zoom={13}>
+                                <Place key={oneOffice.id}
+                                       lat={oneOffice.coordinates.latitude} lng={oneOffice.coordinates.longitude}
+                                       text={'A'}/>
+                            </GoogleMap>
+                        </div>
+                    </Col>
                 </Row>
             </Grid>
         );
