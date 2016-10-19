@@ -1,9 +1,10 @@
 import React from 'react';
 import GoogleMap from 'google-map-react';
-import Place from './place/Place';
+import Place from '../place/Place';
 import styles from './map-style.css';
 import vetsData from '../data/vets.js';
 import officesData from '../data/offices.js'
+import officehMark from '../place/finish.png'
 
 
 export default class Map extends React.Component {
@@ -31,12 +32,11 @@ export default class Map extends React.Component {
                         return (
                             <Place key={officeGPSPoint.id}
                                    lat={officeGPSPoint.coordinates.latitude} lng={officeGPSPoint.coordinates.longitude}
-                                   text={'A'}/>
+                                   text={<img src={officehMark} alt="Gabinet Weterynaryjny"/>}/>
                         )
                     })}
                 </GoogleMap>
             </div>
         )
     }
-
 }

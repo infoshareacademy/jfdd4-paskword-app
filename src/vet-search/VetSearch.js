@@ -1,10 +1,10 @@
 import React from 'react';
 import GoogleMap from 'google-map-react';
-import Place from '../map/place/Place';
+import Place from '../place/Place';
 import styles from './vet-search-style.css';
-import startMark from '../map/place/start.png';
-import finishMark from '../map/place/finish.png'
-import placeStyles from '../map/place/place-styles.css';
+import startMark from '../place/start.png';
+import finishMark from '../place/finish.png'
+import placeStyles from '../place/place-styles.css';
 import {Link} from 'react-router';
 import {
     Grid,

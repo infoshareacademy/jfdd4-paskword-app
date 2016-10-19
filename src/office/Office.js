@@ -1,8 +1,9 @@
 import React from 'react';
 import officesData from '../data/offices.js';
 import vetsData from '../data/vets.js';
-import Place from '../map/place/Place'
+import Place from '../place/Place'
 import styles from './office-style.css';
+import officehMark from '../place/finish.png'
 import {
     Grid,
     Row,
@@ -10,7 +11,7 @@ import {
 }
     from 'react-bootstrap';
 import GoogleMap from 'google-map-react';
-import { Link } from 'react-router';
+import {Link} from 'react-router';
 
 
 export default class Office extends React.Component {
@@ -92,7 +93,7 @@ export default class Office extends React.Component {
                                 zoom={13}>
                                 <Place key={oneOffice.id}
                                        lat={oneOffice.coordinates.latitude} lng={oneOffice.coordinates.longitude}
-                                       text={'A'}/>
+                                       text={<img src={officehMark} alt="Gabinet Weterynaryjny"/>}/>
                             </GoogleMap>
                         </div>
                     </Col>
