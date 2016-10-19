@@ -10,6 +10,7 @@ import {
 }
     from 'react-bootstrap';
 import GoogleMap from 'google-map-react';
+import { Link } from 'react-router';
 
 
 export default class Office extends React.Component {
@@ -57,7 +58,7 @@ export default class Office extends React.Component {
                     <Col xs={12} md={5}>
                         <p>{oneOffice.officeName}</p>
                         <p>{oneOffice.officeAddress}</p>
-                        <p>"Przyjmujący weterynarze:"
+                        <p>Przyjmujący weterynarze:
                             <ul>
                                 {oneOffice.vetIds.map(function (vetID) {
                                     return (
@@ -67,7 +68,11 @@ export default class Office extends React.Component {
                                                 vetsData.filter(function (vet) {
                                                     return vet.id === vetID
                                                 }).map(function (oneVet) {
-                                                    return oneVet.firstName + ' ' + oneVet.lastName;
+                                                    return (
+                                                        <Link to={`/vets/` + parseInt(oneVet.id, 10) }>
+                                                            {oneVet.firstName + ' ' + oneVet.lastName}
+                                                        </Link>
+                                                    )
                                                 })
                                             }
                                         </li>
