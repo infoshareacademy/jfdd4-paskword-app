@@ -1,8 +1,10 @@
 import React from 'react';
+import './Vet.css'
 import vetsWithAdvices from '../data/vetsWithAdvices';
 import FilterButton from './filter-button/FilterButton';
 import officesData from '../data/offices.js';
 import { Link } from 'react-router';
+import { Col } from 'react-bootstrap';
 
 function filterButton(handleClick, myFilter, activeFilter, label) {
     return (
@@ -27,7 +29,7 @@ export default class Vet extends React.Component {
                 dog: function (advice) { return advice.tag === 'pies' },
                 degu: function (advice) { return advice.tag === 'koszatniczka' },
                 snake: function (advice) { return advice.tag === 'waz' },
-                spider: function (advice) { return advice.tag === 'tarantula' },
+                spider: function (advice) { return advice.tag === 'pająk' },
                 hamster: function (advice) { return advice.tag === 'chomik' },
             },
             activeFilter: 'every'
@@ -53,8 +55,8 @@ export default class Vet extends React.Component {
                 cat: function (advice) { return advice.tag === 'kot' },
                 dog: function (advice) { return advice.tag === 'pies' },
                 degu: function (advice) { return advice.tag === 'koszatniczka' },
-                snake: function (advice) { return advice.tag === 'waz' },
-                spider: function (advice) { return advice.tag === 'tarantula' },
+                snake: function (advice) { return advice.tag === 'wąż' },
+                spider: function (advice) { return advice.tag === 'pająk' },
                 hamster: function (advice) { return advice.tag === 'chomik' },
             },
             activeFilter: 'every'
@@ -111,7 +113,8 @@ export default class Vet extends React.Component {
             selectedFilter = allFilters[activeFilterName],
             hasAdvices = this.state.vet.advices.length == 0,
             vetId = this.state.vet.id,
-            newFilterButtons = [];
+            actualFilterButtons = [];
+        actualFilterButtons.push(filterButtons[0])
 
         return (
             <div className="Weterynarz">
@@ -119,7 +122,7 @@ export default class Vet extends React.Component {
                 <h1>Weterynarz</h1>
                 <p>{this.state.vet.firstName} {this.state.vet.lastName}</p>
                 <p><img src={this.state.vet.photo} alt={this.state.vet.lastName} /></p>
-                <p>Przychodnie: <br />
+                <p>Przychodnie: </p>
                     {this.state.offices.length === 0 ?
                         'Ładuję przychodnie...' : null}
                     <ul>
@@ -134,45 +137,48 @@ export default class Vet extends React.Component {
                             .map(function (office) {
                                 return (
                                     <Link to={`/offices/` + parseInt(office.id, 10) }>
-                                        <p>{office.officeName}</p>
+                                        {office.officeName} <br />
                                     </Link>
                                 )
                             })}
                     </ul>
-                </p>
+
                 <p>E-mail: {this.state.vet.email}</p>
                 <p>Telefon: +{this.state.vet.phone}</p>
 
                 <p>Liczba porad: {this.state.vet.advices.length}</p>
-                {hasAdvices ? null :
-                    this.state.vet.advices.forEach(function(advice) {
-                        filterButtons
-                            .filter(function(button) {
 
-                                return button._shadowChildren == advice.tag
-                            })
-                            .map(function(button) {
-                                return <p> {button} </p>
-                            })
+                {this.state.vet.advices.forEach(function (advice) {
+                    filterButtons
+                        .filter(function (button) {
+                            return button.name == advice.tag
+                        })
+                        .forEach(function (button) {
+                            actualFilterButtons.push(button)
+                        })
                     })
                 }
-                {console.log(newFilterButtons)}
-                {console.log(filterButtons)}
-                {filterButtons}
 
-                <p>{this.state.vet.advices
+                {hasAdvices ? "Brak porad do wyświetlenia" :
+                    actualFilterButtons.map(function(button) {
+                        return <span>{button.component}</span>
+                    })
+                }
+
+                {this.state.vet.advices
                     .filter(selectedFilter)
                     .map(function(advice) {
                         return (
                             <div>
-                                <p>Tag: {advice.tag}</p>
-                                <p>{advice.advice}</p>
+                                <Col xs={10} xsOffset={1} sm={8} smOffset={2}  className="advice">
+                                    <p>Tag: {advice.tag}</p>
+                                    <p>{advice.advice}</p>
+                                </Col>
                             </div>
                         )
                     })}
-                </p>
             </div>
-        );
+        )
     }
 }
 
