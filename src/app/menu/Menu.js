@@ -7,4 +7,6 @@ export default (props) =>
         <Item path={`/`} activeWhenMatchingExactly={true} customClasses="">Futrzak</Item>
         <Item path={`/vets`}>Nasi weterynarze</Item>
         <Item path={`/offices`}>Gabinety</Item>
+        <Item path={`/vetSearch`}>Wyszukaj najbliższego gabinetu</Item>
+        
     </ul>

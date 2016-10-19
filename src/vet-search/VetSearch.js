@@ -2,6 +2,9 @@ import React from 'react';
 import GoogleMap from 'google-map-react';
 import Place from '../map/place/Place';
 import styles from './vet-search-style.css';
+import startMark from '../map/place/start.png';
+import finishMark from '../map/place/finish.png'
+import placeStyles from '../map/place/place-styles.css';
 
 import {
     Grid,
@@ -17,7 +20,6 @@ export default class VetSearch extends React.Component {
             officesData: [],
             xPoint: 0,
             yPoint: 0,
-            markerStart: null,
             idOfNearestOffice: null
         };
 
@@ -30,7 +32,6 @@ export default class VetSearch extends React.Component {
             officesData: Data,
             xPoint: mapClick.lat,
             yPoint: mapClick.lng,
-            markerStart: 'A',
             idOfNearestOffice: (function () {
                 var result = [];
                 Data.forEach(function (office) {
@@ -69,11 +70,14 @@ key: 'AIzaSyCJSyocAtUnWSKhjyqZlJtmaf_afdJcOkA',
                             zoom={9}>
 
                             <Place
+                                className="img-responsive"
                                 lat={x}
                                 lng={y}
-                                text={'A'}
+                                text={
+                                <img src={startMark} alt="Start Mark" />}
                             >
                             </Place>
+
                             {this.state.officesData.filter(function (office) {
                                 console.log(nearestOffice);
                                 return office.id === nearestOffice
@@ -82,9 +86,10 @@ key: 'AIzaSyCJSyocAtUnWSKhjyqZlJtmaf_afdJcOkA',
                                     console.log(officeId);
                                     return (
                                         <Place key={officeId.id}
+                                               className="mark img-responsive"
                                                lat={officeId.coordinates.latitude}
                                                lng={officeId.coordinates.longitude}
-                                               text={'B'}
+                                               text={<img src={finishMark} alt="Finish Mark"/>}
                                         >
                                         </Place>
                                     )
@@ -92,6 +97,9 @@ key: 'AIzaSyCJSyocAtUnWSKhjyqZlJtmaf_afdJcOkA',
                             }
                         </GoogleMap>
                     </div>
+                </Row>
+                <Row>
+
                 </Row>
             </Grid>
         )
