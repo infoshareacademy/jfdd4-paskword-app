@@ -1,7 +1,6 @@
 import React from 'react';
 import GoogleMap from 'google-map-react';
 import Place from '../map/place/Place'
-// import Place from './place/Place';
 import styles from './vet-search-style.css'
 
 import {
@@ -15,32 +14,35 @@ export default class VetSearch extends React.Component {
     constructor() {
         super();
         this.state = {
-            officesData: []
-        }
+            officesData: [],
+            xPoint: 0,
+            yPoint: 0,
+            idOfNearestOffice: null
+        };
 
         this._onClick = this._onClick.bind(this);
     }
 
-    componentWillMount() {
+    _onClick(mapClick) {
         this.setState = {
             officesData: Data,
-            xPoint: 0
-        }
-    }
-
-    _onClick(mapClick) {
-        var xPoint = mapClick.lat;
-        var yPoint = mapClick.lng;
-        var result = [];
-        var idOfNearesOffice;
-        Data.forEach(function (office) {
-            result.push(Math
-                .sqrt(
-                    Math.pow((office.coordinates.latitude - xPoint), 2) +
-                    Math.pow((office.coordinates.longitude - yPoint), 2)
-                ));
-        });
-        idOfNearesOffice = result.indexOf(Math.min(...result)) + 1;
+            xPoint: mapClick.lat,
+            yPoint: mapClick.lng,
+            idOfNearestOffice: (function () {
+                var result = [];
+                Data.forEach(function (office) {
+                    result.push(Math
+                        .sqrt(
+                            Math.pow((office.coordinates.latitude - mapClick.lat), 2) +
+                            Math.pow((office.coordinates.longitude - mapClick.lng), 2)
+                        ));
+                });
+                console.log('click',mapClick)
+                console.log('lattitude',mapClick.lat)
+                console.log('longtitude',mapClick.lng)
+                return result.indexOf(Math.min(...result)) + 1;
+            })()
+        };
     }
 
     render() {
@@ -50,7 +52,7 @@ export default class VetSearch extends React.Component {
                     <div className="map">
                         <GoogleMap
                             bootstrapURLKeys={{
-                                key: 'AIzaSyCJSyocAtUnWSKhjyqZlJtmaf_afdJcOkA',
+key: 'AIzaSyCJSyocAtUnWSKhjyqZlJtmaf_afdJcOkA',
                                 language: 'pl'
                             }}
                             onClick={this._onClick}
@@ -58,7 +60,7 @@ export default class VetSearch extends React.Component {
                             zoom={9}>
 
                             <Place
-                                lat={54.35118909616142} lng={18.644957542419434} text={'A'} zIndex={2}
+                                lat={54.35118909616142} lng={18.644957542419434} text={'A'}
                             >
                             </Place>
                         </GoogleMap>
