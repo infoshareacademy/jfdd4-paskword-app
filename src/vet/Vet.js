@@ -5,6 +5,9 @@ import FilterButton from './filter-button/FilterButton';
 import officesData from '../data/offices.js';
 import { Link } from 'react-router';
 import { Col } from 'react-bootstrap';
+import Calendar from '../calendar/Calendar'
+import Timeslots from '../calendar/timeslots'
+import CalendarEvents from '../calendar/events'
 
 function filterButton(handleClick, myFilter, activeFilter, label) {
     return (
@@ -69,7 +72,7 @@ export default class Vet extends React.Component {
             filters: this.state.filters,
             isLoading: this.state.isLoading,
             vet: this.state.vet,
-            offices: this.state.offices
+            offices: this.state.offices,
         });
     }
 
@@ -177,6 +180,8 @@ export default class Vet extends React.Component {
                             </div>
                         )
                     })}
+
+                <Timeslots events={CalendarEvents}/>
             </div>
         )
     }
