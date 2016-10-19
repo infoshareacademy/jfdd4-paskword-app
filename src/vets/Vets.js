@@ -26,7 +26,6 @@ export default class Vets extends React.Component {
 
     render() {
         var allVetsData = this.state.vets,
-            vetId = this.state.vets.id,
             offices = this.state.offices;
         return (
             <div>

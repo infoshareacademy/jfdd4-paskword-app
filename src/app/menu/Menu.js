@@ -8,5 +8,5 @@ export default (props) =>
         <Item path={`/vets`}>Nasi weterynarze</Item>
         <Item path={`/offices`}>Gabinety</Item>
         <Item path={`/vetSearch`}>Wyszukaj najbliższego gabinetu</Item>
-        
+        <Item path={`/calendar`}>Kalendarz</Item>
     </ul>
