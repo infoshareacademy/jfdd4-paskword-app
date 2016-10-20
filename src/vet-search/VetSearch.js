@@ -1,19 +1,18 @@
 import React from 'react';
 import GoogleMap from 'google-map-react';
 import Place from '../place/Place';
-import styles from './vet-search-style.css';
+import './vet-search-style.css';
 import startMark from '../place/start.png';
 import finishMark from '../place/finish.png'
-import placeStyles from '../place/place-styles.css';
 import {Link} from 'react-router';
 import {
     Grid,
     Row,
-    Col
+    Col,
+    Panel
 } from 'react-bootstrap';
 import Data from '../data/offices'
-import vetsData from '../data/vets.js';
-import $ from 'jquery';
+import '../data/vets.js';
 
 
 export default class VetSearch extends React.Component {
@@ -66,20 +65,20 @@ export default class VetSearch extends React.Component {
                         <div className="vet-search-map">
                             <GoogleMap
                                 bootstrapURLKeys={{
-key: 'AIzaSyCJSyocAtUnWSKhjyqZlJtmaf_afdJcOkA',
-                                language: 'pl'
-                            }}
+                                    key: 'AIzaSyCJSyocAtUnWSKhjyqZlJtmaf_afdJcOkA',
+                                    language: 'pl'
+                                }}
                                 onClick={this._onClick}
-                                center={[54.35118909616142, 18.644957542419434]}
-                                zoom={9}>
+                                center={[54.3434247232928, 18.52667212486267]}
+                                zoom={10}>
 
                                 <Place
                                     className="img-responsive"
                                     lat={x}
                                     lng={y}
                                     text={
-                                <img src={startMark} alt="Start Mark" 
-                                className="start-point"/>}
+                                        <img src={startMark} alt="Start Mark"
+                                             className="start-point"/>}
                                 />
 
                                 {this.state.officesData.filter(function (office) {
@@ -91,8 +90,8 @@ key: 'AIzaSyCJSyocAtUnWSKhjyqZlJtmaf_afdJcOkA',
                                                    className="img-responsive"
                                                    lat={officeId.coordinates.latitude}
                                                    lng={officeId.coordinates.longitude}
-                                                   text={<img src={finishMark} alt="Finish Mark" 
-                                                   className="nearest-point"/>}
+                                                   text={<img src={finishMark} alt="Finish Mark"
+                                                              className="nearest-point"/>}
                                             />
                                         )
                                     })
@@ -113,25 +112,23 @@ key: 'AIzaSyCJSyocAtUnWSKhjyqZlJtmaf_afdJcOkA',
                             })
                                 .map(function (officeId) {
                                     return (
-                                        <Link to={`/offices/${officeId.id}`} key={officeId.id}>
-                                            <Row className="nearest-vet-container">
-                                                    <Col xs={12} md={2}>
-                                                        <img src={officeId.logo}/>
-                                                        <p>{officeId.officeName}</p>
-                                                        <p>{officeId.officeAddress}</p>
-                                                    </Col>
-                                            </Row>
+                                        <Link to={`/offices/${officeId.id}`}
+                                              key={officeId.id}
+                                        >
+                                            <Panel className="nearest-vet-container">
+                                                <Col xs={12} md={2}>
+                                                    <img src={officeId.logo}/> <br/>
+                                                    <span><strong>{officeId.officeName}</strong></span><br/>
+                                                    <span>{officeId.officeAddress}</span>
+                                                </Col>
+                                            </Panel>
                                         </Link>
                                     )
                                 })
                             }
-
                         </Row>
-
                     </Col>
                 </Row>
-
-
             </Grid>
         )
     }

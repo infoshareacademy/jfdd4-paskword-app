@@ -11,6 +11,8 @@
     animation-name: purpleMark ;
     animation-duration: 2s;
     height:64px;
+    margin-left: -32px;
+    margin-top: -64px;
 }
 
 .start-point {
@@ -20,7 +22,12 @@
 }
 
 .nearest-vet-container {
-    border: 2px solid transparent;
-    border-radius: 25px;
-    background-color: purple;
+    font-size: 1vw;
+    text-align: center;
+    color: black;
+    transition: all 0.3s ease-in;
+}
+
+.nearest-vet-container:hover {
+    background-color: lightgrey;
 }

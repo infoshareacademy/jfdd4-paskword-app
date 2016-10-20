@@ -2,8 +2,8 @@ import React from 'react';
 import vetsWithAdvices from '../data/vetsWithAdvices';
 import officesData from '../data/offices.js';
 import './Vets.css';
-import { Media, Col } from 'react-bootstrap';
-import { Link } from 'react-router';
+import {Grid, Col, Panel} from 'react-bootstrap';
+import {Link} from 'react-router';
 
 export default class Vets extends React.Component {
 
@@ -28,27 +28,29 @@ export default class Vets extends React.Component {
         var allVetsData = this.state.vets,
             offices = this.state.offices;
         return (
-            <div>
+            <Grid>
                 {this.state.isLoading ? 'Loading list of our vets...' : null}
-                {allVetsData.map(function(vet, index) {
+                {allVetsData.map(function (vet, index) {
                     return (
-                   <Col xs={12} sm={6}  >
-                       <Media>
-                            <Media.Left align="top" >
-                                <img src={vet.photo} alt={vet.firstName}/>
-                            </Media.Left>
-                            <Media.Body>
-                                <Link to={`/vets/` + parseInt(index + 1, 10) }>
-                                    <Media.Heading> {vet.firstName} {vet.lastName} </Media.Heading>
-                                </Link>
-                                <p>Przychodnie:</p>
+                        <Col xs={12} mdOffset={2} md={10} key={vet.id}>
+                            <Panel className="vet-list-container">
+                                <Col xs={12} mdOffset={2} md={4}>
+                                    <img src={vet.photo} alt={vet.firstName}/>
+                                </Col>
+                                <Col xs={12} md={6}>
+                                    <Link to={`/vets/` + parseInt(index + 1, 10) }>
+                                        <strong>{vet.firstName} {vet.lastName}</strong>
+                                    </Link>
+                                    <p>Przychodnie:</p>
                                     {offices.length === 0 ?
                                         'Ładuję przychodnie...' : null}
                                     <ul>
                                         {offices
                                             .filter(function (office) {
                                                 var result = office.vetIds.indexOf(vet.id) !== -1
-                                                {console.log(office.vetIds)}
+                                                {
+                                                    console.log(office.vetIds)
+                                                }
                                                 return result
                                             })
                                             .map(function (item) {
@@ -56,20 +58,20 @@ export default class Vets extends React.Component {
                                             })
                                             .map(function (office) {
                                                 return (
-                                                    <Link to={`/offices/` + parseInt(office.id, 10) }>
+                                                    <Link key={office.officeName}
+                                                        to={`/offices/` + parseInt(office.id, 10)}>
                                                         <p>{office.officeName}</p>
                                                     </Link>
                                                 )
                                             })}
                                     </ul>
-
-                                <p>Liczba porad lekarza: {vet.advices.length}</p>
-                            </Media.Body>
-                        </Media>
-                   </Col>
+                                    <p>Liczba porad lekarza: {vet.advices.length}</p>
+                                </Col>
+                            </Panel>
+                        </Col>
                     )
                 })}
-            </div>
+            </Grid>
         )
     }
 }

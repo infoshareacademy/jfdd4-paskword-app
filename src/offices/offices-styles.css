@@ -1,0 +1,13 @@
+.office-list-container {
+    font-size: 1vw;
+    text-align: center;
+    color: black;
+    transition: all 0.1s ease-in;
+}
+
+.office-list-container:hover {
+    transform: translate(-3px, -3px);
+    box-shadow: 18px 18px 20px -17px rgba(0, 0, 0, 0.73);
+
+}
+
