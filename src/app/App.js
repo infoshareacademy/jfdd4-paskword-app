@@ -6,14 +6,14 @@ import Menu from './menu/Menu';
 import GoogleLogin from 'react-google-login';
 import FacebookLogin from 'react-facebook-login';
 import { Col } from 'react-bootstrap';
-import { loginAttempt, loginSuccessful, loginFailed} from './actionCreators'
+import { loginSuccessful } from './actionCreators'
 
 const mapStateToProps = (state) => ({
-  user: state.user
+  loggedUserName: state.loggedUserName
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  loginSuccessful: (loggedUserId) => dispatch(loginSuccessful(loggedUserId)),
+  loginSuccessful: (loggedUserName) => dispatch(loginSuccessful(loggedUserName)),
 })
 
 const responseGoogle = (response) => {
@@ -22,13 +22,19 @@ const responseGoogle = (response) => {
 
 const responseFacebook = (response) => {
     console.log(response);
+    saveName(response.name);
+}
+
+function saveName(name) {
+    var name = name;
+    console.log(name);
 }
 
 class App extends Component {
 
   render() {
     var {
-        user,
+        loggedUserName,
         loginSuccessful,
     } = this.props;
     return (
@@ -42,7 +48,6 @@ class App extends Component {
                   callback={responseFacebook}
                   className="google-login"/>
             <div>
-
             </div>
           </Col>
 

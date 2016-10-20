@@ -10,10 +10,10 @@ function loginAttempt() {
     }
 }
 
-export function loginSuccessful(loggedUserId) {
+export function loginSuccessful(loggedUserName) {
     return {
         type: LOGIN_SUCCESSFUL,
-        loggedUserId: loggedUserId
+        loggedUserName: loggedUserName
     }
 }
 

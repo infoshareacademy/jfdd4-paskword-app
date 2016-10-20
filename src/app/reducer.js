@@ -7,7 +7,7 @@ import {
 const initialState = {
     user: {},
     loggingIn: false,
-    loggedUser: JSON.parse(localStorage.getItem('loggedUser')) || []
+    loggedUserName: []
 }
 
 export default (state = initialState, action) => {
@@ -19,7 +19,7 @@ export default (state = initialState, action) => {
         case LOGIN_SUCCESSFUL:
             return Object.assign({}, state, {
                 loggingIn: false,
-                loggedUser: state.loggedUser.concat([action.loggedUserId])
+                loggedUser: action.loggedUserName
             })
         case LOGIN_FAILED:
             return Object.assign({}, state, {
