@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import './App.css';
 import Menu from './menu/Menu';
 import GoogleLogin from 'react-google-login';
+import FacebookLogin from 'react-facebook-login';
 import { Col } from 'react-bootstrap';
 import { loginAttempt, loginSuccessful, loginFailed} from './actionCreators'
 
@@ -19,6 +20,10 @@ const responseGoogle = (response) => {
   console.log(response);
 }
 
+const responseFacebook = (response) => {
+    console.log(response);
+}
+
 class App extends Component {
 
   render() {
@@ -30,13 +35,12 @@ class App extends Component {
         <div className="App">
           <Menu />
           <Col >
-              <GoogleLogin
-                  clientId="168630476786-oqilibago3ffr53sdhg39d0lr170c4hg.apps.googleusercontent.com"
-                  onSucces={responseGoogle}
-                  onFailure={responseGoogle}
-                  buttonText={"Zaloguj się przez Google"}
-                  className="google-login"
-              />
+              <FacebookLogin
+                  appId="243203269416376"
+                  autoLoad={true}
+                  fields="name,email,picture"
+                  callback={responseFacebook}
+                  className="google-login"/>
             <div>
 
             </div>
