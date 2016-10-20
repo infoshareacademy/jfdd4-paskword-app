@@ -2,6 +2,7 @@ import React from 'react';
 import BigCalendar from 'react-big-calendar';
 
 let Timeslots = React.createClass({
+
     render(){
         return (
             <BigCalendar

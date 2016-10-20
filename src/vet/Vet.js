@@ -8,6 +8,7 @@ import { Col } from 'react-bootstrap';
 import Calendar from '../calendar/Calendar'
 import Timeslots from '../calendar/timeslots'
 import CalendarEvents from '../calendar/events'
+import visitsDates from '../data/visitsDates'
 
 function filterButton(handleClick, myFilter, activeFilter, label) {
     return (
@@ -119,6 +120,8 @@ export default class Vet extends React.Component {
             actualFilterButtons = [];
         actualFilterButtons.push(filterButtons[0])
 
+        console.log(visitsDates.filter(vet => vet.vetId === vetId));
+
         return (
             <div className="Weterynarz">
                 {isLoading ? 'Ładuję wybranego weterynarza...' : null}
@@ -139,7 +142,7 @@ export default class Vet extends React.Component {
                             })
                             .map(function (office) {
                                 return (
-                                    <Link to={`/offices/` + parseInt(office.id, 10) }>
+                                    <Link key={office.id} to={`/offices/` + parseInt(office.id, 10) }>
                                         {office.officeName} <br />
                                     </Link>
                                 )
@@ -164,7 +167,7 @@ export default class Vet extends React.Component {
 
                 {hasAdvices ? "Brak porad do wyświetlenia" :
                     actualFilterButtons.map(function(button) {
-                        return <span>{button.component}</span>
+                        return <span key={button.name}>{button.component}</span>
                     })
                 }
 
@@ -172,7 +175,7 @@ export default class Vet extends React.Component {
                     .filter(selectedFilter)
                     .map(function(advice) {
                         return (
-                            <div>
+                            <div key={advice.id}>
                                 <Col xs={10} xsOffset={1} sm={8} smOffset={2}  className="advice">
                                     <p>Tag: {advice.tag}</p>
                                     <p>{advice.advice}</p>
@@ -181,7 +184,9 @@ export default class Vet extends React.Component {
                         )
                     })}
 
-                <Timeslots events={CalendarEvents}/>
+                <Timeslots events={visitsDates.filter(vet => vet.vetId === vetId)}/>
+
+
             </div>
         )
     }
