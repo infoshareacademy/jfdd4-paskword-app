@@ -1,16 +1,18 @@
 import React from 'react';
 import GoogleMap from 'google-map-react';
-import Place from '../map/place/Place';
+import Place from '../place/Place';
 import styles from './vet-search-style.css';
-import startMark from '../map/place/start.png';
-import finishMark from '../map/place/finish.png'
-import placeStyles from '../map/place/place-styles.css';
-
+import startMark from '../place/start.png';
+import finishMark from '../place/finish.png'
+import placeStyles from '../place/place-styles.css';
+import {Link} from 'react-router';
 import {
     Grid,
-    Row
+        Row,
+        Col
 } from 'react-bootstrap';
 import Data from '../data/offices'
+import vetsData from '../data/vets.js';
 
 
 export default class VetSearch extends React.Component {
@@ -41,9 +43,9 @@ export default class VetSearch extends React.Component {
                             + Math.pow((office.coordinates.longitude - mapClick.lng), 2)
                         ));
                 });
-                console.log('click',mapClick);
-                console.log('lattitude',mapClick.lat);
-                console.log('longtitude',mapClick.lng);
+                console.log('click', mapClick);
+                console.log('lattitude', mapClick.lat);
+                console.log('longtitude', mapClick.lng);
 
                 return result.indexOf(Math.min(...result)) + 1;
             })()
@@ -59,47 +61,76 @@ export default class VetSearch extends React.Component {
         return (
             <Grid>
                 <Row>
-                    <div className="map">
-                        <GoogleMap
-                            bootstrapURLKeys={{
+                    <Col xs={12} md={12}>
+                        <div className="map">
+                            <GoogleMap
+                                bootstrapURLKeys={{
 key: 'AIzaSyCJSyocAtUnWSKhjyqZlJtmaf_afdJcOkA',
-                                language: 'pl'
-                            }}
-                            onClick={this._onClick}
-                            center={[54.35118909616142, 18.644957542419434]}
-                            zoom={9}>
+                                    language: 'pl'
+                                }}
+                                onClick={this._onClick}
+                                center={[54.35118909616142, 18.644957542419434]}
+                                zoom={9}>
 
-                            <Place
-                                className="img-responsive"
-                                lat={x}
-                                lng={y}
-                                text={
-                                <img src={startMark} alt="Start Mark" />}
-                            >
-                            </Place>
+                                <Place
+                                    className="img-responsive"
+                                    lat={x}
+                                    lng={y}
+                                    text={
+<img src={startMark} alt="Start Mark"/>}
+                                />
 
-                            {this.state.officesData.filter(function (office) {
-                                console.log(nearestOffice);
-                                return office.id === nearestOffice
-                            })
-                                .map(function (officeId) {
-                                    console.log(officeId);
-                                    return (
-                                        <Place key={officeId.id}
-                                               className="mark img-responsive"
-                                               lat={officeId.coordinates.latitude}
-                                               lng={officeId.coordinates.longitude}
-                                               text={<img src={finishMark} alt="Finish Mark"/>}
-                                        >
-                                        </Place>
-                                    )
+                                {this.state.officesData.filter(function (office) {
+                                    return office.id === nearestOffice
                                 })
-                            }
-                        </GoogleMap>
-                    </div>
+                                    .map(function (officeId) {
+                                        return (
+                                            <Place key={officeId.id}
+                                                   lat={officeId.coordinates.latitude}
+                                                   lng={officeId.coordinates.longitude}
+                                                   text={
+<img src={finishMark} alt="Finish Mark"
+                                                            className="img-responsive markStartFinish"/>}
+                                            />
+                                        )
+                                    })
+                                }
+                            </GoogleMap>
+                        </div>
+                    </Col>
                 </Row>
                 <Row>
-
+                    <Col xs={12} md={6}>
+                        <img src={startMark} alt="Start Mark"/>
+                        <span>Twoja lokalizacja</span>
+                    </Col>
+                    <Col xs={12} md={6}>
+                        <img src={finishMark} alt="Finish Mark"/>
+                        <span>Najbliższy gabinet</span>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col xs={12} md={12}>
+                        {this.state.officesData.filter(function (office) {
+                            return office.id === nearestOffice
+                        })
+                            .map(function (officeId) {
+                                return (
+                                    <Link to={`/offices/${officeId.id}`} key={officeId.id}>
+                                        <Row>
+                                            <Col xs={12} md={6}>
+                                                <img src={officeId.logo}/>
+                                            </Col>
+                                            <Col xs={12} md={6}>
+                                                <p>{officeId.officeName}</p>
+                                                <p>{officeId.officeAddress}</p>
+                                            </Col>
+                                        </Row>
+                                    </Link>
+                                )
+                            })
+                        }
+                    </Col>
                 </Row>
             </Grid>
         )

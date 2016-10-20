@@ -1,8 +1,0 @@
-.mark {
-    transition: width 2s, height 4s;
-}
-
-.mark:hover {
-    width: 120%;
-    height: 120%;
-}
