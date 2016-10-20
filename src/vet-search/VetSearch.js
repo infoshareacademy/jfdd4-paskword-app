@@ -8,12 +8,11 @@ import placeStyles from '../place/place-styles.css';
 import {Link} from 'react-router';
 import {
     Grid,
-    Row,
-    Col
+        Row,
+        Col
 } from 'react-bootstrap';
 import Data from '../data/offices'
 import vetsData from '../data/vets.js';
-import $ from 'jquery';
 
 
 export default class VetSearch extends React.Component {
@@ -67,8 +66,8 @@ export default class VetSearch extends React.Component {
                             <GoogleMap
                                 bootstrapURLKeys={{
 key: 'AIzaSyCJSyocAtUnWSKhjyqZlJtmaf_afdJcOkA',
-                                language: 'pl'
-                            }}
+                                    language: 'pl'
+                                }}
                                 onClick={this._onClick}
                                 center={[54.35118909616142, 18.644957542419434]}
                                 zoom={9}>
@@ -78,7 +77,7 @@ key: 'AIzaSyCJSyocAtUnWSKhjyqZlJtmaf_afdJcOkA',
                                     lat={x}
                                     lng={y}
                                     text={
-                                <img src={startMark} alt="Start Mark" />}
+<img src={startMark} alt="Start Mark"/>}
                                 />
 
                                 {this.state.officesData.filter(function (office) {
@@ -87,10 +86,11 @@ key: 'AIzaSyCJSyocAtUnWSKhjyqZlJtmaf_afdJcOkA',
                                     .map(function (officeId) {
                                         return (
                                             <Place key={officeId.id}
-                                                   className="img-responsive"
                                                    lat={officeId.coordinates.latitude}
                                                    lng={officeId.coordinates.longitude}
-                                                   text={<img src={finishMark} alt="Finish Mark" />}
+                                                   text={
+<img src={finishMark} alt="Finish Mark"
+                                                            className="img-responsive markStartFinish"/>}
                                             />
                                         )
                                     })
@@ -117,11 +117,11 @@ key: 'AIzaSyCJSyocAtUnWSKhjyqZlJtmaf_afdJcOkA',
                             .map(function (officeId) {
                                 return (
                                     <Link to={`/offices/${officeId.id}`} key={officeId.id}>
-                                        <Row xs={12} md={5}>
-                                            <Col xs={12} md={2}>
+                                        <Row>
+                                            <Col xs={12} md={6}>
                                                 <img src={officeId.logo}/>
                                             </Col>
-                                            <Col>
+                                            <Col xs={12} md={6}>
                                                 <p>{officeId.officeName}</p>
                                                 <p>{officeId.officeAddress}</p>
                                             </Col>
