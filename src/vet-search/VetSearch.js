@@ -8,11 +8,12 @@ import placeStyles from '../place/place-styles.css';
 import {Link} from 'react-router';
 import {
     Grid,
-        Row,
-        Col
+    Row,
+    Col
 } from 'react-bootstrap';
 import Data from '../data/offices'
 import vetsData from '../data/vets.js';
+import $ from 'jquery';
 
 
 export default class VetSearch extends React.Component {
@@ -61,13 +62,13 @@ export default class VetSearch extends React.Component {
         return (
             <Grid>
                 <Row>
-                    <Col xs={12} md={12}>
-                        <div className="map">
+                    <Col xs={12} md={10}>
+                        <div className="vet-search-map">
                             <GoogleMap
                                 bootstrapURLKeys={{
 key: 'AIzaSyCJSyocAtUnWSKhjyqZlJtmaf_afdJcOkA',
-                                    language: 'pl'
-                                }}
+                                language: 'pl'
+                            }}
                                 onClick={this._onClick}
                                 center={[54.35118909616142, 18.644957542419434]}
                                 zoom={9}>
@@ -77,7 +78,8 @@ key: 'AIzaSyCJSyocAtUnWSKhjyqZlJtmaf_afdJcOkA',
                                     lat={x}
                                     lng={y}
                                     text={
-<img src={startMark} alt="Start Mark"/>}
+                                <img src={startMark} alt="Start Mark" 
+                                className="start-point"/>}
                                 />
 
                                 {this.state.officesData.filter(function (office) {
@@ -86,11 +88,11 @@ key: 'AIzaSyCJSyocAtUnWSKhjyqZlJtmaf_afdJcOkA',
                                     .map(function (officeId) {
                                         return (
                                             <Place key={officeId.id}
+                                                   className="img-responsive"
                                                    lat={officeId.coordinates.latitude}
                                                    lng={officeId.coordinates.longitude}
-                                                   text={
-<img src={finishMark} alt="Finish Mark"
-                                                            className="img-responsive markStartFinish"/>}
+                                                   text={<img src={finishMark} alt="Finish Mark" 
+                                                   className="nearest-point"/>}
                                             />
                                         )
                                     })
@@ -98,40 +100,38 @@ key: 'AIzaSyCJSyocAtUnWSKhjyqZlJtmaf_afdJcOkA',
                             </GoogleMap>
                         </div>
                     </Col>
-                </Row>
-                <Row>
-                    <Col xs={12} md={6}>
-                        <img src={startMark} alt="Start Mark"/>
-                        <span>Twoja lokalizacja</span>
-                    </Col>
-                    <Col xs={12} md={6}>
-                        <img src={finishMark} alt="Finish Mark"/>
-                        <span>Najbliższy gabinet</span>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col xs={12} md={12}>
-                        {this.state.officesData.filter(function (office) {
-                            return office.id === nearestOffice
-                        })
-                            .map(function (officeId) {
-                                return (
-                                    <Link to={`/offices/${officeId.id}`} key={officeId.id}>
-                                        <Row>
-                                            <Col xs={12} md={6}>
-                                                <img src={officeId.logo}/>
-                                            </Col>
-                                            <Col xs={12} md={6}>
-                                                <p>{officeId.officeName}</p>
-                                                <p>{officeId.officeAddress}</p>
-                                            </Col>
-                                        </Row>
-                                    </Link>
-                                )
+                    <Col xs={12} md={2}>
+                        <Row>
+                            <img src={startMark} alt="Start Mark"/><br/>
+                            <span>Twoja lokalizacja</span><br/>
+                            <img src={finishMark} alt="Finish Mark"/><br/>
+                            <span>Najbliższy gabinet</span>
+                        </Row>
+                        <Row>
+                            {this.state.officesData.filter(function (office) {
+                                return office.id === nearestOffice
                             })
-                        }
+                                .map(function (officeId) {
+                                    return (
+                                        <Link to={`/offices/${officeId.id}`} key={officeId.id}>
+                                            <Row className="nearest-vet-container">
+                                                    <Col xs={12} md={2}>
+                                                        <img src={officeId.logo}/>
+                                                        <p>{officeId.officeName}</p>
+                                                        <p>{officeId.officeAddress}</p>
+                                                    </Col>
+                                            </Row>
+                                        </Link>
+                                    )
+                                })
+                            }
+
+                        </Row>
+
                     </Col>
                 </Row>
+
+
             </Grid>
         )
     }

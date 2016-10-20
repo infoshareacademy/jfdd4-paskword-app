@@ -1,4 +1,26 @@
-.map {
-    width: auto;
-    height: 300px;
+.vet-search-map {
+    height: 100vh;
+}
+
+@keyframes purpleMark {
+    from {opacity: 0.0;}
+    to {opacity: 1;}
+}
+
+.nearest-point {
+    animation-name: purpleMark ;
+    animation-duration: 2s;
+    height:64px;
+}
+
+.start-point {
+    height: 54px;
+    margin-left:-27px;
+    margin-top:-70px;
+}
+
+.nearest-vet-container {
+    border: 2px solid transparent;
+    border-radius: 25px;
+    background-color: purple;
 }
