@@ -3,12 +3,12 @@ import './Vet.css'
 import vetsWithAdvices from '../data/vetsWithAdvices';
 import FilterButton from './filter-button/FilterButton';
 import officesData from '../data/offices.js';
-import { Link } from 'react-router';
-import { Col } from 'react-bootstrap';
 import Calendar from '../calendar/Calendar'
 import Timeslots from '../calendar/timeslots'
 import CalendarEvents from '../calendar/events'
 import visitsDates from '../data/visitsDates'
+import {Link} from 'react-router';
+import {Grid, Row, Col, Panel} from 'react-bootstrap';
 
 function filterButton(handleClick, myFilter, activeFilter, label) {
     return (
@@ -29,13 +29,27 @@ export default class Vet extends React.Component {
             visits: [],
             isLoading: true,
             filters: {
-                every: function () { return true },
-                cat: function (advice) { return advice.tag === 'kot' },
-                dog: function (advice) { return advice.tag === 'pies' },
-                degu: function (advice) { return advice.tag === 'koszatniczka' },
-                snake: function (advice) { return advice.tag === 'waz' },
-                spider: function (advice) { return advice.tag === 'pająk' },
-                hamster: function (advice) { return advice.tag === 'chomik' },
+                every: function () {
+                    return true
+                },
+                cat: function (advice) {
+                    return advice.tag === 'kot'
+                },
+                dog: function (advice) {
+                    return advice.tag === 'pies'
+                },
+                degu: function (advice) {
+                    return advice.tag === 'koszatniczka'
+                },
+                snake: function (advice) {
+                    return advice.tag === 'waz'
+                },
+                spider: function (advice) {
+                    return advice.tag === 'pająk'
+                },
+                hamster: function (advice) {
+                    return advice.tag === 'chomik'
+                },
             },
             activeFilter: 'every'
 
@@ -57,13 +71,27 @@ export default class Vet extends React.Component {
             visits: visitsDates,
             isLoading: false,
             filters: {
-                every: function () { return true },
-                cat: function (advice) { return advice.tag === 'kot' },
-                dog: function (advice) { return advice.tag === 'pies' },
-                degu: function (advice) { return advice.tag === 'koszatniczka' },
-                snake: function (advice) { return advice.tag === 'wąż' },
-                spider: function (advice) { return advice.tag === 'pająk' },
-                hamster: function (advice) { return advice.tag === 'chomik' },
+                every: function () {
+                    return true
+                },
+                cat: function (advice) {
+                    return advice.tag === 'kot'
+                },
+                dog: function (advice) {
+                    return advice.tag === 'pies'
+                },
+                degu: function (advice) {
+                    return advice.tag === 'koszatniczka'
+                },
+                snake: function (advice) {
+                    return advice.tag === 'wąż'
+                },
+                spider: function (advice) {
+                    return advice.tag === 'pająk'
+                },
+                hamster: function (advice) {
+                    return advice.tag === 'chomik'
+                },
             },
             activeFilter: 'every'
         });
@@ -126,6 +154,37 @@ export default class Vet extends React.Component {
         console.log(visitsDates.filter(vet => vet.vetId === vetId));
 
         return (
+            <Grid>
+                <div className="Weterynarz">
+                    {isLoading ? 'Ładuję wybranego weterynarza...' : null}
+                    <Col xs={12} mdOffset={2} md={8}>
+                        <Panel className="one-vet-container">
+                            <Row>
+                                <h1>Weterynarz</h1>
+                                <strong><p>{this.state.vet.firstName} {this.state.vet.lastName}</p></strong>
+                            </Row>
+                            <Row>
+                                <p><img src={this.state.vet.photo} alt={this.state.vet.lastName}/></p>
+                                <p>Przychodnie: </p>
+                                {this.state.offices.length === 0 ?
+                                    'Ładuję przychodnie...' : null}
+                                <ul>
+                                    {this.state.offices
+                                        .filter(function (office) {
+                                            var result = office.vetIds.indexOf(vetId) !== -1;
+                                            return result
+                                        })
+                                        .map(function (item) {
+                                            return item
+                                        })
+                                        .map(function (office) {
+                                            return (
+                                                <Link key={office.id} to={`/offices/` + parseInt(office.id, 10) }>
+                                                    {office.officeName} <br />
+                                                </Link>
+                                            )
+                                        })}
+                                </ul>
             <div className="Weterynarz">
                 {isLoading ? 'Ładuję wybranego weterynarza...' : null}
                 <h1>Weterynarz</h1>
@@ -152,21 +211,21 @@ export default class Vet extends React.Component {
                             })}
                     </ul>
 
-                <p>E-mail: {this.state.vet.email}</p>
-                <p>Telefon: +{this.state.vet.phone}</p>
+                                <p>E-mail: {this.state.vet.email}</p>
+                                <p>Telefon: +{this.state.vet.phone}</p>
 
-                <p>Liczba porad: {this.state.vet.advices.length}</p>
+                                <p>Liczba porad: {this.state.vet.advices.length}</p>
 
-                {this.state.vet.advices.forEach(function (advice) {
-                    filterButtons
-                        .filter(function (button) {
-                            return button.name == advice.tag
-                        })
-                        .forEach(function (button) {
-                            actualFilterButtons.push(button)
-                        })
-                    })
-                }
+                                {this.state.vet.advices.forEach(function (advice) {
+                                    filterButtons
+                                        .filter(function (button) {
+                                            return button.name == advice.tag
+                                        })
+                                        .forEach(function (button) {
+                                            actualFilterButtons.push(button)
+                                        })
+                                })
+                                }
 
                 {hasAdvices ? "Brak porad do wyświetlenia" :
                     actualFilterButtons.map(function(button) {
@@ -174,25 +233,25 @@ export default class Vet extends React.Component {
                     })
                 }
 
-                {this.state.vet.advices
-                    .filter(selectedFilter)
-                    .map(function(advice) {
-                        return (
-                            <div key={advice.id}>
-                                <Col xs={10} xsOffset={1} sm={8} smOffset={2}  className="advice">
-                                    <p>Tag: {advice.tag}</p>
-                                    <p>{advice.advice}</p>
-                                </Col>
-                            </div>
-                        )
-                    })}
-
+                                {this.state.vet.advices
+                                    .filter(selectedFilter)
+                                    .map(function (advice) {
+                                        return (
+                                            <div key={advice.id}>
+                                                <Col xs={10} xsOffset={1} sm={8} smOffset={2}  className="advice">
+                                                    <p>Tag: {advice.tag}</p>
+                                                    <p>{advice.advice}</p>
+                                                </Col>
+                                            </div>
+                                        )
+                                    })}
                 <Timeslots events={visitsDates.filter(vet => vet.vetId === vetId)}
 
-                
-                />
-
-            </div>
+                            </Row>
+                        </Panel>
+                    </Col>
+                </div>
+            </Grid>
         )
     }
 }

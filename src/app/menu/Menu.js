@@ -1,12 +1,50 @@
 import React from 'react'
 import './Menu.css'
-import Item from './item/Item'
+import Logo from './logo.png'
+import {IndexLinkContainer, LinkContainer} from 'react-router-bootstrap'
+import {Nav, Navbar, NavItem} from 'react-bootstrap'
+import GoogleLogin from 'react-google-login'
 
 export default (props) =>
-    <ul className="App-Menu">
-        <Item path={`/`} activeWhenMatchingExactly={true} customClasses="">Futrzak</Item>
-        <Item path={`/vets`}>Nasi weterynarze</Item>
-        <Item path={`/offices`}>Gabinety</Item>
-        <Item path={`/vetSearch`}>Wyszukaj najbliższy gabinet</Item>
-        <Item path={`/calendar`}>Kalendarz</Item>
-    </ul>
+
+    <Navbar inverse className="App-Menu">
+        <Navbar.Header>
+            <Navbar.Brand>
+                <img src={Logo} alt="Logo" className="responsive"/>
+            </Navbar.Brand>
+            <Navbar.Toggle />
+        </Navbar.Header>
+
+        <Navbar.Collapse>
+            <Nav>
+                <IndexLinkContainer to={`/`}>
+                    <NavItem eventKey={0} href="#"><strong>Futrzak</strong></NavItem>
+                </IndexLinkContainer>
+
+                <IndexLinkContainer to={`/vets`}>
+                    <NavItem eventKey={1} href="#">Weterynarze</NavItem>
+                </IndexLinkContainer>
+
+                <LinkContainer to={`/offices`}>
+                    <NavItem eventKey={2} href="#">Gabinety</NavItem>
+                </LinkContainer>
+
+                <LinkContainer to={`/vetSearch`}>
+                    <NavItem eventKey={3} href="#">Znajdź najbliższy gabinet</NavItem>
+                </LinkContainer>
+
+                <LinkContainer to={`/calendar`}>
+                    <NavItem eventKey={4} href="#">Kalendarz</NavItem>
+                </LinkContainer>
+            </Nav>
+
+            {/*<Navbar.Form pullRight>*/}
+                {/*<GoogleLogin*/}
+                    {/*clientId="751663115292-f4n69p03t1hj8mkrt79d107nrirvbbdc.apps.googleusercontent.com"*/}
+                    {/*onSuccess={console.log}*/}
+                    {/*onFailure={console.log}*/}
+                    {/*className="btn btn-default btn-sm"/>*/}
+            {/*</Navbar.Form>*/}
+        </Navbar.Collapse>
+    </Navbar>
+

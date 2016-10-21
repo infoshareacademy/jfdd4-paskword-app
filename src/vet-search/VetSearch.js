@@ -1,16 +1,18 @@
 import React from 'react';
 import GoogleMap from 'google-map-react';
-import Place from '../map/place/Place';
-import styles from './vet-search-style.css';
-import startMark from '../map/place/start.png';
-import finishMark from '../map/place/finish.png'
-import placeStyles from '../map/place/place-styles.css';
-
+import Place from '../place/Place';
+import './vet-search-style.css';
+import startMark from '../place/start.png';
+import finishMark from '../place/finish.png'
+import {Link} from 'react-router';
 import {
     Grid,
-    Row
+    Row,
+    Col,
+    Panel
 } from 'react-bootstrap';
 import Data from '../data/offices'
+import '../data/vets.js';
 
 
 export default class VetSearch extends React.Component {
@@ -41,9 +43,9 @@ export default class VetSearch extends React.Component {
                             + Math.pow((office.coordinates.longitude - mapClick.lng), 2)
                         ));
                 });
-                console.log('click',mapClick);
-                console.log('lattitude',mapClick.lat);
-                console.log('longtitude',mapClick.lng);
+                console.log('click', mapClick);
+                console.log('lattitude', mapClick.lat);
+                console.log('longtitude', mapClick.lng);
 
                 return result.indexOf(Math.min(...result)) + 1;
             })()
@@ -59,47 +61,73 @@ export default class VetSearch extends React.Component {
         return (
             <Grid>
                 <Row>
-                    <div className="map">
-                        <GoogleMap
-                            bootstrapURLKeys={{
-key: 'AIzaSyCJSyocAtUnWSKhjyqZlJtmaf_afdJcOkA',
-                                language: 'pl'
-                            }}
-                            onClick={this._onClick}
-                            center={[54.35118909616142, 18.644957542419434]}
-                            zoom={9}>
+                    <Col xs={12} md={10}>
+                        <div className="vet-search-map">
+                            <GoogleMap
+                                bootstrapURLKeys={{
+                                    key: 'AIzaSyCJSyocAtUnWSKhjyqZlJtmaf_afdJcOkA',
+                                    language: 'pl'
+                                }}
+                                onClick={this._onClick}
+                                center={[54.3434247232928, 18.52667212486267]}
+                                zoom={10}>
 
-                            <Place
-                                className="img-responsive"
-                                lat={x}
-                                lng={y}
-                                text={
-                                <img src={startMark} alt="Start Mark" />}
-                            >
-                            </Place>
+                                <Place
+                                    className="img-responsive"
+                                    lat={x}
+                                    lng={y}
+                                    text={
+                                        <img src={startMark} alt="Start Mark"
+                                             className="start-point"/>}
+                                />
 
+                                {this.state.officesData.filter(function (office) {
+                                    return office.id === nearestOffice
+                                })
+                                    .map(function (officeId) {
+                                        return (
+                                            <Place key={officeId.id}
+                                                   className="img-responsive"
+                                                   lat={officeId.coordinates.latitude}
+                                                   lng={officeId.coordinates.longitude}
+                                                   text={<img src={finishMark} alt="Finish Mark"
+                                                              className="nearest-point"/>}
+                                            />
+                                        )
+                                    })
+                                }
+                            </GoogleMap>
+                        </div>
+                    </Col>
+                    <Col xs={12} md={2}>
+                        <Row>
+                            <img src={startMark} alt="Start Mark"/><br/>
+                            <span>Twoja lokalizacja</span><br/>
+                            <img src={finishMark} alt="Finish Mark"/><br/>
+                            <span>Najbliższy gabinet</span>
+                        </Row>
+                        <Row>
                             {this.state.officesData.filter(function (office) {
-                                console.log(nearestOffice);
                                 return office.id === nearestOffice
                             })
                                 .map(function (officeId) {
-                                    console.log(officeId);
                                     return (
-                                        <Place key={officeId.id}
-                                               className="mark img-responsive"
-                                               lat={officeId.coordinates.latitude}
-                                               lng={officeId.coordinates.longitude}
-                                               text={<img src={finishMark} alt="Finish Mark"/>}
+                                        <Link to={`/offices/${officeId.id}`}
+                                              key={officeId.id}
                                         >
-                                        </Place>
+                                            <Panel className="nearest-vet-container">
+                                                <Col xs={12} md={2}>
+                                                    <img src={officeId.logo}/> <br/>
+                                                    <p>{officeId.officeName}</p>
+                                                    <p>{officeId.officeAddress}</p>
+                                                </Col>
+                                            </Panel>
+                                        </Link>
                                     )
                                 })
                             }
-                        </GoogleMap>
-                    </div>
-                </Row>
-                <Row>
-
+                        </Row>
+                    </Col>
                 </Row>
             </Grid>
         )

@@ -1,8 +1,8 @@
-.map {
-    width: auto;
-    height: 300px;
+.mapMain {
+    height: 100vh;
 }
 
-.place {
-    font-size: 50px;
+.pointer-main-map {
+    margin-left: -32px;
+    margin-top: -64px;
 }

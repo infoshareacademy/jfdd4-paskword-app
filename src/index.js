@@ -3,6 +3,8 @@ import 'bootstrap/dist/css/bootstrap-theme.css';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import store from './store';
 import App from './app/App';
 import './index.css';
 import Vet from './vet/Vet';
@@ -16,16 +18,18 @@ import Calendar from './calendar/Calendar'
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 
 ReactDOM.render(
-    <Router history={browserHistory}>
-        <Route path="/" component={App}>
-            <IndexRoute component={Map}/>
-            <Route path="/offices" component={Offices}/>
-            <Route path="/offices/:officeId" component={Office}/>
-            <Route path="/vets" component={Vets}/>
-            <Route path="/vets/:vetId" component={Vet}/>
-            <Route path="/calendar" component={Calendar}/>
-            <Route path="/vetSearch" component={VetSearch}/>
-        </Route>
-    </Router>,
+    <Provider store={store}>
+        <Router history={browserHistory}>
+            <Route path="/" component={App}>
+                <IndexRoute component={Map}/>
+                <Route path="/offices" component={Offices}/>
+                <Route path="/offices/:officeId" component={Office}/>
+                <Route path="/vets" component={Vets}/>
+                <Route path="/vets/:vetId" component={Vet}/>
+                <Route path="/calendar" component={Calendar} />
+                <Route path="/vetSearch" component={VetSearch}/>
+            </Route>
+        </Router>
+    </Provider>,
     document.getElementById('root')
 );
