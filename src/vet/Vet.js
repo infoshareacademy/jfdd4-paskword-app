@@ -185,31 +185,6 @@ export default class Vet extends React.Component {
                                             )
                                         })}
                                 </ul>
-            <div className="Weterynarz">
-                {isLoading ? 'Ładuję wybranego weterynarza...' : null}
-                <h1>Weterynarz</h1>
-                <p>{this.state.vet.firstName} {this.state.vet.lastName}</p>
-                <p><img src={this.state.vet.photo} alt={this.state.vet.lastName} /></p>
-                <p>Przychodnie: </p>
-                    {this.state.offices.length === 0 ?
-                        'Ładuję przychodnie...' : null}
-                    <ul>
-                        {this.state.offices
-                            .filter(function (office) {
-                                var result = office.vetIds.indexOf(vetId) !== -1;
-                                return result
-                            })
-                            .map(function (item) {
-                                return item
-                            })
-                            .map(function (office) {
-                                return (
-                                    <Link key={office.id} to={`/offices/` + parseInt(office.id, 10) }>
-                                        {office.officeName} <br />
-                                    </Link>
-                                )
-                            })}
-                    </ul>
 
                                 <p>E-mail: {this.state.vet.email}</p>
                                 <p>Telefon: +{this.state.vet.phone}</p>
@@ -227,26 +202,27 @@ export default class Vet extends React.Component {
                                 })
                                 }
 
-                {hasAdvices ? "Brak porad do wyświetlenia" :
-                    actualFilterButtons.map(function(button) {
-                        return <span key={button.name}>{button.component}</span>
-                    })
-                }
+                                {hasAdvices ? "Brak porad do wyświetlenia" :
+                                    actualFilterButtons.map(function (button) {
+                                        return <span key={button.name}>{button.component}</span>
+                                    })
+                                }
 
                                 {this.state.vet.advices
                                     .filter(selectedFilter)
                                     .map(function (advice) {
                                         return (
                                             <div key={advice.id}>
-                                                <Col xs={10} xsOffset={1} sm={8} smOffset={2}  className="advice">
+                                                <Col xs={10} xsOffset={1} sm={8} smOffset={2} className="advice">
                                                     <p>Tag: {advice.tag}</p>
                                                     <p>{advice.advice}</p>
                                                 </Col>
                                             </div>
                                         )
                                     })}
-                <Timeslots events={visitsDates.filter(vet => vet.vetId === vetId)}
-
+                            </Row>
+                            <Row>
+                            <Timeslots events={visitsDates.filter(vet => vet.vetId === vetId)}/>
                             </Row>
                         </Panel>
                     </Col>
