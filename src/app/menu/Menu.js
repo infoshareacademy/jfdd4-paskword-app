@@ -33,9 +33,6 @@ export default (props) =>
                     <NavItem eventKey={3} href="#">Znajdź najbliższy gabinet</NavItem>
                 </LinkContainer>
 
-                <LinkContainer to={`/calendar`}>
-                    <NavItem eventKey={4} href="#">Kalendarz</NavItem>
-                </LinkContainer>
             </Nav>
 
             {/*<Navbar.Form pullRight>*/}
