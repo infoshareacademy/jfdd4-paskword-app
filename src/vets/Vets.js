@@ -1,37 +1,36 @@
 import React from 'react';
-import vetsWithAdvices from '../data/vetsWithAdvices';
-import officesData from '../data/offices.js';
 import './Vets.css';
 import {Grid, Col, Panel} from 'react-bootstrap';
 import {Link} from 'react-router';
+import {connect} from 'react-redux'
 
-export default class Vets extends React.Component {
+const mapStateToProps = (state) => ({
+    vets: state.vetsData.vets,
+    fetchingVets: state.vetsData.fetchingVets,
+    offices: state.officesData.offices,
+    fetchingOffices: state.officesData.fetchingOffices
+});
 
-    constructor() {
-        super();
-        this.state = {
-            vets: [],
-            offices: [],
-            isLoading: true
-        };
-    }
+const mapDispatchToProps = (dispatch) => ({
 
-    componentWillMount() {
-        this.setState({
-            vets: vetsWithAdvices,
-            offices: officesData,
-            isLoading: false
-        });
-    }
+});
+
+class Vets extends React.Component {
 
     render() {
-        var allVetsData = this.state.vets,
-            offices = this.state.offices;
+        var {
+            vets,
+            fetchingVets,
+            offices,
+            fetchingOffices
+        }= this.props
+
         return (
             <Grid>
-                {this.state.isLoading ? 'Loading list of our vets...' : null}
-                {allVetsData.map(function (vet, index) {
-                    return (
+                {fetchingVets ? <p>Ładuję weterynarzy...</p> : null}
+
+                {vets
+                    .map( (vet,index) => (
                         <Col xs={12} mdOffset={2} md={10} key={vet.id}>
                             <Panel className="vet-list-container">
                                 <Col xs={12} mdOffset={2} md={4}>
@@ -41,9 +40,11 @@ export default class Vets extends React.Component {
                                     <Link to={`/vets/` + parseInt(index + 1, 10) }>
                                         <strong>{vet.firstName} {vet.lastName}</strong>
                                     </Link>
+                                    <p>E-mail: {vet.email}</p>
+                                    <p>Telefon: {vet.phone}</p>
+
                                     <p>Przychodnie:</p>
-                                    {offices.length === 0 ?
-                                        'Ładuję przychodnie...' : null}
+                                    {fetchingOffices ? <p>Ładuję przychodnie...</p> : null}
                                     <ul>
                                         {offices
                                             .filter(function (office) {
@@ -59,7 +60,7 @@ export default class Vets extends React.Component {
                                             .map(function (office) {
                                                 return (
                                                     <Link key={office.officeName}
-                                                        to={`/offices/` + parseInt(office.id, 10)}>
+                                                          to={`/offices/` + parseInt(office.id, 10)}>
                                                         <p>{office.officeName}</p>
                                                     </Link>
                                                 )
@@ -69,12 +70,13 @@ export default class Vets extends React.Component {
                                 </Col>
                             </Panel>
                         </Col>
-                    )
-                })}
+                    ))
+                }
             </Grid>
         )
     }
 }
 
+export default connect(mapStateToProps, mapDispatchToProps)(Vets)
 
 
