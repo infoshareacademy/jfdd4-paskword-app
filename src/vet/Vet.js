@@ -1,6 +1,6 @@
 import React from 'react';
 import './Vet.css'
-import vetsWithAdvices from '../data/vetsWithAdvices';
+import vetsWithAdvices from '../../public/data/vetsWithAdvices';
 import FilterButton from './filter-button/FilterButton';
 import officesData from '../data/offices.js';
 import {Link} from 'react-router';
@@ -131,8 +131,6 @@ export default class Vet extends React.Component {
                 name: 'chomik',
                 component: filterButton(this._handleHamster, 'hamster', activeFilterName, 'chomik'),
             }
-
-
         ]
 
         var isLoading = this.state.isLoading,

@@ -46,7 +46,25 @@ class Vets extends React.Component {
                                     <p>Przychodnie:</p>
                                     {fetchingOffices ? <p>Ładuję przychodnie...</p> : null}
                                     <ul>
-
+                                        {offices
+                                            .filter(function (office) {
+                                                var result = office.vetIds.indexOf(vet.id) !== -1
+                                                {
+                                                    console.log(office.vetIds)
+                                                }
+                                                return result
+                                            })
+                                            .map(function (item) {
+                                                return item
+                                            })
+                                            .map(function (office) {
+                                                return (
+                                                    <Link key={office.officeName}
+                                                          to={`/offices/` + parseInt(office.id, 10)}>
+                                                        <p>{office.officeName}</p>
+                                                    </Link>
+                                                )
+                                            })}
                                     </ul>
                                     <p>Liczba porad lekarza: {vet.advices.length}</p>
                                 </Col>

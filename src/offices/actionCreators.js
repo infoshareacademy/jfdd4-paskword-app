@@ -21,7 +21,7 @@ function receiveOffices(offices) {
 export function fetchOffices() {
     return function (dispatch) {
         dispatch(requestOffices())
-        return fetch(`${process.env.PUBLIC_URL}/data/offices.js`)
+        return fetch(`${process.env.PUBLIC_URL}/data/offices.json`)
             .then(response => response.json())
             .then(offices => dispatch(receiveOffices(offices)))
     }
