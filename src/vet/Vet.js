@@ -222,7 +222,11 @@ export default class Vet extends React.Component {
                                     })}
                             </Row>
                             <Row>
+
                             <Timeslots events={visitsDates.filter(vet => vet.vetId === vetId)}/>
+
+
+
                             </Row>
                         </Panel>
                     </Col>

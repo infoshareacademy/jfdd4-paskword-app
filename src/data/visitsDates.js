@@ -2,11 +2,10 @@ var data =[
 
     {
         "title": 'zajęty termin',
-        'allDay': true,
         "visitId": 1,
         "vetId": 1,
-        "start":new Date(2016, 9, 21),
-        "end":new Date(2016, 9, 21)
+        "start":new Date(2016, 9, 21,0,0,0),
+        "end":new Date(2016, 9, 21,4,0,0)
     },
     {
         "title": 'zajęty termin',
