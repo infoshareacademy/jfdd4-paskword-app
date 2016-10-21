@@ -1,30 +1,33 @@
 import {
     LOGIN_ATTEMPT,
     LOGIN_SUCCESSFUL,
-    LOGIN_FAILED,
+    LOGOUT_SUCCESSFUL,
 } from './actionTypes'
 
 const initialState = {
-    user: {},
     loggingIn: false,
-    loggedUserName: []
+    loggedIn: false,
+    loggedUserName: ''
 }
 
 export default (state = initialState, action) => {
     switch (action.type) {
         case LOGIN_ATTEMPT:
             return Object.assign({}, state, {
-                loggingIn: true
+                loggingIn: true,
+                loggedIn: false,
             })
         case LOGIN_SUCCESSFUL:
             return Object.assign({}, state, {
                 loggingIn: false,
-                loggedUser: action.loggedUserName
+                loggedIn: true,
+                loggedUserName: action.loggedUserName.name
             })
-        case LOGIN_FAILED:
+        case LOGOUT_SUCCESSFUL:
             return Object.assign({}, state, {
                 loggingIn: false,
-                user: {}
+                loggedIn: false,
+                loggedUserName: action.loggedUserName.name
             })
         default:
             return state

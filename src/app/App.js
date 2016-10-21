@@ -1,56 +1,53 @@
 import React, {Component} from 'react';
-import {render} from 'react-dom';
+
 import {connect} from 'react-redux'
 import './App.css';
 import Menu from './menu/Menu';
-import GoogleLogin from 'react-google-login';
 import FacebookLogin from 'react-facebook-login';
-import {Col} from 'react-bootstrap';
-import {loginSuccessful} from './actionCreators'
+import {loginSuccessful, logoutSuccessful} from './actionCreators'
+import {Button} from 'react-bootstrap'
 
-const mapStateToProps = (state) => ({
-    loggedUserName: state.loggedUserName
-});
+const mapStateToProps = (state) => {
+    return ({
+        loggedUserName: state.app.loggedUserName,
+        loggingIn: state.app.loggingIn,
+        loggedIn: state.app.loggedIn
+    });
+}
 
 const mapDispatchToProps = (dispatch) => ({
     loginSuccessful: (loggedUserName) => dispatch(loginSuccessful(loggedUserName)),
+    logoutSuccessful: (loggedUserName) => dispatch(logoutSuccessful(loggedUserName))
 })
-
-const responseGoogle = (response) => {
-    console.log(response);
-}
-
-const responseFacebook = (response) => {
-    console.log(response);
-    saveName(response.name);
-}
-
-function saveName(name) {
-    var name = name;
-    console.log(name);
-}
 
 class App extends Component {
 
     render() {
         var {
             loggedUserName,
+            loggingIn,
+            loggedIn,
             loginSuccessful,
+            logoutSuccessful
         } = this.props;
         return (
             <div className="App">
                 <Menu />
-                <Col >
-                    <FacebookLogin
-                        appId="243203269416376"
-                        autoLoad={true}
-                        fields="name,email,picture"
-                        callback={responseFacebook}
-                        className="google-login"/>
-                    <div>
-                    </div>
-                </Col>
-
+                    {loggedIn ?
+                        <p>Zalogowano jako {loggedUserName}
+                        <Button onClick={() => logoutSuccessful('') }>Wyloguj się</Button></p>
+                            :
+                        <FacebookLogin
+                            appId="243203269416376"
+                            size="small"
+                            autoLoad={false}
+                            reAuthenticate={true}
+                            fields="name,email,picture"
+                            callback={loginSuccessful}
+                            className="google-login"
+                            icon="fa-facebook"
+                            textButton="ZALOGUJ SIĘ"/>
+                    }
                 {this.props.children}
             </div>
         );
