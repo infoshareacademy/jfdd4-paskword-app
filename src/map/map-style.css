@@ -1,7 +1,8 @@
 .mapMain {
-    width: auto;
-    height: 700px;
+    height: 100vh;
 }
-.pointer {
-    width:20%;
+
+.pointer-main-map {
+    margin-left: -32px;
+    margin-top: -64px;
 }

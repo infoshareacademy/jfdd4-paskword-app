@@ -1,8 +1,10 @@
 import React from 'react'
+import { Button } from 'react-bootstrap'
 
 export default (props) => (
-    <button onClick={props.handleClick}
-            className={props.activeFilter === props.myFilter ? 'active' : ''}>
+    <Button onClick={props.handleClick}
+            className={props.activeFilter === props.myFilter ? 'active' : ''}
+            bsStyle="info">
         {props.children}
-    </button>
+    </Button>
 )
