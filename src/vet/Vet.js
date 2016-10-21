@@ -3,6 +3,10 @@ import './Vet.css'
 import vetsWithAdvices from '../data/vetsWithAdvices';
 import FilterButton from './filter-button/FilterButton';
 import officesData from '../data/offices.js';
+import Calendar from '../calendar/Calendar'
+import Timeslots from '../calendar/timeslots'
+import CalendarEvents from '../calendar/events'
+import visitsDates from '../data/visitsDates'
 import {Link} from 'react-router';
 import {Grid, Row, Col, Panel} from 'react-bootstrap';
 
@@ -22,6 +26,7 @@ export default class Vet extends React.Component {
         this.state = {
             vet: [],
             offices: [],
+            visits: [],
             isLoading: true,
             filters: {
                 every: function () {
@@ -63,6 +68,7 @@ export default class Vet extends React.Component {
         context.setState({
             vet: vetsWithAdvices[this.props.params.vetId - 1],
             offices: officesData,
+            visits: visitsDates,
             isLoading: false,
             filters: {
                 every: function () {
@@ -97,7 +103,8 @@ export default class Vet extends React.Component {
             filters: this.state.filters,
             isLoading: this.state.isLoading,
             vet: this.state.vet,
-            offices: this.state.offices
+            offices: this.state.offices,
+            visits: this.state.visits
         });
     }
 
@@ -144,6 +151,8 @@ export default class Vet extends React.Component {
             actualFilterButtons = [];
         actualFilterButtons.push(filterButtons[0])
 
+        console.log(visitsDates.filter(vet => vet.vetId === vetId));
+
         return (
             <Grid>
                 <div className="Weterynarz">
@@ -170,7 +179,7 @@ export default class Vet extends React.Component {
                                         })
                                         .map(function (office) {
                                             return (
-                                                <Link to={`/offices/` + parseInt(office.id, 10) }>
+                                                <Link key={office.id} to={`/offices/` + parseInt(office.id, 10) }>
                                                     {office.officeName} <br />
                                                 </Link>
                                             )
@@ -195,7 +204,7 @@ export default class Vet extends React.Component {
 
                                 {hasAdvices ? "Brak porad do wyświetlenia" :
                                     actualFilterButtons.map(function (button) {
-                                        return <span>{button.component}</span>
+                                        return <span key={button.name}>{button.component}</span>
                                     })
                                 }
 
@@ -203,7 +212,7 @@ export default class Vet extends React.Component {
                                     .filter(selectedFilter)
                                     .map(function (advice) {
                                         return (
-                                            <div>
+                                            <div key={advice.id}>
                                                 <Col xs={10} xsOffset={1} sm={8} smOffset={2} className="advice">
                                                     <p>Tag: {advice.tag}</p>
                                                     <p>{advice.advice}</p>
@@ -211,6 +220,13 @@ export default class Vet extends React.Component {
                                             </div>
                                         )
                                     })}
+                            </Row>
+                            <Row>
+
+                            <Timeslots events={visitsDates.filter(vet => vet.vetId === vetId)}/>
+
+
+
                             </Row>
                         </Panel>
                     </Col>
