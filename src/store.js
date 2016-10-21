@@ -1,11 +1,16 @@
 import { combineReducers, createStore, applyMiddleware, compose } from 'redux'
 import thunkMiddleware from 'redux-thunk'
 import createLogger from 'redux-logger'
+import persistState from 'redux-localstorage'
 
 import appReducer from './app/reducer'
+import vetsReducer from './vets/reducer'
+import officesReducer from './offices/reducer'
 
 let reducer = combineReducers({
-    app: appReducer
+    app: appReducer,
+    vetsData: vetsReducer,
+    officesData: officesReducer
 })
 
 // Create a Redux store holding the state of your app.

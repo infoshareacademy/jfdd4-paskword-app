@@ -17,14 +17,22 @@ import Calendar from './calendar/Calendar'
 
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 
+import { fetchVets } from './vets/actionCreators'
+import { fetchOffices } from './offices/actionCreators'
+
+function fetchVetsAndOffices() {
+    store.dispatch(fetchVets())
+    store.dispatch(fetchOffices())
+}
+
 ReactDOM.render(
     <Provider store={store}>
         <Router history={browserHistory}>
-            <Route path="/" component={App}>
+            <Route path="/" component={App} onEnter={() => fetchVetsAndOffices()}>
                 <IndexRoute component={Map}/>
-                <Route path="/offices" component={Offices}/>
+                <Route path="/offices" component={Offices} onEnter={() => fetchVetsAndOffices()}/>
                 <Route path="/offices/:officeId" component={Office}/>
-                <Route path="/vets" component={Vets}/>
+                <Route path="/vets" component={Vets} onEnter={() => fetchVetsAndOffices()}/>
                 <Route path="/vets/:vetId" component={Vet}/>
                 <Route path="/calendar" component={Calendar} />
                 <Route path="/vetSearch" component={VetSearch}/>
