@@ -1,3 +1,3 @@
 export const LOGIN_ATTEMPT = 'app/LOGIN_ATTEMPT'
 export const LOGIN_SUCCESSFUL = 'app/LOGIN_SUCCESSFUL'
-export const LOGIN_FAILED = 'app/LOGIN_FAILED'
+export const LOGOUT_SUCCESSFUL = 'app/LOGOUT_SUCCESSFUL'

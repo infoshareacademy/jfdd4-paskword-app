@@ -13,10 +13,14 @@
   font-size: large;
 }
 
-.google-login {
+.facebook-login {
   padding: 1%;
-  color: dodgerblue;
+  color: white;
   background: #222222;
   border: 1px solid #222222;
   width: 100%;
+}
+
+.facebook-login p {
+  margin: 1%;
 }

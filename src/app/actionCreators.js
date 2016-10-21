@@ -1,7 +1,7 @@
 import {
     LOGIN_ATTEMPT,
     LOGIN_SUCCESSFUL,
-    LOGIN_FAILED
+    LOGOUT_SUCCESSFUL
 } from './actionTypes'
 
 function loginAttempt() {
@@ -17,8 +17,9 @@ export function loginSuccessful(loggedUserName) {
     }
 }
 
-function loginFailed() {
+export function logoutSuccessful(loggedUserName) {
     return {
-        type: LOGIN_FAILED
+        type: LOGOUT_SUCCESSFUL,
+        loggedUserName: loggedUserName
     }
 }
