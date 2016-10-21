@@ -7,3 +7,7 @@
     color: white;
     background-color: #222222;
 }
+
+.navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:hover, .navbar-inverse .navbar-nav > .active > a:focus {
+    color: rgb(11, 203, 204);
+}
