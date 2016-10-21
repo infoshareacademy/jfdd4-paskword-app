@@ -26,6 +26,7 @@ export default class Vet extends React.Component {
         this.state = {
             vet: [],
             offices: [],
+            visits: [],
             isLoading: true,
             filters: {
                 every: function () { return true },
@@ -53,6 +54,7 @@ export default class Vet extends React.Component {
         context.setState({
             vet: vetsWithAdvices[this.props.params.vetId - 1],
             offices: officesData,
+            visits: visitsDates,
             isLoading: false,
             filters: {
                 every: function () { return true },
@@ -74,6 +76,7 @@ export default class Vet extends React.Component {
             isLoading: this.state.isLoading,
             vet: this.state.vet,
             offices: this.state.offices,
+            visits: this.state.visits
         });
     }
 
@@ -184,8 +187,10 @@ export default class Vet extends React.Component {
                         )
                     })}
 
-                <Timeslots events={visitsDates.filter(vet => vet.vetId === vetId)}/>
+                <Timeslots events={visitsDates.filter(vet => vet.vetId === vetId)}
 
+                
+                />
 
             </div>
         )
