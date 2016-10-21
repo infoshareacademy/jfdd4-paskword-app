@@ -33,11 +33,18 @@ class App extends Component {
         return (
             <div className="App">
                 <Menu />
+                <div className="facebook-login">
                     {loggedIn ?
-                        <p>Zalogowano jako {loggedUserName}
-                        <Button onClick={() => logoutSuccessful('') }>Wyloguj się</Button></p>
+                        <div>
+                            <p>Zalogowano jako {loggedUserName}</p>
+                            <Button onClick={() => logoutSuccessful('') }
+                                    bsStyle="info">
+                                Wyloguj się
+                            </Button>
+                        </div>
                             :
                         <FacebookLogin
+                            id="facebook-login"
                             appId="243203269416376"
                             size="small"
                             autoLoad={false}
@@ -48,6 +55,7 @@ class App extends Component {
                             icon="fa-facebook"
                             textButton="ZALOGUJ SIĘ"/>
                     }
+                </div>
                 {this.props.children}
             </div>
         );

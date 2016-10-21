@@ -38,13 +38,13 @@ export default (props) =>
                 </LinkContainer>
             </Nav>
 
-            <Navbar.Form pullRight>
-                <GoogleLogin
-                    clientId="751663115292-f4n69p03t1hj8mkrt79d107nrirvbbdc.apps.googleusercontent.com"
-                    onSuccess={console.log}
-                    onFailure={console.log}
-                    className="btn btn-default btn-sm"/>
-            </Navbar.Form>
+            {/*<Navbar.Form pullRight>*/}
+                {/*<GoogleLogin*/}
+                    {/*clientId="751663115292-f4n69p03t1hj8mkrt79d107nrirvbbdc.apps.googleusercontent.com"*/}
+                    {/*onSuccess={console.log}*/}
+                    {/*onFailure={console.log}*/}
+                    {/*className="btn btn-default btn-sm"/>*/}
+            {/*</Navbar.Form>*/}
         </Navbar.Collapse>
     </Navbar>
 
