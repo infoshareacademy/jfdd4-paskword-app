@@ -7,27 +7,35 @@ import officesData from '../data/offices.js'
 import officehMark from '../place/finish.png'
 import {Grid, Row, Col, OverlayTrigger, Tooltip, Popover} from 'react-bootstrap';
 import {Link} from 'react-router';
+import {connect} from 'react-redux'
 
 
-export default class Map extends React.Component {
-    constructor() {
-        super();
-        this.state = {
-            officesData: []
-        }
-    }
+const mapStateToProps = (state) => ({
+    points: state.mapData.points,
+    fetchingPoints: state.mapData.fetchingPoints
+});
 
-    componentWillMount() {
-        this.setState({
-            officesPoint: officesData
-        })
-    }
+const mapDispatchToProps = (dispatch) => ({})
 
+
+class Map extends React.Component {
     render() {
-        var officeP = this.state.officesPoint;
+        var {
+            points,
+            fetchingPoints,
+            tooltip = (
+                <Tooltip id="tooltip">
+                    <h2>{points.officeName}</h2>
+                    <img src={points.logo} className="responsive"/>
+                    <p>{points.officeAddress}</p>
+                </Tooltip>
+            )
+        }=this.props;
+        console.log('Dane punktów:', points);
         return (
             <div>
                 <Grid>
+                    {fetchingPoints ? <p>Ładowanie mapy, proszę czekać...</p> : null}
                     <Row>
                         <Col sm={12} md={12}>
                             <div className="mapMain">
@@ -47,29 +55,25 @@ export default class Map extends React.Component {
                                             title="Wszystkie gabinety weterynaryjne">
                                             Kliknij w dany punkt, by przejść do wybranego gabinetu.
                                         </Popover>}/>
-                                    {officeP.map(function (officeGPSPoint) {
-                                        const tooltip = (
-                                            <Tooltip id="tooltip">
-                                                <h2>{officeGPSPoint.officeName}</h2>
-                                                <img src={officeGPSPoint.logo} className="responsive"/>
-                                                <p>{officeGPSPoint.officeAddress}</p>
-                                            </Tooltip>
-                                        );
-                                        return (
 
-                                            <Place key={officeGPSPoint.id}
-                                                   lat={officeGPSPoint.coordinates.latitude}
-                                                   lng={officeGPSPoint.coordinates.longitude}
-                                                   text={
-                                                       <Link to={`/offices/${officeGPSPoint.id}`}>
-                                                           <OverlayTrigger placement="top" overlay={tooltip}>
-                                                               <img src={officehMark} alt="Gabinet Weterynaryjny"
-                                                                    className="pointer-main-map"/>
-                                                           </OverlayTrigger>
-                                                       </Link>
-                                                   }/>
+
+                                    {points
+                                        .map((officeGPSPoint) => (
+
+                                                <Place key={officeGPSPoint.id}
+                                                       lat={officeGPSPoint.coordinates.latitude}
+                                                       lng={officeGPSPoint.coordinates.longitude}
+                                                       text={
+                                                           <Link to={`/offices/${officeGPSPoint.id}`}>
+                                                               <OverlayTrigger placement="top" overlay={tooltip}>
+                                                                   <img src={officehMark} alt="Gabinet Weterynaryjny"
+                                                                        className="pointer-main-map"/>
+                                                               </OverlayTrigger>
+                                                           </Link>
+                                                       }/>
+                                            )
                                         )
-                                    })}
+                                    }
                                 </GoogleMap>
                             </div>
                         </Col>
@@ -79,3 +83,5 @@ export default class Map extends React.Component {
         )
     }
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(Map)

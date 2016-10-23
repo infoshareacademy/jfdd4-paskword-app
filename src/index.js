@@ -19,10 +19,12 @@ import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 
 import { fetchVets } from './vets/actionCreators'
 import { fetchOffices } from './offices/actionCreators'
+import {fetchPoints} from './map/actionCreators'
 
 function fetchVetsAndOffices() {
     store.dispatch(fetchVets())
     store.dispatch(fetchOffices())
+    store.dispatch(fetchPoints())
 }
 
 ReactDOM.render(
