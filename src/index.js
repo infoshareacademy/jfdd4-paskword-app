@@ -19,7 +19,7 @@ import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 
 import { fetchVets } from './vets/actionCreators'
 import { fetchOffices } from './offices/actionCreators'
-import {fetchPoints} from './map/actionCreators'
+import { fetchPoints } from './map/actionCreators'
 
 function fetchVetsAndOffices() {
     store.dispatch(fetchVets())
@@ -31,7 +31,7 @@ ReactDOM.render(
     <Provider store={store}>
         <Router history={browserHistory}>
             <Route path="/" component={App} onEnter={() => fetchVetsAndOffices()}>
-                <IndexRoute component={Map}/>
+                <IndexRoute component={Map} onEnter={() => fetchVetsAndOffices()} />
                 <Route path="/offices" component={Offices} onEnter={() => fetchVetsAndOffices()}/>
                 <Route path="/offices/:officeId" component={Office}/>
                 <Route path="/vets" component={Vets} onEnter={() => fetchVetsAndOffices()}/>

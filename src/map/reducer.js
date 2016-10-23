@@ -18,7 +18,7 @@ export default (state = initialState, action) => {
             });
         case RECEIVE_POINTS:
             return Object.assign({}, state, {
-                points: action.type,
+                points: action.points,
                 fetchingPoints: false
             });
         default:
