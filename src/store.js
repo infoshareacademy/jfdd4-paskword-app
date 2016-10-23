@@ -6,11 +6,13 @@ import persistState from 'redux-localstorage'
 import appReducer from './app/reducer'
 import vetsReducer from './vets/reducer'
 import officesReducer from './offices/reducer'
+import mapReducer from './map/reducer'
 
 let reducer = combineReducers({
     app: appReducer,
     vetsData: vetsReducer,
-    officesData: officesReducer
+    officesData: officesReducer,
+    mapData: mapReducer
 })
 
 // Create a Redux store holding the state of your app.
