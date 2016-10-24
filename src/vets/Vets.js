@@ -34,7 +34,7 @@ class Vets extends React.Component {
                         <Col xs={12} mdOffset={2} md={10} key={vet.id}>
                             <Panel className="vet-list-container">
                                 <Col xs={12} mdOffset={2} md={4}>
-                                    <img src={vet.photo} alt={vet.firstName}/>
+                                    <img src={vet.photo} alt={vet.firstName} className="img-responsive vets-img"/>
                                 </Col>
                                 <Col xs={12} md={6}>
                                     <Link to={`/vets/` + parseInt(index + 1, 10) }>
