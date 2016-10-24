@@ -32,10 +32,10 @@ ReactDOM.render(
     <Provider store={store}>
         <Router history={browserHistory}>
             <Route path="/" component={App} onEnter={() => fetchVetsAndOffices()}>
-                <IndexRoute component={Map} onEnter={() => fetchVetsAndOffices()} />
-                <Route path="/offices" component={Offices} onEnter={() => fetchVetsAndOffices()}/>
+                <IndexRoute component={Map} />
+                <Route path="/offices" component={Offices} />
                 <Route path="/offices/:officeId" component={Office}/>
-                <Route path="/vets" component={Vets} onEnter={() => fetchVetsAndOffices()}/>
+                <Route path="/vets" component={Vets} />
                 <Route path="/vets/:vetId" component={Vet}/>
                 <Route path="/calendar" component={Calendar} />
                 <Route path="/vetSearch" component={VetSearch}/>
