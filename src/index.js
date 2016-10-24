@@ -14,6 +14,7 @@ import Offices from './offices/Offices'
 import VetSearch from './vet-search/VetSearch'
 import Map from './map/Map'
 import Calendar from './calendar/Calendar'
+import NotFound from './not-found/NotFound'
 
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 
@@ -38,6 +39,7 @@ ReactDOM.render(
                 <Route path="/vets/:vetId" component={Vet}/>
                 <Route path="/calendar" component={Calendar} />
                 <Route path="/vetSearch" component={VetSearch}/>
+                <Route path="*" component={NotFound} />
             </Route>
         </Router>
     </Provider>,
