@@ -117,7 +117,7 @@ export default class VetSearch extends React.Component {
                                         >
                                             <Panel className="nearest-vet-container">
                                                 <Col xs={12} md={2}>
-                                                    <img src={officeId.logo}/> <br/>
+                                                    <p><img src={officeId.logo} alt={"Logo gabientu"}/> </p>
                                                     <p>{officeId.officeName}</p>
                                                     <p>{officeId.officeAddress}</p>
                                                 </Col>
