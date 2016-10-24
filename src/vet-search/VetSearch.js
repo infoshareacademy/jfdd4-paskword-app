@@ -100,33 +100,29 @@ export default class VetSearch extends React.Component {
                         </div>
                     </Col>
                     <Col xs={12} md={2}>
-                        <Row>
-                            <img src={startMark} alt="Start Mark"/><br/>
-                            <span>Twoja lokalizacja</span><br/>
-                            <img src={finishMark} alt="Finish Mark"/><br/>
-                            <span>Najbliższy gabinet</span>
-                        </Row>
-                        <Row>
-                            {this.state.officesData.filter(function (office) {
-                                return office.id === nearestOffice
+                        <p>Kliknij na mapie, by zobaczyć znaczniki:</p>
+                        <img src={startMark} alt="Start Mark"/><br/>
+                        <span>Twoja lokalizacja</span><br/>
+                        <img src={finishMark} alt="Finish Mark"/><br/>
+                        <span>Najbliższy gabinet</span>
+
+                        {this.state.officesData.filter(function (office) {
+                            return office.id === nearestOffice
+                        })
+                            .map(function (officeId) {
+                                return (
+                                    <Link to={`/offices/${officeId.id}`}
+                                          key={officeId.id}
+                                    >
+                                        <Panel className="nearest-vet-container">
+                                            <p><img src={officeId.logo} alt={"Logo gabientu"} className="img-responsive"/> </p>
+                                            <p><strong>{officeId.officeName}</strong></p>
+                                            <p>{officeId.officeAddress}</p>
+                                        </Panel>
+                                    </Link>
+                                )
                             })
-                                .map(function (officeId) {
-                                    return (
-                                        <Link to={`/offices/${officeId.id}`}
-                                              key={officeId.id}
-                                        >
-                                            <Panel className="nearest-vet-container">
-                                                <Col xs={12} md={2}>
-                                                    <img src={officeId.logo}/> <br/>
-                                                    <p>{officeId.officeName}</p>
-                                                    <p>{officeId.officeAddress}</p>
-                                                </Col>
-                                            </Panel>
-                                        </Link>
-                                    )
-                                })
-                            }
-                        </Row>
+                        }
                     </Col>
                 </Row>
             </Grid>
