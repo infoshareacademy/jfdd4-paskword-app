@@ -3,9 +3,7 @@ import './Vet.css'
 import vetsWithAdvices from '../../public/data/vetsWithAdvices';
 import FilterButton from './filter-button/FilterButton';
 import officesData from '../data/offices.js';
-import Calendar from '../calendar/Calendar'
 import Timeslots from '../calendar/timeslots'
-import CalendarEvents from '../calendar/events'
 import visitsDates from '../data/visitsDates'
 import {Link} from 'react-router';
 import {Grid, Row, Col, Panel} from 'react-bootstrap';
