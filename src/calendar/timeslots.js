@@ -8,7 +8,6 @@ import BigCalendar from 'react-big-calendar';
 // BigCalendar.setLocalizer(
 //     BigCalendar.globalizeLocalizer(globalize)
 // );
-
 let Timeslots = React.createClass({
 
     render(){
