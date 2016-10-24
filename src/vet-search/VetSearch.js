@@ -100,6 +100,7 @@ export default class VetSearch extends React.Component {
                         </div>
                     </Col>
                     <Col xs={12} md={2}>
+                        <p>Kliknij na mapie, by zobaczyć znaczniki:</p>
                         <img src={startMark} alt="Start Mark"/><br/>
                         <span>Twoja lokalizacja</span><br/>
                         <img src={finishMark} alt="Finish Mark"/><br/>
