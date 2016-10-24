@@ -100,7 +100,6 @@ export default class VetSearch extends React.Component {
                         </div>
                     </Col>
                     <Col xs={12} md={2}>
-
                         <img src={startMark} alt="Start Mark"/><br/>
                         <span>Twoja lokalizacja</span><br/>
                         <img src={finishMark} alt="Finish Mark"/><br/>
@@ -118,7 +117,6 @@ export default class VetSearch extends React.Component {
                                             <p><img src={officeId.logo} alt={"Logo gabientu"} className="img-responsive"/> </p>
                                             <p><strong>{officeId.officeName}</strong></p>
                                             <p>{officeId.officeAddress}</p>
-
                                         </Panel>
                                     </Link>
                                 )
