@@ -6,22 +6,28 @@ import '../data/vets.js';
 import officehMark from '../place/finish.png'
 import {Grid, Row, Col, OverlayTrigger, Tooltip, Popover} from 'react-bootstrap';
 import {Link} from 'react-router';
-import {connect} from 'react-redux'
+import {connect} from 'react-redux';
+import {hidePopover} from './actionCreators'
 
 
 const mapStateToProps = (state) => ({
     points: state.mapData.points,
-    fetchingPoints: state.mapData.fetchingPoints
+    fetchingPoints: state.mapData.fetchingPoints,
+    visibilityPopover: state.mapData.visibilityPopover
 });
 
-const mapDispatchToProps = (dispatch) => ({})
+const mapDispatchToProps = (dispatch) => ({
+    hidePopover: () => dispatch(hidePopover())
+})
 
 
 class Map extends React.Component {
     render() {
         var {
             points,
-            fetchingPoints
+            fetchingPoints,
+            hidePopover,
+            visibilityPopover
         }=this.props;
 
         return (
@@ -38,16 +44,22 @@ class Map extends React.Component {
                                     }}
                                     center={[54.3434247232928, 18.52667212486267]}
                                     zoom={11}>
-                                    <Place text={
+                                    {visibilityPopover ?
+                                        <Place text={
+
                                         <Popover
+                                            className="popover-style"
                                             id="popover-basic"
-                                            placement="none"
+                                            placement="left"
                                             positionLeft={20}
                                             positionTop={30}
-                                            title="Wszystkie gabinety weterynaryjne">
+                                            title="Wszystkie gabinety weterynaryjne"
+                                            onClick={() => hidePopover()}>
                                             Kliknij w dany punkt, by przejść do wybranego gabinetu.
-                                        </Popover>}/>
-
+                                        </Popover>}
+                                        />
+                                        : null }
+                                    
                                     {points
                                         .map(function (officeGPSPoint) {
                                             var tooltip = (
