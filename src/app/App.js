@@ -37,10 +37,6 @@ class App extends Component {
                     {loggedIn ?
                         <div>
                             <p>Zalogowano jako {loggedUserName}</p>
-                            <Button onClick={() => logoutSuccessful('') }
-                                    bsStyle="info">
-                                Wyloguj się
-                            </Button>
                         </div>
                             :
                         <FacebookLogin
