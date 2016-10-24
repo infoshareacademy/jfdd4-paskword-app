@@ -1,13 +1,15 @@
 import {
     REQUEST_POINTS,
-    RECEIVE_POINTS
+    RECEIVE_POINTS,
+    HIDE_POPOVER
 } from
     './actionTypes'
 
 
 const initialState = {
-        points: [],
-    fetchingPoints: false
+    points: [],
+    fetchingPoints: false,
+    visibilityPopover: true
 }
 
 export default (state = initialState, action) => {
@@ -21,6 +23,10 @@ export default (state = initialState, action) => {
                 points: action.points,
                 fetchingPoints: false
             });
+        case HIDE_POPOVER:
+            return Object.assign({}, state, {
+                visibilityPopover: false
+            })
         default:
             return state
     }

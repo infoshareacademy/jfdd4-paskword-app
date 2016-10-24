@@ -1,6 +1,7 @@
 import {
     REQUEST_POINTS,
-    RECEIVE_POINTS
+    RECEIVE_POINTS,
+    HIDE_POPOVER
 } from
     './actionTypes';
 
@@ -16,6 +17,12 @@ function receivePoints(points) {
     return {
         type: RECEIVE_POINTS,
         points: points
+    }
+}
+
+export function hidePopover() {
+    return{
+        type: HIDE_POPOVER
     }
 }
 
