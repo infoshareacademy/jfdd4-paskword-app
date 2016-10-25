@@ -1,6 +1,7 @@
 import {
     REQUEST_VETS,
-    RECEIVE_VETS
+    RECEIVE_VETS,
+    CHANGE_VIEW
 } from './actionTypes'
 
 import fetch from 'isomorphic-fetch'
@@ -24,5 +25,11 @@ export function fetchVets() {
         return fetch(`${process.env.PUBLIC_URL}/data/vetsWithAdvices.json`)
             .then(response => response.json())
             .then(vets => dispatch(receiveVets(vets)))
+    }
+}
+
+export function changeView() {
+    return {
+        type: CHANGE_VIEW,
     }
 }

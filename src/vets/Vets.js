@@ -1,18 +1,20 @@
 import React from 'react';
 import './Vets.css';
-import {Grid, Col, Panel} from 'react-bootstrap';
+import {Grid, Col, Row, Thumbnail, Button} from 'react-bootstrap';
 import {Link} from 'react-router';
 import {connect} from 'react-redux'
+import {changeView} from './actionCreators'
 
 const mapStateToProps = (state) => ({
     vets: state.vetsData.vets,
     fetchingVets: state.vetsData.fetchingVets,
     offices: state.officesData.offices,
-    fetchingOffices: state.officesData.fetchingOffices
+    fetchingOffices: state.officesData.fetchingOffices,
+    viewThumbnail: state.vetsData.viewThumbnail,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-
+    changeView: () => dispatch(changeView())
 });
 
 class Vets extends React.Component {
@@ -22,21 +24,22 @@ class Vets extends React.Component {
             vets,
             fetchingVets,
             offices,
-            fetchingOffices
-        }= this.props
+            fetchingOffices,
+            changeView,
+            viewThumbnail
+        }= this.props;
 
         return (
             <Grid>
+                <Row>
                 {fetchingVets ? <p>Ładuję weterynarzy...</p> : null}
 
                 {vets
                     .map( (vet,index) => (
-                        <Col xs={12} mdOffset={2} md={10} key={vet.id}>
-                            <Panel className="vet-list-container">
-                                <Col xs={12} mdOffset={2} md={4}>
+                        <Col xs={6} md={4}>
+
                                     <img src={vet.photo} alt={vet.firstName} className="img-responsive vets-img"/>
-                                </Col>
-                                <Col xs={12} md={6}>
+
                                     <Link to={`/vets/` + parseInt(index + 1, 10) }>
                                         <strong>{vet.firstName} {vet.lastName}</strong>
                                     </Link>
@@ -67,11 +70,10 @@ class Vets extends React.Component {
                                             })}
                                     </ul>
                                     <p>Liczba porad lekarza: {vet.advices.length}</p>
-                                </Col>
-                            </Panel>
-                        </Col>
+                            </Col>
                     ))
                 }
+                </Row>
             </Grid>
         )
     }

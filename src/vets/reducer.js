@@ -1,11 +1,13 @@
 import {
     REQUEST_VETS,
-    RECEIVE_VETS
+    RECEIVE_VETS,
+    CHANGE_VIEW
 } from './actionTypes'
 
 const initialState = {
     vets: [],
-    fetchingVets: false
+    fetchingVets: false,
+    viewThumbnail: true,
 }
 
 export default (state = initialState, action) => {
@@ -19,6 +21,10 @@ export default (state = initialState, action) => {
                 vets: action.vets,
                 fetchingVets: false
             });
+        case CHANGE_VIEW:
+            return Object.assign({}, state, {
+                viewThumbnail: false,
+            })
         default:
             return state
     }
