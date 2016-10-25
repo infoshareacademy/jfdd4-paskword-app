@@ -1,7 +1,8 @@
 import {
     REQUEST_VETS,
     RECEIVE_VETS,
-    CHANGE_VIEW
+    CHANGE_VIEW_TO_THUMBNAIL,
+    CHANGE_VIEW_TO_LIST,
 } from './actionTypes'
 
 import fetch from 'isomorphic-fetch'
@@ -28,8 +29,14 @@ export function fetchVets() {
     }
 }
 
-export function changeView() {
+export function changeViewToThumbnail() {
     return {
-        type: CHANGE_VIEW,
+        type: CHANGE_VIEW_TO_THUMBNAIL,
+    }
+}
+
+export function changeViewToList() {
+    return {
+        type: CHANGE_VIEW_TO_LIST,
     }
 }

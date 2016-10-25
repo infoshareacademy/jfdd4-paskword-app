@@ -20,7 +20,23 @@
 
 
 .vets-img{
+    margin-top: 5%;
+    padding-top: 5%;
     display: block;
     margin-left: auto;
     margin-right: auto;
+}
+
+.flexbox {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#views {
+    color: #337ab7;
+}
+
+.list-group {
+    border-radius: 4px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, .075);
 }
