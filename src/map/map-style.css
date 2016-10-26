@@ -1,5 +1,15 @@
+.col-sm-12, .col-md-12 {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.row {
+    margin-left: 0;
+    margin-right:0;
+}
+
 .mapMain {
-    height: 100vh;
+    height: 80vh;
 }
 
 .pointer-main-map {
@@ -10,17 +20,3 @@
 .popover-style {
     transition: all 0.1s ease-in;
 }
-
-/*@keyframes pop {*/
-    /*from {*/
-        /*opacity: 1;*/
-    /*}*/
-    /*to {*/
-        /*opacity: 0.0;*/
-    /*}*/
-/*}*/
-
-/*.popover-style {*/
-    /*animation-name: pop;*/
-    /*animation-duration: 7s;*/
-/*}*/

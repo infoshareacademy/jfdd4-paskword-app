@@ -4,7 +4,7 @@ import Place from '../place/Place';
 import './map-style.css';
 import '../data/vets.js';
 import officehMark from '../place/finish.png'
-import {Grid, Row, Col, OverlayTrigger, Tooltip, Popover} from 'react-bootstrap';
+import { Row, Col, OverlayTrigger, Tooltip, Popover} from 'react-bootstrap';
 import {Link} from 'react-router';
 import {connect} from 'react-redux';
 import {hidePopover} from './actionCreators'
@@ -31,11 +31,9 @@ class Map extends React.Component {
         }=this.props;
 
         return (
-            <div>
-                <Grid>
-                    {fetchingPoints ? <p>Ładowanie mapy, proszę czekać...</p> : null}
                     <Row>
-                        <Col sm={12} md={12}>
+                        {fetchingPoints ? <p>Ładowanie mapy, proszę czekać...</p> : null}
+                        <Col sm={12}>
                             <div className="mapMain">
                                 <GoogleMap
                                     bootstrapURLKeys={{
@@ -87,8 +85,6 @@ class Map extends React.Component {
                             </div>
                         </Col>
                     </Row>
-                </Grid>
-            </div>
         )
     }
 }

@@ -6,7 +6,6 @@ import startMark from '../place/start.png';
 import finishMark from '../place/finish.png'
 import {Link} from 'react-router';
 import {
-    Grid,
     Row,
     Col,
     Panel
@@ -59,7 +58,6 @@ export default class VetSearch extends React.Component {
         var y = this.state.yPoint;
         var nearestOffice = this.state.idOfNearestOffice;
         return (
-            <Grid>
                 <Row>
                     <Col xs={12} md={10}>
                         <div className="vet-search-map">
@@ -125,7 +123,6 @@ export default class VetSearch extends React.Component {
                         }
                     </Col>
                 </Row>
-            </Grid>
         )
     }
 }

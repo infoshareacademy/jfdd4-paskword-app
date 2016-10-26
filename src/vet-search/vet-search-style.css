@@ -1,5 +1,15 @@
+.col-sm-12, .col-md-10 {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.row {
+    margin-left: 0;
+    margin-right:0;
+}
+
 .vet-search-map {
-    height: 100vh;
+    height: 80vh;
 }
 
 @keyframes purpleMark {
