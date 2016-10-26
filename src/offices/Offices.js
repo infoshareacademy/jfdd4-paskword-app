@@ -9,6 +9,8 @@ import {
     Panel
 }
     from 'react-bootstrap';
+import Rcslider from 'rc-slider';
+import '../../node_modules/rc-slider/assets/index.css'
 
 
 export default class Offices extends React.Component {
@@ -16,7 +18,9 @@ export default class Offices extends React.Component {
         super();
         this.state = {
             vetsOffices: [],
-            isLoading: true
+            isLoading: true,
+            minValue: 1,
+            maxValue: 10
         }
     }
 
@@ -32,6 +36,18 @@ export default class Offices extends React.Component {
 
         return (
             <Grid>
+                <Row>
+                    <Col xs={12} mdOffset={2} md={10}>
+                        <Rcslider
+                            className="rc-slider"
+                            min={this.state.minValue}
+                            max={this.state.maxValue}
+                            step={1}
+                            range={true}
+                            defaultValue={[this.state.minValue,this.state.maxValue]}
+                        />
+                    </Col>
+                </Row>
                 <Row>
                     <Col xs={12} mdOffset={2} md={10}>
                         {this.state.isLoading ? 'Loading list of veterinary offices....' : null}
