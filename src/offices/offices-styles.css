@@ -11,3 +11,16 @@
 
 }
 
+.rc-slider-handle {
+    background-image: url("./paw-sidebar.png");
+    background-size: cover;
+}
+
+.rc-slider {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.rc-slider-track {
+    background-color: rgb(11, 203, 204);
+}
