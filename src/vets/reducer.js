@@ -3,12 +3,14 @@ import {
     RECEIVE_VETS,
     CHANGE_VIEW_TO_THUMBNAIL,
     CHANGE_VIEW_TO_LIST,
+    FILTER_VETS_BY_NAME,
 } from './actionTypes'
 
 const initialState = {
     vets: [],
     fetchingVets: false,
     viewThumbnail: true,
+    matchName: '',
 }
 
 export default (state = initialState, action) => {
@@ -29,6 +31,10 @@ export default (state = initialState, action) => {
         case CHANGE_VIEW_TO_LIST:
             return Object.assign({}, state, {
                 viewThumbnail: false,
+            });
+        case FILTER_VETS_BY_NAME:
+            return Object.assign({}, state, {
+                matchName: action.matchName,
             });
         default:
             return state

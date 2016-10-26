@@ -9,6 +9,7 @@ const mapStateToProps = (state) => ({
     fetchingVets: state.vetsData.fetchingVets,
     offices: state.officesData.offices,
     fetchingOffices: state.officesData.fetchingOffices,
+    matchName: state.vetsData.matchName,
 });
 
 class Thumbnails extends React.Component {
@@ -18,7 +19,8 @@ class Thumbnails extends React.Component {
             vets,
             fetchingVets,
             offices,
-            fetchingOffices
+            fetchingOffices,
+            matchName,
         } = this.props;
 
         return (
@@ -28,6 +30,10 @@ class Thumbnails extends React.Component {
                     {fetchingVets ? <p>Ładuję weterynarzy...</p> : null}
 
                     {vets
+                        .filter(function(vet) {
+                            var fullName = (vet.firstName + ' ' + vet.lastName).toLowerCase();
+                            return fullName.indexOf(matchName.toLowerCase()) !== -1
+                        })
                         .map((vet, index) => (
 
                             <Col xs={12} sm={6} md={4} lg={3}>
