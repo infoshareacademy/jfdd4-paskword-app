@@ -1,11 +1,14 @@
 import {
     REQUEST_VETS,
-    RECEIVE_VETS
+    RECEIVE_VETS,
+    CHANGE_VIEW_TO_THUMBNAIL,
+    CHANGE_VIEW_TO_LIST,
 } from './actionTypes'
 
 const initialState = {
     vets: [],
-    fetchingVets: false
+    fetchingVets: false,
+    viewThumbnail: true,
 }
 
 export default (state = initialState, action) => {
@@ -18,6 +21,14 @@ export default (state = initialState, action) => {
             return Object.assign({}, state, {
                 vets: action.vets,
                 fetchingVets: false
+            });
+        case CHANGE_VIEW_TO_THUMBNAIL:
+            return Object.assign({}, state, {
+                viewThumbnail: true,
+            });
+        case CHANGE_VIEW_TO_LIST:
+            return Object.assign({}, state, {
+                viewThumbnail: false,
             });
         default:
             return state

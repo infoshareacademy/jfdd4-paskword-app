@@ -1,6 +1,8 @@
 import {
     REQUEST_VETS,
-    RECEIVE_VETS
+    RECEIVE_VETS,
+    CHANGE_VIEW_TO_THUMBNAIL,
+    CHANGE_VIEW_TO_LIST,
 } from './actionTypes'
 
 import fetch from 'isomorphic-fetch'
@@ -24,5 +26,17 @@ export function fetchVets() {
         return fetch(`${process.env.PUBLIC_URL}/data/vetsWithAdvices.json`)
             .then(response => response.json())
             .then(vets => dispatch(receiveVets(vets)))
+    }
+}
+
+export function changeViewToThumbnail() {
+    return {
+        type: CHANGE_VIEW_TO_THUMBNAIL,
+    }
+}
+
+export function changeViewToList() {
+    return {
+        type: CHANGE_VIEW_TO_LIST,
     }
 }

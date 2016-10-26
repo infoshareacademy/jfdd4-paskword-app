@@ -1,78 +1,51 @@
 import React from 'react';
 import './Vets.css';
-import {Grid, Col, Panel} from 'react-bootstrap';
-import {Link} from 'react-router';
+import {Grid, Col, Row, Button, Glyphicon} from 'react-bootstrap';
 import {connect} from 'react-redux'
+import {changeViewToThumbnail, changeViewToList} from './actionCreators'
+import Thumbnails from './thumbnails/Thumbnails'
+import List from './list/List'
 
 const mapStateToProps = (state) => ({
-    vets: state.vetsData.vets,
-    fetchingVets: state.vetsData.fetchingVets,
-    offices: state.officesData.offices,
-    fetchingOffices: state.officesData.fetchingOffices
+    viewThumbnail: state.vetsData.viewThumbnail,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-
+    changeViewToThumbnail: () => dispatch(changeViewToThumbnail()),
+    changeViewToList: () => dispatch(changeViewToList()),
 });
 
 class Vets extends React.Component {
 
     render() {
         var {
-            vets,
-            fetchingVets,
-            offices,
-            fetchingOffices
-        }= this.props
+            changeViewToThumbnail,
+            changeViewToList,
+            viewThumbnail,
+        } = this.props;
 
-        return (
-            <Grid>
-                {fetchingVets ? <p>Ładuję weterynarzy...</p> : null}
+        return  (
+            <div id="vets">
+                <Grid>
+                    <Row>
+                        <Col xs={12}>
+                            <h3 id="views">Widok:</h3>
+                            <Button
+                                bsSize="large"
+                                onClick={() => changeViewToThumbnail()}>
+                                <Glyphicon glyph="th" />
+                            </Button>
+                            <Button
+                                bsSize="large"
+                                onClick={() => changeViewToList()}>
+                                <Glyphicon glyph="th-list" />
+                            </Button>
 
-                {vets
-                    .map( (vet,index) => (
-                        <Col xs={12} mdOffset={2} md={10} key={vet.id}>
-                            <Panel className="vet-list-container">
-                                <Col xs={12} mdOffset={2} md={4}>
-                                    <img src={vet.photo} alt={vet.firstName} className="img-responsive vets-img"/>
-                                </Col>
-                                <Col xs={12} md={6}>
-                                    <Link to={`/vets/` + parseInt(index + 1, 10) }>
-                                        <strong>{vet.firstName} {vet.lastName}</strong>
-                                    </Link>
-                                    <p>E-mail: {vet.email}</p>
-                                    <p>Telefon: {vet.phone}</p>
-
-                                    <p>Przychodnie:</p>
-                                    {fetchingOffices ? <p>Ładuję przychodnie...</p> : null}
-                                    <ul>
-                                        {offices
-                                            .filter(function (office) {
-                                                var result = office.vetIds.indexOf(vet.id) !== -1
-                                                {
-                                                    console.log(office.vetIds)
-                                                }
-                                                return result
-                                            })
-                                            .map(function (item) {
-                                                return item
-                                            })
-                                            .map(function (office) {
-                                                return (
-                                                    <Link key={office.officeName}
-                                                          to={`/offices/` + parseInt(office.id, 10)}>
-                                                        <p>{office.officeName}</p>
-                                                    </Link>
-                                                )
-                                            })}
-                                    </ul>
-                                    <p>Liczba porad lekarza: {vet.advices.length}</p>
-                                </Col>
-                            </Panel>
+                            {viewThumbnail ?  <Thumbnails /> : <List /> }
                         </Col>
-                    ))
-                }
-            </Grid>
+                    </Row>
+                </Grid>
+            </div>
         )
     }
 }
