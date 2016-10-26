@@ -156,10 +156,11 @@ export default class Vet extends React.Component {
                     <Col xs={12} mdOffset={2} md={8}>
                         <Panel className="one-vet-container">
                             <Row>
+
+
                                 <h1>Weterynarz</h1>
                                 <strong><p>{this.state.vet.firstName} {this.state.vet.lastName}</p></strong>
-                            </Row>
-                            <Row>
+
                                 <p><img src={this.state.vet.photo} alt={this.state.vet.lastName}/></p>
                                 <p>Przychodnie: </p>
                                 {this.state.offices.length === 0 ?
@@ -216,8 +217,7 @@ export default class Vet extends React.Component {
                                             </div>
                                         )
                                     })}
-                            </Row>
-                            <Row>
+
 
                             <Timeslots events={visitsDates.filter(vet => vet.vetId === vetId)}/>
 
