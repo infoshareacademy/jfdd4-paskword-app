@@ -158,7 +158,7 @@ export default class Vet extends React.Component {
                             <Row>
                                 <h1>Weterynarz</h1>
 
-                                <Tabs defaultActiveKey={2} id="uncontrolled-tab-example">
+                                <Tabs defaultActiveKey={1} id="uncontrolled-tab-example">
                                     <Tab eventKey={1} title="Dane kontaktowe">
                                         <strong><p>{this.state.vet.firstName} {this.state.vet.lastName}</p></strong>
 
