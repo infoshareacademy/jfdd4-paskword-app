@@ -1,7 +1,8 @@
 import React from 'react';
 import './offices-styles.css';
-import officesData from '../data/offices.js';
+import '../data/offices.js';
 import {Link} from 'react-router';
+import {connect} from 'react-redux';
 import {
     Grid,
     Row,
@@ -10,29 +11,24 @@ import {
 }
     from 'react-bootstrap';
 import Rcslider from 'rc-slider';
-import '../../node_modules/rc-slider/assets/index.css'
+import '../../node_modules/rc-slider/assets/index.css';
 
 
-export default class Offices extends React.Component {
-    constructor() {
-        super();
-        this.state = {
-            vetsOffices: [],
-            isLoading: true,
-            minValue: 1,
-            maxValue: 10
-        }
-    }
+const mapDispatchToProps = (state) => ({
+    vetsOffices: state.officesData.offices,
+    fetchingOffices: state.officesData.fetchingOffices
+});
 
-    componentWillMount() {
-        this.setState({
-            vetsOffices: officesData,
-            isLoading: false
-        });
-    }
+const mapDispatchToProps = (dispatch) => ({});
 
+class Offices extends React.Component {
     render() {
-        var allOfficesData = this.state.vetsOffices;
+        var {
+            vetsOffices,
+            fetchingOffices,
+            minValue = 1,
+            maxValue = 10
+        }=this.props;
 
         return (
             <Grid>
@@ -40,18 +36,18 @@ export default class Offices extends React.Component {
                     <Col xs={12} mdOffset={2} md={10}>
                         <Rcslider
                             className="rc-slider"
-                            min={this.state.minValue}
-                            max={this.state.maxValue}
+                            min={minValue}
+                            max={maxValue}
                             step={1}
                             range={true}
-                            defaultValue={[this.state.minValue,this.state.maxValue]}
+                            defaultValue={[minValue,maxValue]}
                         />
                     </Col>
                 </Row>
                 <Row>
                     <Col xs={12} mdOffset={2} md={10}>
-                        {this.state.isLoading ? 'Loading list of veterinary offices....' : null}
-                        {allOfficesData.map(function (office) {
+                        {fetchingOffices ? 'Proszę czekać, trwa ładowanie listy gabinetów...' : null}
+                        {vetsOffices.map(function (office) {
                             return (
                                 <Link to={`/offices/${office.id}`}
                                       key={office.id}>
@@ -76,3 +72,5 @@ export default class Offices extends React.Component {
         )
     }
 }
+
+export default connect(mapDispatchToProps, mapDispatchToProps)(Offices)
