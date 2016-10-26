@@ -159,7 +159,7 @@ export default class Vet extends React.Component {
                                 <h1>Weterynarz</h1>
 
                                 <Tabs defaultActiveKey={2} id="uncontrolled-tab-example">
-                                    <Tab eventKey={1} title="Tab 1">
+                                    <Tab eventKey={1} title="Dane kontaktowe">
                                         <strong><p>{this.state.vet.firstName} {this.state.vet.lastName}</p></strong>
 
                                         <p><img src={this.state.vet.photo} alt={this.state.vet.lastName}/></p>
@@ -184,12 +184,11 @@ export default class Vet extends React.Component {
                                                     )
                                                 })}
                                         </ul>
-
                                         <p>E-mail: {this.state.vet.email}</p>
                                         <p>Telefon: +{this.state.vet.phone}</p>
 
                                     </Tab>
-                                    <Tab eventKey={2} title="Tab 2">
+                                    <Tab eventKey={2} title="Porady">
                                         <p>Liczba porad: {this.state.vet.advices.length}</p>
 
 
@@ -224,19 +223,10 @@ export default class Vet extends React.Component {
                                                 )
                                             })}
                                     </Tab>
-                                    <Tab eventKey={3} title="Tab 3">
+                                    <Tab eventKey={3} title="Kalendarz wizyt">
                                         <Timeslots events={visitsDates.filter(vet => vet.vetId === vetId)}/>
                                     </Tab>
                                 </Tabs>
-
-
-
-
-
-
-
-
-
                             </Row>
                         </Panel>
                     </Col>
