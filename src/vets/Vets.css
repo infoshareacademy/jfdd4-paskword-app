@@ -12,7 +12,6 @@
     font-size: 2.5vh;
 }
 
-
 @media screen and (max-width:800px) {
     strong, p{
         font-size: 2vh;
@@ -27,16 +26,70 @@
     margin-right: auto;
 }
 
+.vets-img img {
+    max-height: 133px;
+}
+
 .flexbox {
     display: flex;
     flex-wrap: wrap;
 }
 
-#views {
-    color: #337ab7;
-}
-
 .list-group {
     border-radius: 4px;
     box-shadow: 0 1px 2px rgba(0, 0, 0, .075);
+}
+
+.glyphicon {
+    color: white;
+    background: #337ab7;
+}
+
+.btn-default {
+    background: #337ab7;
+    margin: 0 1%;
+}
+
+.btn-default:hover, .btn-default:focus{
+    background: #337ab7;
+}
+
+.vets-list {
+    background: #337ab7;
+    color: white;
+}
+
+.vets-list h3 {
+    margin-top: 1%;
+    padding: 3%;
+    color: white;
+}
+
+.vets-list h3:hover, .vets-list h3:focus {
+    text-decoration: none;
+}
+
+.vets-list:hover, .btn-default:hover, .btn-default:focus {
+    transform: translate(-3px, -3px);
+    box-shadow: 18px 18px 20px -17px rgba(0, 0, 0, 0.73);
+}
+
+.vets-list a {
+    text-decoration: none;
+}
+
+.btn-lg {
+    border-radius: 100px;
+}
+
+#views {
+    color: rgba(51,122,183,1);
+}
+
+#vets {
+    background: white; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(top, rgba(51,122,183,0),rgba(51,122,183,1)); /*Safari 5.1-6*/
+    background: -o-linear-gradient(top, rgba(51,122,183,0),rgba(51,122,183,1)); /*Opera 11.1-12*/
+    background: -moz-linear-gradient(top,rgba(51,122,183,0),rgba(51,122,183,1)); /*Fx 3.6-15*/
+    background: linear-gradient(to bottom, rgba(51,122,183,0), rgba(51,122,183,1)); /*Standard*/
 }

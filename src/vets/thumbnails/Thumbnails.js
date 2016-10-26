@@ -31,7 +31,9 @@ class Thumbnails extends React.Component {
                         .map((vet, index) => (
 
                             <Col xs={12} sm={6} md={4} lg={3}>
-                                <Thumbnail src={vet.photo} alt={vet.firstName} className="img-responsive vets-img"
+                                <Thumbnail src={vet.photo}
+                                           alt={vet.firstName}
+                                           className="img-responsive vets-img image-rounded"
                                            id={vet.firstName}>
                                     <Link to={`/vets/` + parseInt(index + 1, 10) }>
                                         <h3>{vet.firstName} {vet.lastName}</h3>

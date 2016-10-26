@@ -26,8 +26,8 @@ class List extends React.Component {
                     {vets
                         .map((vet, index) => (
 
-                            <Col xs={12}>
-                                   <ListGroup>
+                            <Col xs={12} sm={6}>
+                                   <ListGroup className="vets-list">
                                        <Link to={`/vets/` + parseInt(index + 1, 10) }>
                                             <h3>{vet.firstName} {vet.lastName}</h3>
                                         </Link>

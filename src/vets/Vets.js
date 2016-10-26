@@ -25,10 +25,10 @@ class Vets extends React.Component {
         } = this.props;
 
         return  (
-            <div>
+            <div id="vets">
                 <Grid>
                     <Row>
-                        <Col>
+                        <Col xs={12}>
                             <h3 id="views">Widok:</h3>
                             <Button
                                 bsSize="large"
