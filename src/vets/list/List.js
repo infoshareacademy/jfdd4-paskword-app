@@ -7,6 +7,7 @@ import {connect} from 'react-redux'
 const mapStateToProps = (state) => ({
     vets: state.vetsData.vets,
     fetchingVets: state.vetsData.fetchingVets,
+    matchName: state.vetsData.matchName,
 });
 
 class List extends React.Component {
@@ -15,6 +16,7 @@ class List extends React.Component {
         var {
             vets,
             fetchingVets,
+            matchName,
         } = this.props;
 
         return (
@@ -24,6 +26,10 @@ class List extends React.Component {
                     {fetchingVets ? <p>Ładuję weterynarzy...</p> : null}
 
                     {vets
+                        .filter(function(vet) {
+                            var fullName = (vet.firstName + ' ' + vet.lastName).toLowerCase();
+                            return fullName.indexOf(matchName.toLowerCase()) !== -1
+                        })
                         .map((vet, index) => (
 
                             <Col xs={12} sm={6}>
