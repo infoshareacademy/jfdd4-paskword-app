@@ -8,6 +8,9 @@ import BigCalendar from 'react-big-calendar';
 // BigCalendar.setLocalizer(
 //     BigCalendar.globalizeLocalizer(globalize)
 // );
+import 'react-big-calendar/lib/css/react-big-calendar.css';
+import moment from 'moment';
+BigCalendar.momentLocalizer(moment);
 let Timeslots = React.createClass({
 
     render(){
