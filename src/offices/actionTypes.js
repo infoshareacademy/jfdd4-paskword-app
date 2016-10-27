@@ -1,2 +1,3 @@
 export const REQUEST_OFFICES = 'offices/REQUEST_OFFICES'
 export const RECEIVE_OFFICES = 'offices/RECEIVE_OFFICES'
+export const SELECT_NUMBER_OF_VETS = 'offices/SELECT_NUMBER_OF_VETS'
