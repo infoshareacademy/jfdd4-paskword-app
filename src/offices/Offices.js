@@ -41,7 +41,8 @@ class Offices extends React.Component {
             rangeFilter = office => office.vetIds.length >= values[0] && office.vetIds.length <= values[1]
         }=this.props;
         return (
-            <Grid>
+            <div id="offices">
+            <Grid >
                 <Row>
                     <Col xs={12} mdOffset={2} md={10}>
                         <Rcslider
@@ -85,6 +86,7 @@ class Offices extends React.Component {
                     </Col>
                 </Row>
             </Grid>
+                </div>
         )
     }
 }

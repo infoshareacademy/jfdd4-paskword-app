@@ -12,15 +12,23 @@
 }
 
 .rc-slider-handle {
-    background-image: url("./paw-sidebar.png");
-    background-size: cover;
+    background-image: url("./paw-sidebar.png") !important;
+    background-size: cover !important;
 }
 
 .rc-slider {
-    margin-top: 20px;
-    margin-bottom: 20px;
+    margin-top: 20px !important;
+    margin-bottom: 20px !important;
 }
 
 .rc-slider-track {
-    background-color: rgb(11, 203, 204);
+    background-color: rgb(11, 203, 204) !important;
+}
+
+#offices {
+    background: white; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(top, rgba(51,122,183,0),rgba(51,122,183,1)); /*Safari 5.1-6*/
+    background: -o-linear-gradient(top, rgba(51,122,183,0),rgba(51,122,183,1)); /*Opera 11.1-12*/
+    background: -moz-linear-gradient(top,rgba(51,122,183,0),rgba(51,122,183,1)); /*Fx 3.6-15*/
+    background: linear-gradient(to bottom, rgba(51,122,183,0), rgba(51,122,183,1)); /*Standard*/
 }
