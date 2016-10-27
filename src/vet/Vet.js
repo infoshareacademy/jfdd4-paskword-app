@@ -1,8 +1,6 @@
 import { connect } from 'react-redux'
 import React from 'react';
 import './Vet.css'
-import visitsDates from '../data/visitsDates'
-import {Link} from 'react-router';
 import {Grid, Row, Col, Panel, Tabs, Tab} from 'react-bootstrap';
 import Tab1 from './tab1/Tab1'
 import Tab2 from './tab2/Tab2'
@@ -10,6 +8,7 @@ import { activateFilter } from './actionCreators'
 import filters from './filters'
 import { Button } from 'react-bootstrap'
 import visitsDates from '../data/visitsDates'
+import Timeslots from '../timeslots/Timeslots'
 
 const mapStateToProps = (state) => ({
     vets: state.vetsData.vets,
