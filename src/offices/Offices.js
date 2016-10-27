@@ -45,6 +45,7 @@ class Offices extends React.Component {
             <Grid >
                 <Row>
                     <Col xs={12} mdOffset={2} md={10}>
+                        <h3>Filtruj gabinety po liczbie pracujących w nich lekarzy</h3>
                         <Rcslider
                             className="rc-slider"
                             min={minValue}
