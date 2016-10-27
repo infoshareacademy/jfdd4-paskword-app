@@ -8,6 +8,7 @@ import Tab2 from './tab2/Tab2'
 import { activateFilter } from './actionCreators'
 import filters from './filters'
 import { Button } from 'react-bootstrap'
+import visitsDates from '../data/visitsDates'
 
 const mapStateToProps = (state) => ({
     vets: state.vetsData.vets,
@@ -48,7 +49,6 @@ class Vet extends React.Component {
         return (
             <Grid>
                 <div className="Weterynarz">
-                    {fetchingVets ? 'Ładuję wybranego weterynarza...' : null}
                     <Col xs={12} mdOffset={2} md={8}>
                         <Panel className="one-vet-container">
                             <Row>
@@ -80,8 +80,10 @@ class Vet extends React.Component {
                                             />
                                     </Tab>
                                     <Tab eventKey={3} title="Kalendarz wizyt">
-                                        {fetchingVisits ? "Ładuję kalendarz..." : null}
-                                        <Timeslots events={visits.filter(visit => visit.vetId === vet.id)}/>
+                                        {fetchingVisits ? "Ładuję kalendarz..." :
+                                            <Timeslots events={visitsDates.filter(visit => visit.vetId === vet.id)}/>
+                                        }
+
                                     </Tab>
                                 </Tabs> : "Ładuję..."}
                             </Row>
