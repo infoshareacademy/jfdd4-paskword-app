@@ -28,7 +28,8 @@ class List extends React.Component {
                     {vets
                         .filter(function(vet) {
                             var fullName = (vet.firstName + ' ' + vet.lastName).toLowerCase();
-                            return fullName.indexOf(matchName.toLowerCase()) !== -1
+                            var reversedFullName = (vet.lastName + ' ' + vet.firstName).toLowerCase();
+                            return fullName.indexOf(matchName.toLowerCase()) !== -1 || reversedFullName.indexOf(matchName.toLowerCase()) !== -1
                         })
                         .map((vet, index) => (
 
