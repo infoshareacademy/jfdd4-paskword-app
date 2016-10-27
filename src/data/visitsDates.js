@@ -612,4 +612,5 @@ var data =[
 
 ];
 
+console.log(JSON.stringify(data));
 export default data;
