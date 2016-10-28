@@ -33,7 +33,25 @@ class App extends Component {
         return (
             <div className="App">
                 <Menu/>
-        
+                <div className="facebook-login">
+                    {loggedIn ?
+                        <div>
+                            <p>Zalogowano jako {loggedUserName}</p>
+                        </div>
+                        :
+                        <FacebookLogin
+                            id="facebook-login"
+                            appId="243203269416376"
+                            size="small"
+                            autoLoad={false}
+                            reAuthenticate={true}
+                            fields="name,email,picture"
+                            callback={loginSuccessful}
+                            className="google-login"
+                            icon="fa-facebook"
+                            textButton="ZALOGUJ SIĘ"/>
+                    }
+                </div>
                 {this.props.children}
             </div>
         );
