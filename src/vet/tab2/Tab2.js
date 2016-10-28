@@ -18,11 +18,13 @@ export default class Tab2 extends React.Component {
                     .map(function (advice) {
                         return (
                             <div key={advice.id}>
-                                <Col xs={10} xsOffset={1} sm={8} smOffset={2}
-                                     className="advice">
-                                    <p>Tag: {advice.tag}</p>
-                                    <p>{advice.advice}</p>
-                                </Col>
+                                {advice.tag == 0 ? <p>"Brak porad na dany temat"</p> :
+                                    <Col xs={10} xsOffset={1} sm={8} smOffset={2}
+                                         className="advice">
+                                        <p>Tag: {advice.tag}</p>
+                                        <p>{advice.advice}</p>
+                                    </Col>
+                                }
                             </div>
                         )
                     })}

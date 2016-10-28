@@ -18,15 +18,14 @@ let Timeslots = React.createClass({
             <BigCalendar
                 {...this.props}
                 events={this.props.events}
-                step={15}
+                step={60}
                 views={['week']}
-                timeslots={8}
+                timeslots={1}
                 defaultView='week'
                 defaultDate={new Date()}
             />
         )
     }
-
 })
 
 
