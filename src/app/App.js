@@ -32,13 +32,13 @@ class App extends Component {
         } = this.props;
         return (
             <div className="App">
-                <Menu />
+                <Menu/>
                 <div className="facebook-login">
                     {loggedIn ?
                         <div>
                             <p>Zalogowano jako {loggedUserName}</p>
                         </div>
-                            :
+                        :
                         <FacebookLogin
                             id="facebook-login"
                             appId="243203269416376"

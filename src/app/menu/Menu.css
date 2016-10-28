@@ -1,13 +1,39 @@
 .App-Menu {
-
     margin: 0;
     padding: 0;
     width: 100%;
     border-radius: 0;
     color: white;
-    background-color: #222222;
+    font-family: 'Arima Madurai', Times, serf;
 }
 
 .navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:hover, .navbar-inverse .navbar-nav > .active > a:focus {
-    color: rgb(11, 203, 204);
+    color: white;
+    background-color: rgb(202, 60, 10);
+    background-image: none;
+
+}
+
+.navbar {
+    background-image: none;
+    font-size: 20px;
+    color: white;
+}
+
+.navbar-inverse {
+    background-image: none;
+    background-color: rgb(202, 54, 4);
+    border-color: transparent;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+    color: white;
+}
+
+p {
+    font-size: 14px;
+}
+
+#paw-logo {
+    padding: 3px;
 }
