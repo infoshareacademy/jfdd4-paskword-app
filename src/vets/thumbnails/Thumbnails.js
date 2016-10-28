@@ -36,7 +36,7 @@ class Thumbnails extends React.Component {
                         })
                         .map((vet, index) => (
 
-                            <Col xs={12} sm={6} md={4} lg={3}>
+                            <Col key={index} xs={12} sm={6} md={4} lg={3}>
                                 <Thumbnail src={vet.photo}
                                            alt={vet.firstName}
                                            className="img-responsive vets-img image-rounded"
