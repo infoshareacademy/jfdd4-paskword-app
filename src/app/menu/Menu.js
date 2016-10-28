@@ -10,7 +10,7 @@ export default (props) =>
     <Navbar inverse className="App-Menu">
         <Navbar.Header>
             <Navbar.Brand>
-                <img src={Logo} alt="Logo" className="responsive"/>
+                <img src={Logo} alt="Logo" className="responsive" id="paw-logo"/>
             </Navbar.Brand>
             <Navbar.Toggle />
         </Navbar.Header>
@@ -18,7 +18,7 @@ export default (props) =>
         <Navbar.Collapse>
             <Nav>
                 <IndexLinkContainer to={`/`}>
-                    <NavItem eventKey={0} href="#"><strong>Futrzak</strong></NavItem>
+                    <NavItem eventKey={0} href="#">FUTRZAK</NavItem>
                 </IndexLinkContainer>
 
                 <IndexLinkContainer to={`/vets`}>

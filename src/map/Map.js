@@ -57,7 +57,7 @@ class Map extends React.Component {
                                         </Popover>}
                                         />
                                         : null }
-                                    
+
                                     {points
                                         .map(function (officeGPSPoint) {
                                             var tooltip = (
