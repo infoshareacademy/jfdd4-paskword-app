@@ -44,7 +44,7 @@ class Offices extends React.Component {
             <div id="offices">
             <Grid >
                 <Row>
-                    <Col xs={12} mdOffset={2} md={10}>
+                    <Col xs={12} md={12}>
                         <h3>Filtruj gabinety po liczbie pracujących w nich lekarzy</h3>
                         <Rcslider
                             className="rc-slider"
@@ -58,8 +58,7 @@ class Offices extends React.Component {
                     </Col>
                 </Row>
                 <Row>
-                    <Col xs={12} mdOffset={2}
-                         md={10}>
+                    <Col xs={12}  md={12}>
                         {fetchingOffices ? 'Proszę czekać, trwa ładowanie listy gabinetów...' : null}
                         {vetsOffices
                             .filter(rangeFilter)
@@ -69,15 +68,15 @@ class Offices extends React.Component {
                                           key={office.id}>
                                         <Panel className="office-list-container">
                                             <Col xs={12} md={2}>
-                                                <img src={office.logo} alt="Logo"/>
+                                                <img src={office.logo} alt="Logo" className="responsive"/>
                                             </Col>
                                             <Col xs={12} md={10}>
-                                                <span><strong>{office.officeName}</strong></span>
+                                                <h3>{office.officeName}</h3>
                                                 <br/>
-                                                <span>{office.officeAddress}</span>
+                                                <p>{office.officeAddress}</p>
                                                 <br/>
 
-                                                <span>Liczba lekarzy: {office.vetIds.length}</span>
+                                                <p>Liczba lekarzy: {office.vetIds.length}</p>
                                             </Col>
                                         </Panel>
                                     </Link>

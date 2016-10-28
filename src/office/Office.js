@@ -50,7 +50,7 @@ export default class Office extends React.Component {
                     {this.state.isLoading ? 'Loading iformation about choosen vet office...' : null}
                     <Row>
                         <Col sm={12} md={12}>
-                            <h1>{oneOffice.officeName}</h1>
+                            <h3>{oneOffice.officeName}</h3>
                         </Col>
                     </Row>
                     <Row>
