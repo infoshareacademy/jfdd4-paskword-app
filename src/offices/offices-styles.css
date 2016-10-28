@@ -19,15 +19,16 @@
 #offices .rc-slider-handle {
     background-image: url("./paw-sidebar.png");
     background-size: cover !important;
-    background-color: rgb(11, 203, 204);
+    background-color: rgb(202, 54, 4);
     width: 40px;
     height: 40px;
     margin-top:-13px;
+    border: rgb(202, 54, 4);
 }
 
 
 #offices .rc-slider-track {
-    background-color: rgb(11, 203, 204) ;
+    background-color: rgba(51,122,183,1);
     height:15px
 }
 
@@ -35,10 +36,3 @@
     height:13px;
 }
 
-#offices {
-    background: white; /* For browsers that do not support gradients */
-    background: -webkit-linear-gradient(top, rgba(51,122,183,0),rgba(51,122,183,1)); /*Safari 5.1-6*/
-    background: -o-linear-gradient(top, rgba(51,122,183,0),rgba(51,122,183,1)); /*Opera 11.1-12*/
-    background: -moz-linear-gradient(top,rgba(51,122,183,0),rgba(51,122,183,1)); /*Fx 3.6-15*/
-    background: linear-gradient(to bottom, rgba(51,122,183,0), rgba(51,122,183,1)); /*Standard*/
-}
