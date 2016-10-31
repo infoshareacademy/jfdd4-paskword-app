@@ -13,7 +13,12 @@ import {hidePopover} from './actionCreators'
 const mapStateToProps = (state) => ({
     points: state.mapData.points,
     fetchingPoints: state.mapData.fetchingPoints,
-    visibilityPopover: state.mapData.visibilityPopover
+    visibilityPopover: state.mapData.visibilityPopover,
+    createMapOptions: function (maps) {
+        return {
+            scrollwheel: false
+        }
+    }
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -27,7 +32,8 @@ class Map extends React.Component {
             points,
             fetchingPoints,
             hidePopover,
-            visibilityPopover
+            visibilityPopover,
+            createMapOptions
         }=this.props;
 
         return (
@@ -36,6 +42,7 @@ class Map extends React.Component {
                         <Col sm={12}>
                             <div className="mapMain">
                                 <GoogleMap
+                                    options={createMapOptions}
                                     bootstrapURLKeys={{
                                         key: 'AIzaSyCJSyocAtUnWSKhjyqZlJtmaf_afdJcOkA',
                                         language: 'pl'

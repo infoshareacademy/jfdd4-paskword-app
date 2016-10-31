@@ -9,7 +9,7 @@
 }
 
 .vet-search-map {
-    height: 90vh;
+    height: calc(100vh - 52px);
 }
 
 @keyframes purpleMark {
