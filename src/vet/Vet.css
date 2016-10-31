@@ -5,3 +5,16 @@
 .one-vet-container {
     margin-top: 5%;
 }
+
+.single-vet-element  a:link {
+    text-decoration: none;
+}
+
+.single-vet-element {
+    transition: all 0.1s ease-in;
+}
+
+.single-vet-element :hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 18px 18px 20px -17px rgba(0, 0, 0, 0.73);
+}
