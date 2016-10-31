@@ -1,7 +1,8 @@
 import {
     REQUEST_VISITS,
     RECEIVE_VISITS,
-    ACTIVATE_FILTER
+    ACTIVATE_FILTER,
+    PICK_THE_DATE,
 } from './actionTypes'
 
 import fetch from 'isomorphic-fetch'

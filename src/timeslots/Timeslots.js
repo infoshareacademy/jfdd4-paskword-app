@@ -23,6 +23,8 @@ let Timeslots = React.createClass({
                 timeslots={1}
                 defaultView='week'
                 defaultDate={new Date()}
+                selectable={true}
+                onSelectSlot={(event) => console.log(event)}
             />
         )
     }
