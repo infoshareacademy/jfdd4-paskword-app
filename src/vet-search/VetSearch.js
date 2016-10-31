@@ -118,7 +118,7 @@ export default class VetSearch extends React.Component {
                                     <Link to={`/offices/${officeId.id}`}
                                           key={officeId.id}
                                     >
-                                        <Panel className="nearest-vet-container">
+                                        <Panel className="nearest-vet-container ">
                                             <p><img src={officeId.logo} alt={"Logo gabientu"} className="img-responsive vet-search-img "/> </p>
                                             <p><strong>{officeId.officeName}</strong></p>
                                             <p>{officeId.officeAddress}</p>

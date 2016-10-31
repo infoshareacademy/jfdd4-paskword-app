@@ -87,3 +87,30 @@
     color: white;
     border-radius: 100px;
 }
+
+.thumb-row {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.thumb-col {
+    display: flex;
+}
+
+.thumb-col .thumbnail {
+    padding: 20px;
+}
+
+.thumb-col .single-list-element {
+    transition: all 0.1s ease-in;
+}
+
+.thumb-col .single-list-element:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 18px 18px 20px -17px rgba(0, 0, 0, 0.73);
+}
+
+.thumb-col a:link {
+    text-decoration: none;
+}

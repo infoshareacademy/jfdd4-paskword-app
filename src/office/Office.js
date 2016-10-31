@@ -8,7 +8,9 @@ import {
     Grid,
     Row,
     Col,
-    Panel
+    Panel,
+    ListGroup,
+    ListGroupItem
 }
     from 'react-bootstrap';
 import GoogleMap from 'google-map-react';
@@ -60,26 +62,28 @@ export default class Office extends React.Component {
                         <Col xs={12} md={5}>
                             <p>{oneOffice.officeAddress}</p>
                             <p>Przyjmujący weterynarze:
-                                <ul>
-                                    {oneOffice.vetIds.map(function (vetID) {
-                                        return (
-                                            <li key={vetID}>
-                                                {allVetsData.length === 0 ?
-                                                    <span>Ładuje się lista lekarzy...</span> :
-                                                    vetsData.filter(function (vet) {
-                                                        return vet.id === vetID
-                                                    }).map(function (oneVet) {
-                                                        return (
-                                                            <Link to={`/vets/` + parseInt(oneVet.id, 10) }>
+
+                                {oneOffice.vetIds.map(function (vetID) {
+                                    return (
+                                        <ListGroup className="single-list-element"
+                                                   key={vetID}>
+                                            {allVetsData.length === 0 ?
+                                                <span>Ładuje się lista lekarzy...</span> :
+                                                vetsData.filter(function (vet) {
+                                                    return vet.id === vetID
+                                                }).map(function (oneVet) {
+                                                    return (
+                                                        <Link to={`/vets/` + parseInt(oneVet.id, 10) }>
+                                                            <ListGroupItem>
                                                                 {oneVet.firstName + ' ' + oneVet.lastName}
-                                                            </Link>
-                                                        )
-                                                    })
-                                                }
-                                            </li>
-                                        )
-                                    })}
-                                </ul>
+                                                            </ListGroupItem>
+                                                        </Link>
+                                                    )
+                                                })
+                                            }
+                                        </ListGroup>
+                                    )
+                                })}
                             </p>
                         </Col>
                         <Col xs={12} md={5}>
