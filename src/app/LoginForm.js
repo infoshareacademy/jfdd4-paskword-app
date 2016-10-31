@@ -1,11 +1,9 @@
 import React, {Component} from 'react';
-
 import {connect} from 'react-redux'
 import './App.css';
 import Menu from './menu/Menu';
 import FacebookLogin from 'react-facebook-login';
 import {loginSuccessful, logoutSuccessful} from './actionCreators'
-import {Button} from 'react-bootstrap'
 
 const mapStateToProps = (state) => {
     return ({
@@ -20,7 +18,7 @@ const mapDispatchToProps = (dispatch) => ({
     logoutSuccessful: (loggedUserName) => dispatch(logoutSuccessful(loggedUserName))
 })
 
-class App extends Component {
+class LoginForm extends Component {
 
     render() {
         var {
@@ -30,14 +28,22 @@ class App extends Component {
             loginSuccessful,
             logoutSuccessful
         } = this.props;
-        return (
-            <div className="App">
-                <Menu/>
 
-                {this.props.children}
-            </div>
-        );
+        return  loggedIn ?
+            <span>Zalogowano jako {loggedUserName}</span>
+            :
+            <FacebookLogin
+                id="facebook-login"
+                appId="243203269416376"
+                size="small"
+                autoLoad={false}
+                reAuthenticate={true}
+                fields="name,email,picture"
+                callback={loginSuccessful}
+                className="google-login"
+                icon="fa-facebook"
+                textButton="ZALOGUJ SIĘ"/>
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);

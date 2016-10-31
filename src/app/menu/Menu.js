@@ -3,7 +3,7 @@ import './Menu.css'
 import Logo from './logo.png'
 import {IndexLinkContainer, LinkContainer} from 'react-router-bootstrap'
 import {Nav, Navbar, NavItem} from 'react-bootstrap'
-import GoogleLogin from 'react-google-login'
+import LoginForm from '../LoginForm'
 
 export default (props) =>
 
@@ -33,15 +33,9 @@ export default (props) =>
                     <NavItem eventKey={3} href="#">Znajdź najbliższy gabinet</NavItem>
                 </LinkContainer>
 
+                <LoginForm/>
             </Nav>
 
-            {/*<Navbar.Form pullRight>*/}
-                {/*<GoogleLogin*/}
-                    {/*clientId="751663115292-f4n69p03t1hj8mkrt79d107nrirvbbdc.apps.googleusercontent.com"*/}
-                    {/*onSuccess={console.log}*/}
-                    {/*onFailure={console.log}*/}
-                    {/*className="btn btn-default btn-sm"/>*/}
-            {/*</Navbar.Form>*/}
         </Navbar.Collapse>
     </Navbar>
 
