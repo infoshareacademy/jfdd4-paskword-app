@@ -1,14 +1,16 @@
 import { connect } from 'react-redux'
-import React from 'react';
 import './Vet.css'
+import 'react-big-calendar/lib/css/react-big-calendar.css';
+import moment from 'moment';
+BigCalendar.momentLocalizer(moment);
+import React from 'react';
+import BigCalendar from 'react-big-calendar';
 import {Grid, Row, Col, Panel, Tabs, Tab} from 'react-bootstrap';
 import Tab1 from './tab1/Tab1'
 import Tab2 from './tab2/Tab2'
-import { activateFilter } from './actionCreators'
+import { activateFilter, saveTheDate } from './actionCreators'
 import filters from './filters'
 import { Button } from 'react-bootstrap'
-import visitsDates from '../data/visitsDates'
-import Timeslots from '../timeslots/Timeslots'
 
 const mapStateToProps = (state) => ({
     vets: state.vetsData.vets,
@@ -22,24 +24,28 @@ const mapStateToProps = (state) => ({
         name: state.visitsData.activeFilterName,
         predicate: filters[state.visitsData.activeFilterName].predicate
     },
+    appointments: state.visitsData.appointments
 });
 
 const mapDispatchToProps = (dispatch) => ({
     activateFilter: (filterId) => dispatch(activateFilter(filterId)),
+    saveTheDate: (title, vetId, start, end) => dispatch(saveTheDate(title, vetId, start, end)),
 });
 
 class Vet extends React.Component {
 
     render() {
         var {
-            fetchingVets, vets, fetchingVisits, visits, fetchingOffices, offices,
+            fetchingVets, vets,
+            fetchingVisits, visits,
+            fetchingOffices, offices,
             availableFilters,
             activeFilter,
             activateFilter,
+            appointments, saveTheDate
         } = this.props;
 
-        let vet = vets[this.props.params.vetId-1];
-
+        let vet = vets[this.props.params.vetId - 1];
 
         let vetOffices = offices
             .filter(function (office) {
@@ -80,10 +86,35 @@ class Vet extends React.Component {
                                             />
                                     </Tab>
                                     <Tab eventKey={3} title="Kalendarz wizyt">
-                                        {fetchingVisits ? "Ładuję kalendarz..." :
-                                            <Timeslots events={visitsDates.filter(visit => visit.vetId === vet.id)}/>
-                                        }
 
+                                        {fetchingVisits ? "Ładuję kalendarz..." :
+                                        <BigCalendar
+                                            step={60}
+                                            views={['week']}
+                                            timeslots={1}
+                                            defaultView='week'
+                                            selectable={true}
+                                            defaultDate={new Date()}
+                                            events={visits
+                                                .filter(visit => visit.vetId === vet.id)
+                                                .map (function(visit) {
+                                                    return {
+                                                        ...visit,
+                                                        start: new Date(visit.start),
+                                                        end: new Date(visit.end)
+                                                    }
+                                                })
+                                            }
+                                            onSelectSlot={(slotInfo) => {
+                                                alert(
+                                                    `selected slot: \n\nstart ${slotInfo.start.toLocaleString()} ` +
+                                                    `\nend: ${slotInfo.end.toLocaleString()}`
+                                                )
+                                                saveTheDate("nowa wizyta", vet.id, slotInfo.start.toLocaleString(), slotInfo.end.toLocaleString())
+1                                            }
+                                            }
+                                        />
+                                        }
                                     </Tab>
                                 </Tabs> : "Ładuję..."}
                             </Row>
