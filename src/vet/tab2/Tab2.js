@@ -8,6 +8,7 @@ export default class Tab2 extends React.Component {
 
     render() {
         var vet = this.props.vet;
+        console.log('vety', vet)
 
         return (
 

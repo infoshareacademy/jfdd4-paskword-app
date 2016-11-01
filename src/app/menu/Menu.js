@@ -33,6 +33,8 @@ export default (props) =>
                     <NavItem eventKey={3} href="#">Znajdź najbliższy gabinet</NavItem>
                 </LinkContainer>
 
+            </Nav>
+            <Nav pullRight>
                 <LoginForm/>
             </Nav>
 
