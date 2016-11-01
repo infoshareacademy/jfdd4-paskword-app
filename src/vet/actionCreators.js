@@ -59,13 +59,15 @@ export function fetchAppointments() {
     }
 }
 
-function saveTheDateBegin() {
+export function saveTheDateBegin(startData, endData) {
     return {
-        type: SAVE_THE_DATE_BEGIN
+        type: SAVE_THE_DATE_BEGIN,
+        startData: startData,
+        endData: endData,
     }
 }
 
-function saveTheDateEnd() {
+export function saveTheDateEnd() {
     return {
         type: SAVE_THE_DATE_END
     }
@@ -84,7 +86,8 @@ export function saveTheDate(title, vetId, start, end) {
                 title: title,
                 vetId: vetId,
                 start: start,
-                end: end
+                end: end,
+                visitId: 1
             })
         })
             .then(response => response.json())

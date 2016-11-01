@@ -5,12 +5,18 @@ import moment from 'moment';
 BigCalendar.momentLocalizer(moment);
 import React from 'react';
 import BigCalendar from 'react-big-calendar';
-import {Grid, Row, Col, Panel, Tabs, Tab} from 'react-bootstrap';
+import {Grid, Row, Col, Panel, Tabs, Tab, Modal, Glyphicon} from 'react-bootstrap';
 import Tab1 from './tab1/Tab1'
 import Tab2 from './tab2/Tab2'
-import { activateFilter, saveTheDate } from './actionCreators'
+import { activateFilter, saveTheDate, saveTheDateBegin, saveTheDateEnd } from './actionCreators'
 import filters from './filters'
 import { Button } from 'react-bootstrap'
+
+function reformatDate(dateStr)
+{
+    var dArr = dateStr.split(".");  // ex input "01.18.2010"
+    return dArr[1]+ "." + dArr[0]+ "." + dArr[2]; //ex out: "18.01.2010"
+}
 
 const mapStateToProps = (state) => ({
     vets: state.vetsData.vets,
@@ -24,12 +30,17 @@ const mapStateToProps = (state) => ({
         name: state.visitsData.activeFilterName,
         predicate: filters[state.visitsData.activeFilterName].predicate
     },
-    appointments: state.visitsData.appointments
+    appointments: state.visitsData.appointments,
+    showModal: state.visitsData.showModal,
+    startData: state.visitsData.startData,
+    endData: state.visitsData.endData
 });
 
 const mapDispatchToProps = (dispatch) => ({
     activateFilter: (filterId) => dispatch(activateFilter(filterId)),
     saveTheDate: (title, vetId, start, end) => dispatch(saveTheDate(title, vetId, start, end)),
+    saveTheDateBegin: (startData, endData) => dispatch(saveTheDateBegin(startData, endData)),
+    saveTheDateEnd: () => dispatch(saveTheDateEnd())
 });
 
 class Vet extends React.Component {
@@ -42,7 +53,8 @@ class Vet extends React.Component {
             availableFilters,
             activeFilter,
             activateFilter,
-            appointments, saveTheDate
+            appointments, saveTheDate,
+            showModal, startData, endData, saveTheDateBegin, saveTheDateEnd
         } = this.props;
 
         let vet = vets[this.props.params.vetId - 1];
@@ -104,17 +116,44 @@ class Vet extends React.Component {
                                                         end: new Date(visit.end)
                                                     }
                                                 })
+                                                .concat(appointments
+                                                    .filter(visit => visit.vetId === vet.id)
+                                                    .map (function(visit) {
+                                                        return {
+                                                            ...visit,
+                                                            start: new Date(reformatDate(visit.start)),
+                                                            end: new Date(reformatDate(visit.end))
+                                                        }
+                                                    })
+                                                )
                                             }
                                             onSelectSlot={(slotInfo) => {
-                                                alert(
-                                                    `selected slot: \n\nstart ${slotInfo.start.toLocaleString()} ` +
-                                                    `\nend: ${slotInfo.end.toLocaleString()}`
-                                                )
-                                                saveTheDate("nowa wizyta", vet.id, slotInfo.start.toLocaleString(), slotInfo.end.toLocaleString())
+                                                saveTheDateBegin(slotInfo.start.toLocaleString(), slotInfo.end.toLocaleString())
 1                                            }
                                             }
                                         />
                                         }
+
+                                        <Modal show={showModal} bsSize="large" onHide={() => saveTheDateEnd()}>
+                                            <Modal.Header closeButton>
+                                                <Modal.Title>Nowa wizyta</Modal.Title>
+                                            </Modal.Header>
+                                            <Modal.Body>
+                                                <h4>Umówić wizytę od {startData} do {endData} ?</h4>
+                                            </Modal.Body>
+                                            <Modal.Footer>
+
+                                                <Button onClick={() => {
+                                                    saveTheDate("wizyta", vet.id, startData, endData);
+                                                    saveTheDateEnd();
+                                                }}>
+                                                    <Glyphicon glyph="ok" />
+                                                </Button>
+                                                <Button onClick={() => saveTheDateEnd()}>
+                                                    <Glyphicon glyph="remove" />
+                                                </Button>
+                                            </Modal.Footer>
+                                        </Modal>
                                     </Tab>
                                 </Tabs> : "Ładuję..."}
                             </Row>
