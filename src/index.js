@@ -13,6 +13,7 @@ import Office from './office/Office'
 import Offices from './offices/Offices'
 import VetSearch from './vet-search/VetSearch'
 import Map from './map/Map'
+import SingleAdvice from './single-advice/SingleAdvice'
 
 import NotFound from './not-found/NotFound'
 
@@ -40,6 +41,7 @@ ReactDOM.render(
                 <Route path="/vets" component={Vets} />
                 <Route path="/vets/:vetId" component={Vet}/>
                 <Route path="/vetSearch" component={VetSearch}/>
+                <Route path="/advices/:adviceId" component={SingleAdvice}/>
                 <Route path="*" component={NotFound} />
             </Route>
         </Router>

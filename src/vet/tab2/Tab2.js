@@ -27,7 +27,7 @@ export default class Tab2 extends React.Component {
                                     <Advice
                                         title={'Porady dotyczące hasła: ' + advice.tag}
                                         text={advice.advice}
-                                        url={`http://app.paskword.jfdd4.is-academy.pl/vets/${vet.id}`}
+                                        url={`http://app.paskword.jfdd4.is-academy.pl/advices/${advice.id}`}
                                     />
                                 </Col>
                             </div>
