@@ -1,6 +1,6 @@
 import React from 'react';
 import '../Vet.css';
-import { Col } from 'react-bootstrap'
+import { Col, Panel } from 'react-bootstrap'
 
 export default class Tab2 extends React.Component {
 
@@ -18,13 +18,12 @@ export default class Tab2 extends React.Component {
                     .map(function (advice) {
                         return (
                             <div key={advice.id}>
-                                {advice.tag == 0 ? <p>"Brak porad na dany temat"</p> :
-                                    <Col xs={10} xsOffset={1} sm={8} smOffset={2}
-                                         className="advice">
-                                        <p>Tag: {advice.tag}</p>
-                                        <p>{advice.advice}</p>
-                                    </Col>
-                                }
+                                <Col xs={10} xsOffset={1} sm={8} smOffset={2}
+                                     className="advice">
+                                    <Panel header={'Porady dotyczące hasła: ' + advice.tag } bsStyle="info">
+                                        {advice.advice}
+                                    </Panel>
+                                </Col>
                             </div>
                         )
                     })}

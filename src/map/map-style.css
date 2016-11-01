@@ -9,7 +9,7 @@
 }
 
 .mapMain {
-    height: 90vh;
+    height: calc(100vh - 52px);
 }
 .popover-title{
     background-color: rgb(202, 60, 10);

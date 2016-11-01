@@ -21,7 +21,12 @@ export default class VetSearch extends React.Component {
             officesData: [],
             xPoint: 0,
             yPoint: 0,
-            idOfNearestOffice: null
+            idOfNearestOffice: null,
+            createMapOptions: function (maps) {
+                return {
+                    scrollwheel: false
+                }
+            }
         };
 
         this._onClick = this._onClick.bind(this);
@@ -62,6 +67,7 @@ export default class VetSearch extends React.Component {
                     <Col xs={12} md={10}>
                         <div className="vet-search-map">
                             <GoogleMap
+                                options={this.state.createMapOptions}
                                 bootstrapURLKeys={{
                                     key: 'AIzaSyCJSyocAtUnWSKhjyqZlJtmaf_afdJcOkA',
                                     language: 'pl'
@@ -112,7 +118,7 @@ export default class VetSearch extends React.Component {
                                     <Link to={`/offices/${officeId.id}`}
                                           key={officeId.id}
                                     >
-                                        <Panel className="nearest-vet-container">
+                                        <Panel className="nearest-vet-container ">
                                             <p><img src={officeId.logo} alt={"Logo gabientu"} className="img-responsive vet-search-img "/> </p>
                                             <p><strong>{officeId.officeName}</strong></p>
                                             <p>{officeId.officeAddress}</p>

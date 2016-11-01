@@ -1,6 +1,6 @@
 import React from 'react';
 import '../Vets.css';
-import {Grid, Col, Row, Thumbnail} from 'react-bootstrap';
+import {Grid, Col, Row, Thumbnail, ListGroup, ListGroupItem} from 'react-bootstrap';
 import {Link} from 'react-router';
 import {connect} from 'react-redux'
 
@@ -26,17 +26,18 @@ class Thumbnails extends React.Component {
         return (
 
             <Grid>
-                <Row className="flexbox">
+                <Row className="flexbox thumb-row">
                     {fetchingVets ? <p>Ładuję weterynarzy...</p> : null}
 
                     {vets
-                        .filter(function(vet) {
+                        .filter(function (vet) {
                             var fullName = (vet.firstName + ' ' + vet.lastName).toLowerCase();
                             return fullName.indexOf(matchName.toLowerCase()) !== -1
                         })
                         .map((vet, index) => (
 
-                            <Col key={index} xs={12} sm={6} md={4} lg={3}>
+                            <Col className="thumb-col"
+                                 key={index} xs={12} sm={6} md={4} lg={3}>
                                 <Thumbnail src={vet.photo}
                                            alt={vet.firstName}
                                            className="img-responsive vets-img image-rounded"
@@ -49,7 +50,7 @@ class Thumbnails extends React.Component {
 
                                     <p>Przychodnie:</p>
                                     {fetchingOffices ? <p>Ładuję przychodnie...</p> : null}
-                                    <ul>
+                                    <ListGroup>
                                         {offices
                                             .filter(function (office) {
                                                 var result = office.vetIds.indexOf(vet.id) !== -1;
@@ -60,13 +61,15 @@ class Thumbnails extends React.Component {
                                             })
                                             .map(function (office) {
                                                 return (
+
                                                     <Link key={office.officeName}
                                                           to={`/offices/` + parseInt(office.id, 10)}>
-                                                        <p>{office.officeName}</p>
+                                                        <ListGroupItem className='single-list-element'>{office.officeName}</ListGroupItem >
                                                     </Link>
+
                                                 )
                                             })}
-                                    </ul>
+                                    </ListGroup>
                                     <p>Liczba porad lekarza: {vet.advices.length}</p>
                                 </Thumbnail>
                             </Col>
