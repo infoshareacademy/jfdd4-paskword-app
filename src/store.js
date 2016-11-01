@@ -8,13 +8,15 @@ import vetsReducer from './vets/reducer'
 import officesReducer from './offices/reducer'
 import mapReducer from './map/reducer'
 import vetReducer from './vet/reducer'
+import advicesReducer from './single-advice/reducer'
 
 let reducer = combineReducers({
     app: appReducer,
     vetsData: vetsReducer,
     officesData: officesReducer,
     mapData: mapReducer,
-    visitsData: vetReducer
+    visitsData: vetReducer,
+    advicesData: advicesReducer
 })
 
 // Create a Redux store holding the state of your app.

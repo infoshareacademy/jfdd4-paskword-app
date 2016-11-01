@@ -1,37 +1,39 @@
 import React from 'react';
 import Advice from '../advice/Advice'
 import {Row, Col, Thumbnail, Panel} from 'react-bootstrap'
-import advicesData from '../data/advices'
-import vetsData from '../../public/data/vetsWithAdvices.json'
 import {Link} from 'react-router';
 import './single-advice-style.css'
+import {connect} from 'react-redux'
 
 
-export default class SingleAdvice extends React.Component {
+const mapStateToProps = (state) => ({
+    vets: state.vetsData.vets,
+    advices: state.advicesData.advices,
+    fetchingAdvices: state.advicesData.fetchingAdvices
+})
+
+
+class SingleAdvice extends React.Component {
     constructor(props) {
         super();
 
         this.state = {
-            advicesData: [],
             adviceId: parseInt(props.params.adviceId),
-            vetsData: []
         }
     }
 
-    componentWillMount() {
-        this.setState({
-            advicesData: advicesData,
-            vetsData: vetsData
-        })
-    }
-
     render() {
-        var advices = this.state.advicesData;
-        var currentAdviceId = this.state.adviceId;
-        var vets = this.state.vetsData;
+
+        var {
+            vets,
+            advices,
+            currentAdviceId = this.state.adviceId,
+            fetchingAdvices
+        }=this.props;
 
         return (
             <Row>
+                {fetchingAdvices ? "Trwa ładowanie danych..." : null}
                 {advices
                     .filter((advice) => advice.id === currentAdviceId)
                     .map((advice) => (
@@ -60,7 +62,6 @@ export default class SingleAdvice extends React.Component {
                                         }
                                     })
 
-
                                 }
                             </Panel>
                         </Col>
@@ -70,3 +71,5 @@ export default class SingleAdvice extends React.Component {
         )
     }
 }
+
+export default connect(mapStateToProps)(SingleAdvice)

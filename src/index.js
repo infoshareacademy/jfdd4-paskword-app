@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap-theme.css';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
+import {Provider} from 'react-redux';
 import store from './store';
 import App from './app/App';
 import './index.css';
@@ -17,32 +17,34 @@ import SingleAdvice from './single-advice/SingleAdvice'
 
 import NotFound from './not-found/NotFound'
 
-import { Router, Route, IndexRoute, browserHistory } from 'react-router';
+import {Router, Route, IndexRoute, browserHistory} from 'react-router';
 
-import { fetchVets } from './vets/actionCreators'
-import { fetchOffices } from './offices/actionCreators'
-import { fetchPoints } from './map/actionCreators'
-import { fetchVisits } from './vet/actionCreators'
+import {fetchVets} from './vets/actionCreators'
+import {fetchOffices} from './offices/actionCreators'
+import {fetchPoints} from './map/actionCreators'
+import {fetchVisits} from './vet/actionCreators'
+import {fetchAdvices} from './single-advice/actionCreators'
 
 function fetchVetsAndOffices() {
     store.dispatch(fetchVets())
     store.dispatch(fetchOffices())
     store.dispatch(fetchPoints())
     store.dispatch(fetchVisits())
+    store.dispatch(fetchAdvices())
 }
 
 ReactDOM.render(
     <Provider store={store}>
         <Router history={browserHistory}>
             <Route path="/" component={App} onEnter={() => fetchVetsAndOffices()}>
-                <IndexRoute component={Map} />
-                <Route path="/offices" component={Offices} />
+                <IndexRoute component={Map}/>
+                <Route path="/offices" component={Offices}/>
                 <Route path="/offices/:officeId" component={Office}/>
-                <Route path="/vets" component={Vets} />
+                <Route path="/vets" component={Vets}/>
                 <Route path="/vets/:vetId" component={Vet}/>
                 <Route path="/vetSearch" component={VetSearch}/>
                 <Route path="/advices/:adviceId" component={SingleAdvice}/>
-                <Route path="*" component={NotFound} />
+                <Route path="*" component={NotFound}/>
             </Route>
         </Router>
     </Provider>,
