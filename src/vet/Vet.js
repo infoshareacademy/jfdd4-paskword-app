@@ -1,21 +1,20 @@
-import { connect } from 'react-redux'
+import {connect} from 'react-redux'
 import './Vet.css'
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import moment from 'moment';
 BigCalendar.momentLocalizer(moment);
 import React from 'react';
 import BigCalendar from 'react-big-calendar';
-import {Grid, Row, Col, Panel, Tabs, Tab, Modal, Glyphicon} from 'react-bootstrap';
+import {Grid, Row, Col, Panel, Tabs, Tab, Modal, Glyphicon, ButtonGroup, ButtonToolbar} from 'react-bootstrap';
 import Tab1 from './tab1/Tab1'
 import Tab2 from './tab2/Tab2'
-import { activateFilter, saveTheDate, saveTheDateBegin, saveTheDateEnd } from './actionCreators'
+import {activateFilter, saveTheDate, saveTheDateBegin, saveTheDateEnd} from './actionCreators'
 import filters from './filters'
-import { Button } from 'react-bootstrap'
+import {Button} from 'react-bootstrap'
 
-function reformatDate(dateStr)
-{
+function reformatDate(dateStr) {
     var dArr = dateStr.split(".");  // ex input "01.18.2010"
-    return dArr[1]+ "." + dArr[0]+ "." + dArr[2]; //ex out: "18.01.2010"
+    return dArr[1] + "." + dArr[0] + "." + dArr[2]; //ex out: "18.01.2010"
 }
 
 const mapStateToProps = (state) => ({
@@ -72,42 +71,47 @@ class Vet extends React.Component {
                             <Row>
                                 <h1>Weterynarz</h1>
                                 {vet !== undefined ?
-                                <Tabs defaultActiveKey={1} id="uncontrolled-tab-example">
-                                    <Tab eventKey={1} title="Dane kontaktowe">
-                                        <Tab1 vet={vet}
-                                              vetOffices={vetOffices}
-                                              fetchingVet={fetchingVets}
-                                              fetchingVetOffices={fetchingOffices}
-                                        />
-                                    </Tab>
-                                    <Tab eventKey={2} title="Porady">
-                                        {availableFilters.map(filterName => (
-                                            <Button bsStyle="primary"
-                                                    key={filterName}
-                                                    onClick={() => activateFilter(filterName)}
-                                                    className={filterName === activeFilter.name ? 'active' : ''}>
-                                                {filters[filterName].label}
-                                            </Button>
-                                        ))}
-
-                                        <Tab2 vet={vet}
-                                            fetchingVet={fetchingVets}
-                                            availableFilters={availableFilters}
-                                            activateFilter={activateFilter}
-                                            activeFilter={activeFilter}
+                                    <Tabs defaultActiveKey={1} id="uncontrolled-tab-example">
+                                        <Tab eventKey={1} title="Dane kontaktowe">
+                                            <Tab1 vet={vet}
+                                                  vetOffices={vetOffices}
+                                                  fetchingVet={fetchingVets}
+                                                  fetchingVetOffices={fetchingOffices}
                                             />
-                                    </Tab>
-                                    <Tab eventKey={3} title="Kalendarz wizyt">
+                                        </Tab>
+                                        <Tab eventKey={2} title="Porady">
+                                            <ButtonToolbar>
+                                                <div>
+                                                    <ButtonGroup>
+                                                        {availableFilters.map(filterName => (
+                                                            <Button bsStyle="primary"
+                                                                    key={filterName}
+                                                                    onClick={() => activateFilter(filterName)}
+                                                                    className={filterName === activeFilter.name ? 'active' : ''}>
+                                                                {filters[filterName].label}
+                                                            </Button>
+                                                        ))}
+                                                    </ButtonGroup>
+                                                </div>
+                                            </ButtonToolbar>
+                                            <Tab2 vet={vet}
+                                                  fetchingVet={fetchingVets}
+                                                  availableFilters={availableFilters}
+                                                  activateFilter={activateFilter}
+                                                  activeFilter={activeFilter}
+                                            />
+                                        </Tab>
+                                        <Tab eventKey={3} title="Kalendarz wizyt">
 
-                                        {fetchingVisits ? "Ładuję kalendarz..." :
-                                        <BigCalendar
-                                            step={60}
-                                            views={['week']}
-                                            timeslots={1}
-                                            defaultView='week'
-                                            selectable={true}
-                                            defaultDate={new Date()}
-                                            events={visits
+                                            {fetchingVisits ? "Ładuję kalendarz..." :
+                                                <BigCalendar
+                                                    step={60}
+                                                    views={['week']}
+                                                    timeslots={1}
+                                                    defaultView='week'
+                                                    selectable={true}
+                                                    defaultDate={new Date()}
+                                                    events={visits
                                                 .filter(visit => visit.vetId === vet.id)
                                                 .map (function(visit) {
                                                     return {
@@ -127,35 +131,35 @@ class Vet extends React.Component {
                                                     })
                                                 )
                                             }
-                                            onSelectSlot={(slotInfo) => {
+                                                    onSelectSlot={(slotInfo) => {
                                                 saveTheDateBegin(slotInfo.start.toLocaleString(), slotInfo.end.toLocaleString())
 1                                            }
                                             }
-                                        />
-                                        }
+                                                />
+                                            }
 
-                                        <Modal show={showModal} bsSize="large" onHide={() => saveTheDateEnd()}>
-                                            <Modal.Header closeButton>
-                                                <Modal.Title>Nowa wizyta</Modal.Title>
-                                            </Modal.Header>
-                                            <Modal.Body>
-                                                <h4>Umówić wizytę od {startData} do {endData} ?</h4>
-                                            </Modal.Body>
-                                            <Modal.Footer>
+                                            <Modal show={showModal} bsSize="large" onHide={() => saveTheDateEnd()}>
+                                                <Modal.Header closeButton>
+                                                    <Modal.Title>Nowa wizyta</Modal.Title>
+                                                </Modal.Header>
+                                                <Modal.Body>
+                                                    <h4>Umówić wizytę od {startData} do {endData} ?</h4>
+                                                </Modal.Body>
+                                                <Modal.Footer>
 
-                                                <Button onClick={() => {
+                                                    <Button onClick={() => {
                                                     saveTheDate("wizyta", vet.id, startData, endData);
                                                     saveTheDateEnd();
                                                 }}>
-                                                    <Glyphicon glyph="ok" />
-                                                </Button>
-                                                <Button onClick={() => saveTheDateEnd()}>
-                                                    <Glyphicon glyph="remove" />
-                                                </Button>
-                                            </Modal.Footer>
-                                        </Modal>
-                                    </Tab>
-                                </Tabs> : "Ładuję..."}
+                                                        <Glyphicon glyph="ok"/>
+                                                    </Button>
+                                                    <Button onClick={() => saveTheDateEnd()}>
+                                                        <Glyphicon glyph="remove"/>
+                                                    </Button>
+                                                </Modal.Footer>
+                                            </Modal>
+                                        </Tab>
+                                    </Tabs> : "Ładuję..."}
                             </Row>
                         </Panel>
                     </Col>
