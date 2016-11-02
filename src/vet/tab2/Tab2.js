@@ -2,6 +2,7 @@ import React from 'react';
 import '../Vet.css';
 import {Col, Panel} from 'react-bootstrap';
 import Advice from '../../advice/Advice'
+import Vet_without_advice from './vet_without_advice.jpg'
 
 
 export default class Tab2 extends React.Component {
@@ -16,7 +17,11 @@ export default class Tab2 extends React.Component {
                 {this.props.fetchingVets ? "Ładuję..." : null}
                 <p> Liczba porad: {this.props.vet.advices.length} </p>
 
-                {vet.advices.length === 0 ? "Brak porad do wyświetlenia" : null }
+                {vet.advices.length === 0 ?
+
+                    <img src={Vet_without_advice} alt={"Brak porad"} className="img-responsive"/>
+
+                    : null }
 
                 {vet.advices
                     .filter(this.props.activeFilter.predicate)
