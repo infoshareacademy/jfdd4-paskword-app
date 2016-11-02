@@ -14,7 +14,7 @@ let reducer = combineReducers({
     vetsData: vetsReducer,
     officesData: officesReducer,
     mapData: mapReducer,
-    visitsData: vetReducer
+    visitsData: vetReducer,
 })
 
 // Create a Redux store holding the state of your app.
