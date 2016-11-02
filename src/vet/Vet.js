@@ -121,8 +121,8 @@ class Vet extends React.Component {
                                                     .map (function(visit) {
                                                         return {
                                                             ...visit,
-                                                            start: new Date(reformatDate(visit.start)),
-                                                            end: new Date(reformatDate(visit.end))
+                                                            start: new Date(visit.start),
+                                                            end: new Date(visit.end)
                                                         }
                                                     })
                                                 )
