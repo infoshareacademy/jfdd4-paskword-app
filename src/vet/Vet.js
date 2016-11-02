@@ -67,8 +67,6 @@ class Vet extends React.Component {
                 return office.vetIds.indexOf(vet.id) !== -1;
             });
 
-        let isFirefox = typeof InstallTrigger !== 'undefined';
-
         return (
             <Grid>
                 <div className="Weterynarz">
