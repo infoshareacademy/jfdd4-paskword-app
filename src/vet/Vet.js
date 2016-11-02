@@ -1,14 +1,22 @@
 import { connect } from 'react-redux'
-import React from 'react';
 import './Vet.css'
-import {Grid, Row, Col, Panel, Tabs, Tab} from 'react-bootstrap';
+import 'react-big-calendar/lib/css/react-big-calendar.css';
+import moment from 'moment';
+BigCalendar.momentLocalizer(moment);
+import React from 'react';
+import BigCalendar from 'react-big-calendar';
+import {Grid, Row, Col, Panel, Tabs, Tab, Modal, Glyphicon} from 'react-bootstrap';
 import Tab1 from './tab1/Tab1'
 import Tab2 from './tab2/Tab2'
-import { activateFilter } from './actionCreators'
+import { activateFilter, saveTheDate, saveTheDateBegin, saveTheDateEnd } from './actionCreators'
 import filters from './filters'
 import { Button } from 'react-bootstrap'
-import visitsDates from '../data/visitsDates'
-import Timeslots from '../timeslots/Timeslots'
+
+function reformatDate(dateStr)
+{
+    var dArr = dateStr.split(".");  // ex input "01.18.2010"
+    return dArr[1]+ "." + dArr[0]+ "." + dArr[2]; //ex out: "18.01.2010"
+}
 
 const mapStateToProps = (state) => ({
     vets: state.vetsData.vets,
@@ -22,24 +30,34 @@ const mapStateToProps = (state) => ({
         name: state.visitsData.activeFilterName,
         predicate: filters[state.visitsData.activeFilterName].predicate
     },
+    appointments: state.visitsData.appointments,
+    showModal: state.visitsData.showModal,
+    startData: state.visitsData.startData,
+    endData: state.visitsData.endData
 });
 
 const mapDispatchToProps = (dispatch) => ({
     activateFilter: (filterId) => dispatch(activateFilter(filterId)),
+    saveTheDate: (title, vetId, start, end) => dispatch(saveTheDate(title, vetId, start, end)),
+    saveTheDateBegin: (startData, endData) => dispatch(saveTheDateBegin(startData, endData)),
+    saveTheDateEnd: () => dispatch(saveTheDateEnd())
 });
 
 class Vet extends React.Component {
 
     render() {
         var {
-            fetchingVets, vets, fetchingVisits, visits, fetchingOffices, offices,
+            fetchingVets, vets,
+            fetchingVisits, visits,
+            fetchingOffices, offices,
             availableFilters,
             activeFilter,
             activateFilter,
+            appointments, saveTheDate,
+            showModal, startData, endData, saveTheDateBegin, saveTheDateEnd
         } = this.props;
 
-        let vet = vets[this.props.params.vetId-1];
-
+        let vet = vets[this.props.params.vetId - 1];
 
         let vetOffices = offices
             .filter(function (office) {
@@ -80,10 +98,62 @@ class Vet extends React.Component {
                                             />
                                     </Tab>
                                     <Tab eventKey={3} title="Kalendarz wizyt">
+
                                         {fetchingVisits ? "Ładuję kalendarz..." :
-                                            <Timeslots events={visitsDates.filter(visit => visit.vetId === vet.id)}/>
+                                        <BigCalendar
+                                            step={60}
+                                            views={['week']}
+                                            timeslots={1}
+                                            defaultView='week'
+                                            selectable={true}
+                                            defaultDate={new Date()}
+                                            events={visits
+                                                .filter(visit => visit.vetId === vet.id)
+                                                .map (function(visit) {
+                                                    return {
+                                                        ...visit,
+                                                        start: new Date(visit.start),
+                                                        end: new Date(visit.end)
+                                                    }
+                                                })
+                                                .concat(appointments
+                                                    .filter(visit => visit.vetId === vet.id)
+                                                    .map (function(visit) {
+                                                        return {
+                                                            ...visit,
+                                                            start: new Date(visit.start),
+                                                            end: new Date(visit.end)
+                                                        }
+                                                    })
+                                                )
+                                            }
+                                            onSelectSlot={(slotInfo) => {
+                                                saveTheDateBegin(slotInfo.start.toLocaleString(), slotInfo.end.toLocaleString())
+1                                            }
+                                            }
+                                        />
                                         }
 
+                                        <Modal show={showModal} bsSize="large" onHide={() => saveTheDateEnd()}>
+                                            <Modal.Header closeButton>
+                                                <Modal.Title>Nowa wizyta</Modal.Title>
+                                            </Modal.Header>
+                                            <Modal.Body>
+                                                <h4>Umówić wizytę od {startData} do {endData} ?</h4>
+                                            </Modal.Body>
+                                            <Modal.Footer>
+
+                                                <Button onClick={() => {
+                                                    saveTheDate("wizyta", vet.id, startData, endData);
+                                                    saveTheDateEnd();
+                                                }}>
+                                                    <Glyphicon glyph="ok" />
+                                                </Button>
+                                                <Button onClick={() => saveTheDateEnd()}>
+                                                    <Glyphicon glyph="remove" />
+                                                </Button>
+                                            </Modal.Footer>
+                                        </Modal>
                                     </Tab>
                                 </Tabs> : "Ładuję..."}
                             </Row>
