@@ -1,6 +1,6 @@
 import React from 'react';
 import Advice from '../advice/Advice'
-import {Row, Col, Thumbnail, Panel} from 'react-bootstrap'
+import {Row, Col, Panel} from 'react-bootstrap'
 import {Link} from 'react-router';
 import './single-advice-style.css'
 import {connect} from 'react-redux'
@@ -18,12 +18,11 @@ class SingleAdvice extends React.Component {
         super();
 
         this.state = {
-            adviceId: parseInt(props.params.adviceId),
+            adviceId: parseInt(props.params.adviceId)
         }
     }
 
     render() {
-
         var {
             vets,
             advices,
@@ -66,7 +65,6 @@ class SingleAdvice extends React.Component {
                             </Panel>
                         </Col>
                     ))}
-
             </Row>
         )
     }
