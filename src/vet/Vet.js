@@ -8,15 +8,10 @@ import BigCalendar from 'react-big-calendar';
 import {Grid, Row, Col, Panel, Tabs, Tab, Modal, Glyphicon} from 'react-bootstrap';
 import Tab1 from './tab1/Tab1'
 import Tab2 from './tab2/Tab2'
-import { activateFilter, saveTheDate, saveTheDateBegin, saveTheDateEnd } from './actionCreators'
+import { activateFilter, saveTheDate, saveTheDateBegin, saveTheDateEnd,
+    deleteTheDate, deleteTheDateBegin, deleteTheDateEnd } from './actionCreators'
 import filters from './filters'
 import { Button } from 'react-bootstrap'
-
-function reformatDate(dateStr)
-{
-    var dArr = dateStr.split(".");  // ex input "01.18.2010"
-    return dArr[1]+ "." + dArr[0]+ "." + dArr[2]; //ex out: "18.01.2010"
-}
 
 const mapStateToProps = (state) => ({
     vets: state.vetsData.vets,
@@ -33,14 +28,20 @@ const mapStateToProps = (state) => ({
     appointments: state.visitsData.appointments,
     showModal: state.visitsData.showModal,
     startData: state.visitsData.startData,
-    endData: state.visitsData.endData
+    endData: state.visitsData.endData,
+    showDeleteModal: state.visitsData.showDeleteModal,
+    dateId: state.visitsData.dateId,
+    fetchingAppointments: state.visitsData.fetchingAppointments,
 });
 
 const mapDispatchToProps = (dispatch) => ({
     activateFilter: (filterId) => dispatch(activateFilter(filterId)),
     saveTheDate: (title, vetId, start, end) => dispatch(saveTheDate(title, vetId, start, end)),
     saveTheDateBegin: (startData, endData) => dispatch(saveTheDateBegin(startData, endData)),
-    saveTheDateEnd: () => dispatch(saveTheDateEnd())
+    saveTheDateEnd: () => dispatch(saveTheDateEnd()),
+    deleteTheDate: (dateId) => dispatch(deleteTheDate(dateId)),
+    deleteTheDateBegin: (dateId) => dispatch (deleteTheDateBegin(dateId)),
+    deleteTheDateEnd: () => dispatch (deleteTheDateEnd()),
 });
 
 class Vet extends React.Component {
@@ -54,7 +55,9 @@ class Vet extends React.Component {
             activeFilter,
             activateFilter,
             appointments, saveTheDate,
-            showModal, startData, endData, saveTheDateBegin, saveTheDateEnd
+            showModal, startData, endData, saveTheDateBegin, saveTheDateEnd,
+            showDeleteModal, deleteTheDate, deleteTheDateBegin, deleteTheDateEnd, dateId,
+            fetchingAppointments
         } = this.props;
 
         let vet = vets[this.props.params.vetId - 1];
@@ -63,6 +66,8 @@ class Vet extends React.Component {
             .filter(function (office) {
                 return office.vetIds.indexOf(vet.id) !== -1;
             });
+
+        let isFirefox = typeof InstallTrigger !== 'undefined';
 
         return (
             <Grid>
@@ -98,6 +103,7 @@ class Vet extends React.Component {
                                             />
                                     </Tab>
                                     <Tab eventKey={3} title="Kalendarz wizyt">
+                                        <h4 className="info">Aby zarezerwować wizytę kliknij w wolne miejse w kalendarzu. Aby anulować wybraną wizytę kliknij na nią.</h4>
 
                                         {fetchingVisits ? "Ładuję kalendarz..." :
                                         <BigCalendar
@@ -127,10 +133,8 @@ class Vet extends React.Component {
                                                     })
                                                 )
                                             }
-                                            onSelectSlot={(slotInfo) => {
-                                                saveTheDateBegin(slotInfo.start.toLocaleString(), slotInfo.end.toLocaleString())
-1                                            }
-                                            }
+                                            onSelectSlot={(slotInfo) => saveTheDateBegin(slotInfo.start.toLocaleString(), slotInfo.end.toLocaleString())}
+                                            onSelectEvent={event => deleteTheDateBegin(event.id)}
                                         />
                                         }
 
@@ -153,6 +157,31 @@ class Vet extends React.Component {
                                                     <Glyphicon glyph="remove" />
                                                 </Button>
                                             </Modal.Footer>
+                                        </Modal>
+                                        <Modal show={showDeleteModal} bsSize="sm" onHide={() => deleteTheDateEnd()}>
+                                            <Modal.Header closeButton>
+                                                <Modal.Title>Anuluj wizytę</Modal.Title>
+                                            </Modal.Header>
+                                            <Modal.Body>
+                                                <h4>Jesteś pewien, że chcesz anulować tę wizytę?</h4>
+                                            </Modal.Body>
+                                            <Modal.Footer>
+                                                <Button onClick={() => {
+                                                    deleteTheDate(dateId);
+                                                    deleteTheDateEnd();
+                                                }}>
+                                                    <Glyphicon glyph="ok" />
+                                                </Button>
+                                                <Button onClick={() => deleteTheDateEnd()}>
+                                                    <Glyphicon glyph="remove" />
+                                                </Button>
+                                            </Modal.Footer>
+                                        </Modal>
+                                        <Modal show={fetchingAppointments} bsSize="large" onHide={() => deleteTheDateEnd()} class="loadingModal">
+                                            <Modal.Body>
+                                                <h4>Ładuję wizyty na kalendarzu...</h4>
+                                                <Glyphicon glyph="refresh" id="loading"/>
+                                            </Modal.Body>
                                         </Modal>
                                     </Tab>
                                 </Tabs> : "Ładuję..."}

@@ -18,3 +18,25 @@
     transform: translate(-2px, -2px);
     box-shadow: 18px 18px 20px -17px rgba(0, 0, 0, 0.73);
 }
+
+#loading {
+    animation: loading-spin infinite 5s linear;
+    color: black;
+    background: white;
+    font-size: 200%;
+    margin-left: 50%;
+
+}
+
+@keyframes loading-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.modal-body {
+    top: 50%;
+}
+
+.info {
+    color: #337ab7;
+}
