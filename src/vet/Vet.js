@@ -5,12 +5,11 @@ import moment from 'moment';
 BigCalendar.momentLocalizer(moment);
 import React from 'react';
 import BigCalendar from 'react-big-calendar';
-import {Grid, Row, Col, Panel, Tabs, Tab, Modal, Glyphicon} from 'react-bootstrap';
+import {Grid, Row, Col, Panel, Tabs, Tab, Modal, Glyphicon, Button} from 'react-bootstrap';
 import Tab1 from './tab1/Tab1'
 import Tab2 from './tab2/Tab2'
 import { activateFilter, saveTheDate, saveTheDateBegin, saveTheDateEnd } from './actionCreators'
 import filters from './filters'
-import { Button } from 'react-bootstrap'
 
 function reformatDate(dateStr)
 {
@@ -70,7 +69,11 @@ class Vet extends React.Component {
                     <Col xs={12} mdOffset={2} md={8}>
                         <Panel className="one-vet-container">
                             <Row>
-                                <h1>Weterynarz</h1>
+                                <h1>Weterynarz
+                                    <Button>
+                                        <Glyphicon glyph="heart" />
+                                    </Button></h1>
+
                                 {vet !== undefined ?
                                 <Tabs defaultActiveKey={1} id="uncontrolled-tab-example">
                                     <Tab eventKey={1} title="Dane kontaktowe">

@@ -1,7 +1,8 @@
 import {
     LOGIN_ATTEMPT,
     LOGIN_SUCCESSFUL,
-    LOGOUT_SUCCESSFUL
+    LOGOUT_SUCCESSFUL,
+    MARK_VET_AS_FAVOURITE
 } from './actionTypes'
 
 function loginAttempt() {
@@ -21,5 +22,12 @@ export function logoutSuccessful(loggedUserName) {
     return {
         type: LOGOUT_SUCCESSFUL,
         loggedUserName: loggedUserName
+    }
+}
+
+export function markVetAsFavourite(vetId){
+    return {
+        type: MARK_VET_AS_FAVOURITE,
+        vetId: vetId
     }
 }

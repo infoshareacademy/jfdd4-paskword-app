@@ -10,13 +10,19 @@ import mapReducer from './map/reducer'
 import vetReducer from './vet/reducer'
 import advicesReducer from './single-advice/reducer'
 
+import authenticationReducer from './app/reducer'
+import favouriteReducer from './app/favouriteReducer'
+
+
 let reducer = combineReducers({
     app: appReducer,
     vetsData: vetsReducer,
     officesData: officesReducer,
     mapData: mapReducer,
     visitsData: vetReducer,
-    advicesData: advicesReducer
+    advicesData: advicesReducer,
+    authentication: advicesReducer,
+    favourites: favouriteReducer
 })
 
 // Create a Redux store holding the state of your app.
@@ -31,7 +37,8 @@ let store = createStore(
             thunkMiddleware, // lets us dispatch() functions
             loggerMiddleware
         )
-    )
+    ),
+    persistState(['favorites'])
 )
 
 store.subscribe(() => {

@@ -3,7 +3,9 @@ import '../Vet.css';
 import {Link} from 'react-router';
 import {
     ListGroup,
-    ListGroupItem
+    ListGroupItem,
+    Glyphicon,
+    Button
 }
     from 'react-bootstrap';
 export default class Tab1 extends React.Component {
@@ -32,6 +34,9 @@ export default class Tab1 extends React.Component {
                 </ListGroup>
                 <p> E-mail: {this.props.vet.email} </p>
                 <p> Telefon: +{this.props.vet.phone} </p>
+                <Button>
+                    <Glyphicon glyph="heart" />
+                </Button>
             </div>
         )
     }

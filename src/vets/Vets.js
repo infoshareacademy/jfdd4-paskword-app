@@ -5,6 +5,7 @@ import {connect} from 'react-redux'
 import {changeViewToThumbnail, changeViewToList, filterVetsByName} from './actionCreators'
 import Thumbnails from './thumbnails/Thumbnails'
 import List from './list/List'
+import {markVetAsFavourite} from '../app/actionCreators'
 
 const mapStateToProps = (state) => ({
     viewThumbnail: state.vetsData.viewThumbnail,
