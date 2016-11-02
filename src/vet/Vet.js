@@ -1,4 +1,4 @@
-import { connect } from 'react-redux'
+import {connect} from 'react-redux'
 import './Vet.css'
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import moment from 'moment';
@@ -8,13 +8,13 @@ import BigCalendar from 'react-big-calendar';
 import {Grid, Row, Col, Panel, Tabs, Tab, Modal, Glyphicon, Button} from 'react-bootstrap';
 import Tab1 from './tab1/Tab1'
 import Tab2 from './tab2/Tab2'
-import { activateFilter, saveTheDate, saveTheDateBegin, saveTheDateEnd } from './actionCreators'
+import {activateFilter, saveTheDate, saveTheDateBegin, saveTheDateEnd} from './actionCreators'
 import filters from './filters'
+import {markVetAsFavourite} from '../app/actionCreators'
 
-function reformatDate(dateStr)
-{
+function reformatDate(dateStr) {
     var dArr = dateStr.split(".");  // ex input "01.18.2010"
-    return dArr[1]+ "." + dArr[0]+ "." + dArr[2]; //ex out: "18.01.2010"
+    return dArr[1] + "." + dArr[0] + "." + dArr[2]; //ex out: "18.01.2010"
 }
 
 const mapStateToProps = (state) => ({
@@ -39,7 +39,8 @@ const mapDispatchToProps = (dispatch) => ({
     activateFilter: (filterId) => dispatch(activateFilter(filterId)),
     saveTheDate: (title, vetId, start, end) => dispatch(saveTheDate(title, vetId, start, end)),
     saveTheDateBegin: (startData, endData) => dispatch(saveTheDateBegin(startData, endData)),
-    saveTheDateEnd: () => dispatch(saveTheDateEnd())
+    saveTheDateEnd: () => dispatch(saveTheDateEnd()),
+    favouriteVet: (vetId) => dispatch(markVetAsFavourite(vetId))
 });
 
 class Vet extends React.Component {
@@ -53,7 +54,8 @@ class Vet extends React.Component {
             activeFilter,
             activateFilter,
             appointments, saveTheDate,
-            showModal, startData, endData, saveTheDateBegin, saveTheDateEnd
+            showModal, startData, endData, saveTheDateBegin, saveTheDateEnd,
+            favouriteVet
         } = this.props;
 
         let vet = vets[this.props.params.vetId - 1];
@@ -70,95 +72,97 @@ class Vet extends React.Component {
                         <Panel className="one-vet-container">
                             <Row>
                                 <h1>Weterynarz
-                                    <Button>
-                                        <Glyphicon glyph="heart" />
+                                    <Button onClick={ () => favouriteVet(vet.id)}
+                                    >
+                                        <Glyphicon glyph="heart"/>
                                     </Button></h1>
 
                                 {vet !== undefined ?
-                                <Tabs defaultActiveKey={1} id="uncontrolled-tab-example">
-                                    <Tab eventKey={1} title="Dane kontaktowe">
-                                        <Tab1 vet={vet}
-                                              vetOffices={vetOffices}
-                                              fetchingVet={fetchingVets}
-                                              fetchingVetOffices={fetchingOffices}
-                                        />
-                                    </Tab>
-                                    <Tab eventKey={2} title="Porady">
-                                        {availableFilters.map(filterName => (
-                                            <Button bsStyle="primary"
-                                                    key={filterName}
-                                                    onClick={() => activateFilter(filterName)}
-                                                    className={filterName === activeFilter.name ? 'active' : ''}>
-                                                {filters[filterName].label}
-                                            </Button>
-                                        ))}
-
-                                        <Tab2 vet={vet}
-                                            fetchingVet={fetchingVets}
-                                            availableFilters={availableFilters}
-                                            activateFilter={activateFilter}
-                                            activeFilter={activeFilter}
+                                    <Tabs defaultActiveKey={1} id="uncontrolled-tab-example">
+                                        <Tab eventKey={1} title="Dane kontaktowe">
+                                            <Tab1 vet={vet}
+                                                  vetOffices={vetOffices}
+                                                  fetchingVet={fetchingVets}
+                                                  fetchingVetOffices={fetchingOffices}
                                             />
-                                    </Tab>
-                                    <Tab eventKey={3} title="Kalendarz wizyt">
+                                        </Tab>
+                                        <Tab eventKey={2} title="Porady">
+                                            {availableFilters.map(filterName => (
+                                                <Button bsStyle="primary"
+                                                        key={filterName}
+                                                        onClick={() => activateFilter(filterName)}
+                                                        className={filterName === activeFilter.name ? 'active' : ''}>
+                                                    {filters[filterName].label}
+                                                </Button>
+                                            ))}
 
-                                        {fetchingVisits ? "Ładuję kalendarz..." :
-                                        <BigCalendar
-                                            step={60}
-                                            views={['week']}
-                                            timeslots={1}
-                                            defaultView='week'
-                                            selectable={true}
-                                            defaultDate={new Date()}
-                                            events={visits
-                                                .filter(visit => visit.vetId === vet.id)
-                                                .map (function(visit) {
-                                                    return {
-                                                        ...visit,
-                                                        start: new Date(visit.start),
-                                                        end: new Date(visit.end)
+                                            <Tab2 vet={vet}
+                                                  fetchingVet={fetchingVets}
+                                                  availableFilters={availableFilters}
+                                                  activateFilter={activateFilter}
+                                                  activeFilter={activeFilter}
+                                            />
+                                        </Tab>
+                                        <Tab eventKey={3} title="Kalendarz wizyt">
+
+                                            {fetchingVisits ? "Ładuję kalendarz..." :
+                                                <BigCalendar
+                                                    step={60}
+                                                    views={['week']}
+                                                    timeslots={1}
+                                                    defaultView='week'
+                                                    selectable={true}
+                                                    defaultDate={new Date()}
+                                                    events={visits
+                                                        .filter(visit => visit.vetId === vet.id)
+                                                        .map(function (visit) {
+                                                            return {
+                                                                ...visit,
+                                                                start: new Date(visit.start),
+                                                                end: new Date(visit.end)
+                                                            }
+                                                        })
+                                                        .concat(appointments
+                                                            .filter(visit => visit.vetId === vet.id)
+                                                            .map(function (visit) {
+                                                                return {
+                                                                    ...visit,
+                                                                    start: new Date(visit.start),
+                                                                    end: new Date(visit.end)
+                                                                }
+                                                            })
+                                                        )
                                                     }
-                                                })
-                                                .concat(appointments
-                                                    .filter(visit => visit.vetId === vet.id)
-                                                    .map (function(visit) {
-                                                        return {
-                                                            ...visit,
-                                                            start: new Date(visit.start),
-                                                            end: new Date(visit.end)
-                                                        }
-                                                    })
-                                                )
+                                                    onSelectSlot={(slotInfo) => {
+                                                        saveTheDateBegin(slotInfo.start.toLocaleString(), slotInfo.end.toLocaleString())
+                                                        1
+                                                    }
+                                                    }
+                                                />
                                             }
-                                            onSelectSlot={(slotInfo) => {
-                                                saveTheDateBegin(slotInfo.start.toLocaleString(), slotInfo.end.toLocaleString())
-1                                            }
-                                            }
-                                        />
-                                        }
 
-                                        <Modal show={showModal} bsSize="large" onHide={() => saveTheDateEnd()}>
-                                            <Modal.Header closeButton>
-                                                <Modal.Title>Nowa wizyta</Modal.Title>
-                                            </Modal.Header>
-                                            <Modal.Body>
-                                                <h4>Umówić wizytę od {startData} do {endData} ?</h4>
-                                            </Modal.Body>
-                                            <Modal.Footer>
+                                            <Modal show={showModal} bsSize="large" onHide={() => saveTheDateEnd()}>
+                                                <Modal.Header closeButton>
+                                                    <Modal.Title>Nowa wizyta</Modal.Title>
+                                                </Modal.Header>
+                                                <Modal.Body>
+                                                    <h4>Umówić wizytę od {startData} do {endData} ?</h4>
+                                                </Modal.Body>
+                                                <Modal.Footer>
 
-                                                <Button onClick={() => {
-                                                    saveTheDate("wizyta", vet.id, startData, endData);
-                                                    saveTheDateEnd();
-                                                }}>
-                                                    <Glyphicon glyph="ok" />
-                                                </Button>
-                                                <Button onClick={() => saveTheDateEnd()}>
-                                                    <Glyphicon glyph="remove" />
-                                                </Button>
-                                            </Modal.Footer>
-                                        </Modal>
-                                    </Tab>
-                                </Tabs> : "Ładuję..."}
+                                                    <Button onClick={() => {
+                                                        saveTheDate("wizyta", vet.id, startData, endData);
+                                                        saveTheDateEnd();
+                                                    }}>
+                                                        <Glyphicon glyph="ok"/>
+                                                    </Button>
+                                                    <Button onClick={() => saveTheDateEnd()}>
+                                                        <Glyphicon glyph="remove"/>
+                                                    </Button>
+                                                </Modal.Footer>
+                                            </Modal>
+                                        </Tab>
+                                    </Tabs> : "Ładuję..."}
                             </Row>
                         </Panel>
                     </Col>

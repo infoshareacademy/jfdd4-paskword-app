@@ -5,7 +5,7 @@ import {connect} from 'react-redux'
 import {changeViewToThumbnail, changeViewToList, filterVetsByName} from './actionCreators'
 import Thumbnails from './thumbnails/Thumbnails'
 import List from './list/List'
-import {markVetAsFavourite} from '../app/actionCreators'
+
 
 const mapStateToProps = (state) => ({
     viewThumbnail: state.vetsData.viewThumbnail,
@@ -16,7 +16,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
     changeViewToThumbnail: () => dispatch(changeViewToThumbnail()),
     changeViewToList: () => dispatch(changeViewToList()),
-    filterVetsByName: (matchName) => dispatch(filterVetsByName(matchName)),
+    filterVetsByName: (matchName) => dispatch(filterVetsByName(matchName))
 });
 
 class Vets extends React.Component {
@@ -30,6 +30,7 @@ class Vets extends React.Component {
             filterVetsByOffice,
             matchName,
             matchOffice
+
         } = this.props;
 
         return  (
@@ -57,7 +58,6 @@ class Vets extends React.Component {
                                 </Button>
                             </Col>
                         </Col>
-
                     </Row>
                     {viewThumbnail ?  <Thumbnails /> : <List /> }
                 </Grid>
