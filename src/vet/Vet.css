@@ -23,3 +23,25 @@
     display: table;
     margin: 0 auto;
 }
+
+#loading {
+    animation: loading-spin infinite 5s linear;
+    color: black;
+    background: white;
+    font-size: 200%;
+    margin-left: 50%;
+
+}
+
+@keyframes loading-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.modal-body {
+    top: 50%;
+}
+
+.info {
+    color: #337ab7;
+}

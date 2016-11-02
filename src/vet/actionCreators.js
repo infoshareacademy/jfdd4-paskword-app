@@ -3,7 +3,8 @@ import {
     RECEIVE_VISITS,
     ACTIVATE_FILTER,
     REQUEST_APPOINTMENTS, RECEIVE_APPOINTMENTS,
-    SAVE_THE_DATE_BEGIN, SAVE_THE_DATE_END
+    SAVE_THE_DATE_BEGIN, SAVE_THE_DATE_END,
+    DELETE_THE_DATE_BEGIN, DELETE_THE_DATE_END
 } from './actionTypes'
 
 import fetch from 'isomorphic-fetch'
@@ -93,6 +94,33 @@ export function saveTheDate(title, vetId, start, end) {
             .then(response => response.json())
             .then(date => {
                 dispatch(saveTheDateEnd())
+                dispatch(fetchAppointments())
+            })
+    }
+}
+
+export function deleteTheDateBegin(dateId) {
+    return {
+        type: DELETE_THE_DATE_BEGIN,
+        dateId: dateId,
+    }
+}
+
+export function deleteTheDateEnd() {
+    return {
+        type: DELETE_THE_DATE_END
+    }
+}
+
+export function deleteTheDate(dateId) {
+    return function (dispatch) {
+        dispatch(deleteTheDateBegin())
+        return fetch('https://sheltered-ocean-92578.herokuapp.com/api/allVisits/' + dateId, {
+            method: 'DELETE',
+        })
+            .then(response => response.json())
+            .then(date => {
+                dispatch(deleteTheDateEnd())
                 dispatch(fetchAppointments())
             })
     }
