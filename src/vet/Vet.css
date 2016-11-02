@@ -19,6 +19,11 @@
     box-shadow: 18px 18px 20px -17px rgba(0, 0, 0, 0.73);
 }
 
+#uncontrolled-tab-example .btn-toolbar {
+    display: table;
+    margin: 0 auto;
+}
+
 #loading {
     animation: loading-spin infinite 5s linear;
     color: black;

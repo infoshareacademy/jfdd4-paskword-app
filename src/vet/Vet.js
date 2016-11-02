@@ -1,17 +1,17 @@
-import { connect } from 'react-redux'
+import {connect} from 'react-redux'
 import './Vet.css'
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import moment from 'moment';
 BigCalendar.momentLocalizer(moment);
 import React from 'react';
 import BigCalendar from 'react-big-calendar';
-import {Grid, Row, Col, Panel, Tabs, Tab, Modal, Glyphicon} from 'react-bootstrap';
+import {Grid, Row, Col, Panel, Tabs, Tab, Modal, Glyphicon, ButtonGroup, ButtonToolbar} from 'react-bootstrap';
 import Tab1 from './tab1/Tab1'
 import Tab2 from './tab2/Tab2'
 import { activateFilter, saveTheDate, saveTheDateBegin, saveTheDateEnd,
     deleteTheDate, deleteTheDateBegin, deleteTheDateEnd } from './actionCreators'
 import filters from './filters'
-import { Button } from 'react-bootstrap'
+import {Button} from 'react-bootstrap'
 
 const mapStateToProps = (state) => ({
     vets: state.vetsData.vets,
@@ -75,43 +75,48 @@ class Vet extends React.Component {
                             <Row>
                                 <h1>Weterynarz</h1>
                                 {vet !== undefined ?
-                                <Tabs defaultActiveKey={1} id="uncontrolled-tab-example">
-                                    <Tab eventKey={1} title="Dane kontaktowe">
-                                        <Tab1 vet={vet}
-                                              vetOffices={vetOffices}
-                                              fetchingVet={fetchingVets}
-                                              fetchingVetOffices={fetchingOffices}
-                                        />
-                                    </Tab>
-                                    <Tab eventKey={2} title="Porady">
-                                        {availableFilters.map(filterName => (
-                                            <Button bsStyle="primary"
-                                                    key={filterName}
-                                                    onClick={() => activateFilter(filterName)}
-                                                    className={filterName === activeFilter.name ? 'active' : ''}>
-                                                {filters[filterName].label}
-                                            </Button>
-                                        ))}
-
-                                        <Tab2 vet={vet}
-                                            fetchingVet={fetchingVets}
-                                            availableFilters={availableFilters}
-                                            activateFilter={activateFilter}
-                                            activeFilter={activeFilter}
+                                    <Tabs defaultActiveKey={1} id="uncontrolled-tab-example">
+                                        <Tab eventKey={1} title="Dane kontaktowe">
+                                            <Tab1 vet={vet}
+                                                  vetOffices={vetOffices}
+                                                  fetchingVet={fetchingVets}
+                                                  fetchingVetOffices={fetchingOffices}
+                                            />
+                                        </Tab>
+                                        <Tab eventKey={2} title="Porady">
+                                            <ButtonToolbar>
+                                                <div>
+                                                    <ButtonGroup>
+                                                        {availableFilters.map(filterName => (
+                                                            <Button bsStyle="primary"
+                                                                    key={filterName}
+                                                                    onClick={() => activateFilter(filterName)}
+                                                                    className={filterName === activeFilter.name ? 'active' : ''}>
+                                                                {filters[filterName].label}
+                                                            </Button>
+                                                        ))}
+                                                    </ButtonGroup>
+                                                </div>
+                                            </ButtonToolbar>
+                                            <Tab2 vet={vet}
+                                                  fetchingVet={fetchingVets}
+                                                  availableFilters={availableFilters}
+                                                  activateFilter={activateFilter}
+                                                  activeFilter={activeFilter}
                                             />
                                     </Tab>
                                     <Tab eventKey={3} title="Kalendarz wizyt">
                                         <h4 className="info">Aby zarezerwować wizytę kliknij w wolne miejse w kalendarzu. Aby anulować wybraną wizytę kliknij na nią.</h4>
 
-                                        {fetchingVisits ? "Ładuję kalendarz..." :
-                                        <BigCalendar
-                                            step={60}
-                                            views={['week']}
-                                            timeslots={1}
-                                            defaultView='week'
-                                            selectable={true}
-                                            defaultDate={new Date()}
-                                            events={visits
+                                            {fetchingVisits ? "Ładuję kalendarz..." :
+                                                <BigCalendar
+                                                    step={60}
+                                                    views={['week']}
+                                                    timeslots={1}
+                                                    defaultView='week'
+                                                    selectable={true}
+                                                    defaultDate={new Date()}
+                                                    events={visits
                                                 .filter(visit => visit.vetId === vet.id)
                                                 .map (function(visit) {
                                                     return {
@@ -136,16 +141,16 @@ class Vet extends React.Component {
                                         />
                                         }
 
-                                        <Modal show={showModal} bsSize="large" onHide={() => saveTheDateEnd()}>
-                                            <Modal.Header closeButton>
-                                                <Modal.Title>Nowa wizyta</Modal.Title>
-                                            </Modal.Header>
-                                            <Modal.Body>
-                                                <h4>Umówić wizytę od {startData} do {endData} ?</h4>
-                                            </Modal.Body>
-                                            <Modal.Footer>
+                                            <Modal show={showModal} bsSize="large" onHide={() => saveTheDateEnd()}>
+                                                <Modal.Header closeButton>
+                                                    <Modal.Title>Nowa wizyta</Modal.Title>
+                                                </Modal.Header>
+                                                <Modal.Body>
+                                                    <h4>Umówić wizytę od {startData} do {endData} ?</h4>
+                                                </Modal.Body>
+                                                <Modal.Footer>
 
-                                                <Button onClick={() => {
+                                                    <Button onClick={() => {
                                                     saveTheDate("wizyta", vet.id, startData, endData);
                                                     saveTheDateEnd();
                                                 }}>
