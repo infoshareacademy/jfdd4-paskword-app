@@ -1,6 +1,6 @@
 import React from 'react';
 import '../Vets.css';
-import {Grid, Col, Row, ListGroup} from 'react-bootstrap';
+import {Grid, Col, Row, Media, Glyphicon} from 'react-bootstrap';
 import {Link} from 'react-router';
 import {connect} from 'react-redux'
 
@@ -33,12 +33,20 @@ class List extends React.Component {
                         })
                         .map((vet, index) => (
 
-                            <Col xs={12} sm={6}>
-                                   <ListGroup className="vets-list">
-                                       <Link to={`/vets/` + parseInt(index + 1, 10) }>
-                                            <h3>{vet.firstName} {vet.lastName}</h3>
-                                        </Link>
-                                   </ListGroup>
+                            <Col xs={12} key={vet.id}>
+                                    <Media className="vets-list">
+                                        <Media.Left>
+                                            <img width={100} src={vet.photo} alt={vet.lastName}/>
+                                        </Media.Left>
+                                        <Media.Body>
+                                            <Media.Heading>
+                                                <Link to={`/vets/` + parseInt(index + 1, 10) }>
+                                                    <h3>{vet.firstName} {vet.lastName}</h3>
+                                                </Link>
+                                            </Media.Heading>
+                                            <p><Glyphicon glyph="phone-alt"/> {vet.phone}</p>
+                                        </Media.Body>
+                                    </Media>
                             </Col>
                         ))
                     }
