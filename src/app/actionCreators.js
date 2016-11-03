@@ -2,8 +2,11 @@ import {
     LOGIN_ATTEMPT,
     LOGIN_SUCCESSFUL,
     LOGOUT_SUCCESSFUL,
-    MARK_VET_AS_FAVOURITE
+    MARK_VET_AS_FAVOURITE,
+    DELETE_FROM_FAVOURITE
 } from './actionTypes'
+
+
 
 function loginAttempt() {
     return {
@@ -29,5 +32,12 @@ export function markVetAsFavourite(vetId){
     return {
         type: MARK_VET_AS_FAVOURITE,
         vetId: vetId
+    }
+}
+
+export function deleteFromFavourite(vetId) {
+    return{
+        type: DELETE_FROM_FAVOURITE,
+        vetId:vetId
     }
 }

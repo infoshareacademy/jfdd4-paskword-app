@@ -4,6 +4,8 @@ import {
     CHANGE_VIEW_TO_THUMBNAIL,
     CHANGE_VIEW_TO_LIST,
     FILTER_VETS_BY_NAME,
+    CHANGE_VIEW_TO_FAVOURITE,
+    IS_VET_IN_FAVOURITE
 } from './actionTypes'
 
 import fetch from 'isomorphic-fetch'
@@ -42,9 +44,22 @@ export function changeViewToList() {
     }
 }
 
+export function changeViewToFavourite() {
+    return {
+        type: CHANGE_VIEW_TO_FAVOURITE,
+    }
+}
+
 export function filterVetsByName(matchName) {
     return {
         type: FILTER_VETS_BY_NAME,
         matchName: matchName,
+    }
+}
+
+export function isVetInFavourite(vetId){
+    return{
+        type:IS_VET_IN_FAVOURITE,
+        vetId: vetId
     }
 }

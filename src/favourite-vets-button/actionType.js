@@ -1,1 +1,0 @@
-export const GET_FAVOURITE_VETS = 'favourite-vets-button/GET_FAVOURITE_VETS'
