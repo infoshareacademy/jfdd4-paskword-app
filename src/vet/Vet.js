@@ -116,28 +116,19 @@ class Vet extends React.Component {
                                                     defaultView='week'
                                                     selectable={true}
                                                     defaultDate={new Date()}
-                                                    events={visits
-                                                .filter(visit => visit.vetId === vet.id)
-                                                .map (function(visit) {
-                                                    return {
-                                                        ...visit,
-                                                        start: new Date(visit.start),
-                                                        end: new Date(visit.end)
+                                                    events={
+                                                        appointments
+                                                            .filter(visit => visit.vetId === vet.id)
+                                                            .map (function(visit) {
+                                                                return {
+                                                                    ...visit,
+                                                                    start: new Date(visit.start),
+                                                                    end: new Date(visit.end)
+                                                                }
+                                                            })
                                                     }
-                                                })
-                                                .concat(appointments
-                                                    .filter(visit => visit.vetId === vet.id)
-                                                    .map (function(visit) {
-                                                        return {
-                                                            ...visit,
-                                                            start: new Date(visit.start),
-                                                            end: new Date(visit.end)
-                                                        }
-                                                    })
-                                                )
-                                            }
-                                            onSelectSlot={(slotInfo) => saveTheDateBegin(slotInfo.start.toLocaleString(), slotInfo.end.toLocaleString())}
-                                            onSelectEvent={event => deleteTheDateBegin(event.id)}
+                                                    onSelectSlot={(slotInfo) => saveTheDateBegin(slotInfo.start.toLocaleString(), slotInfo.end.toLocaleString())}
+                                                    onSelectEvent={event => deleteTheDateBegin(event.id)}
                                         />
                                         }
 
