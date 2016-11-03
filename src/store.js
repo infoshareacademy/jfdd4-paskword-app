@@ -38,11 +38,12 @@ let store = createStore(
             loggerMiddleware
         )
     ),
-    persistState(['favorites'])
+    persistState(['favourites'])
 )
 
 store.subscribe(() => {
-    localStorage.setItem('loggedUser', JSON.stringify(store.getState().app.loggedUser || []))
+    localStorage.setItem('favourites', JSON.stringify(store.getState().favourites.favourites|| []))
+
 })
 
 export default store

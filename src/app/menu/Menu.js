@@ -4,6 +4,7 @@ import Logo from './logo.png'
 import {IndexLinkContainer, LinkContainer} from 'react-router-bootstrap'
 import {Nav, Navbar, NavItem} from 'react-bootstrap'
 import LoginForm from '../LoginForm'
+import FavouriteVetsButton from '../../favourite-vets-button/FavouriteVetsButton'
 
 export default (props) =>
 
@@ -35,7 +36,8 @@ export default (props) =>
 
             </Nav>
             <Nav pullRight>
-                <LoginForm/>
+           <NavItem><FavouriteVetsButton/></NavItem>
+           <NavItem><LoginForm/></NavItem>
             </Nav>
 
         </Navbar.Collapse>
