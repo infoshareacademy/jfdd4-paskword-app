@@ -57,11 +57,12 @@
 .vets-list {
     background: #337ab7;
     color: white;
+    margin: 1%;
 }
 
 .vets-list h3 {
     margin-top: 1%;
-    padding: 3%;
+    padding: 1%;
     color: white;
 }
 

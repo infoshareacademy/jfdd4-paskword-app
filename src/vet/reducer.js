@@ -2,9 +2,11 @@ import {
     REQUEST_VISITS,
     RECEIVE_VISITS,
     ACTIVATE_FILTER,
-    RECEIVE_APPOINTMENTS,
+    RECEIVE_APPOINTMENTS, REQUEST_APPOINTMENTS,
     SAVE_THE_DATE_BEGIN,
-    SAVE_THE_DATE_END
+    SAVE_THE_DATE_END,
+    DELETE_THE_DATE_BEGIN,
+    DELETE_THE_DATE_END,
 } from './actionTypes'
 
 const initialState = {
@@ -16,6 +18,9 @@ const initialState = {
     showModal: false,
     startData: '',
     endData: '',
+    showDeleteModal: false,
+    dateId: '',
+    fetchingAppointments: false,
 }
 
 export default (state = initialState, action) => {
@@ -33,8 +38,13 @@ export default (state = initialState, action) => {
             return Object.assign({}, state, {
                 activeFilterName: action.nameOfFilterToActivate
             })
+        case REQUEST_APPOINTMENTS:
+            return Object.assign({}, state, {
+                fetchingAppointments: true,
+            })
         case RECEIVE_APPOINTMENTS:
             return Object.assign({}, state, {
+                fetchingAppointments: false,
                 appointments: action.appointments
             })
         case SAVE_THE_DATE_BEGIN:
@@ -46,6 +56,15 @@ export default (state = initialState, action) => {
         case SAVE_THE_DATE_END:
             return Object.assign({}, state, {
                 showModal: false,
+            })
+        case DELETE_THE_DATE_BEGIN:
+            return Object.assign({}, state, {
+                showDeleteModal: true,
+                dateId: action.dateId,
+            })
+        case DELETE_THE_DATE_END:
+            return Object.assign({}, state, {
+                showDeleteModal: false,
             })
         default:
             return state
