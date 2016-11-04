@@ -8,8 +8,7 @@ export default (state = initialState, action) => {
     switch (action.type) {
         case MARK_VET_AS_FAVOURITE:
             return Object.assign({}, state, {
-                favouriteVetIds: state.favouriteVetIds.concat([action.vetId]),
-                favouriteButtonEnabled: true
+                favouriteVetIds: state.favouriteVetIds.concat([action.vetId])
             });
         case DELETE_FROM_FAVOURITE:
             return Object.assign({}, state, {
