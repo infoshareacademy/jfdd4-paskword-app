@@ -87,15 +87,13 @@ class Thumbnails extends React.Component {
                                         </Button>
                                         :
                                         <Button onClick={() => favouriteVet(vet.id)}>
-                                            <Glyphicon glyph="plus"/>
+                                            <Glyphicon glyph="heart"/>
                                         </Button>
                                     }
-
                                 </Thumbnail>
                             </Col>
                         ))
                     }
-
                 </Row>
             </Grid>
         )

@@ -12,11 +12,9 @@ export default (state = initialState, action) => {
                 favouriteButtonEnabled: true
             });
         case DELETE_FROM_FAVOURITE:
-            favouriteVetIds: state.favouriteVetIds.splice(state.favouriteVetIds.indexOf(action.vetId), 1);
             return Object.assign({}, state, {
-                favouriteVetIds: state.favouriteVetIds
-            })
-
+                favouriteVetIds: state.favouriteVetIds.filter(vetId => vetId !== action.vetId )
+            });
         default:
             return state
     }
