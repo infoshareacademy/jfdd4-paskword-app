@@ -34,20 +34,21 @@ class ThumbnailsFavourites extends React.Component {
         return (
 
             <Grid>
-                <Row className="flexbox thumb-row">
-                    {fetchingVets ? <p>Ładuję weterynarzy...</p> : null}
-                    {favouriteVetIds.map((favVetId) =>
-                        vets
-                            .filter((vet) => vet.id === favVetId)
-                            .filter(function (vet) {
-                                var fullName = (vet.firstName + ' ' + vet.lastName).toLowerCase();
-                                return fullName.indexOf(matchName.toLowerCase()) !== -1
-                            })
-                            .map((vet, index) => (
-                                <Col className="thumb-col"
-                                     key={index} xs={12} sm={6} md={4} lg={3}>
-                                    {favouriteVetIds.length === 0 ?  (<h3>Nie masz ulubionych weterynarzy</h3>)
-                                        :
+                {favouriteVetIds.length == 0 ? <h3>Nie masz ulubionych weterynarzy</h3>
+                    :
+                    <Row className="flexbox thumb-row">
+                        {fetchingVets ? <p>Ładuję weterynarzy...</p> : null}
+                        {favouriteVetIds.map((favVetId) =>
+                            vets
+                                .filter((vet) => vet.id === favVetId)
+                                .filter(function (vet) {
+                                    var fullName = (vet.firstName + ' ' + vet.lastName).toLowerCase();
+                                    return fullName.indexOf(matchName.toLowerCase()) !== -1
+                                })
+                                .map((vet, index) => (
+                                    <Col className="thumb-col"
+                                         key={index} xs={12} sm={6} md={4} lg={3}>
+
                                         <Thumbnail src={vet.photo}
                                                    alt={vet.firstName}
                                                    className="img-responsive vets-img image-rounded"
@@ -89,13 +90,11 @@ class ThumbnailsFavourites extends React.Component {
                                                 null
                                             }
                                         </Thumbnail>
-        
-                                    }
-                                </Col>
-                            ))
-                    )}
-
-                </Row>
+                                    </Col>
+                                ))
+                        )}
+                    </Row>
+                }
             </Grid>
         )
     }
