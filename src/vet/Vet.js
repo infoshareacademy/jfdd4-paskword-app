@@ -67,6 +67,12 @@ class Vet extends React.Component {
                 return office.vetIds.indexOf(vet.id) !== -1;
             });
 
+        let OSName = "Unknown OS";
+        navigator.appVersion.indexOf("Win") !== -1 ? OSName = "Windows" : null;
+        navigator.appVersion.indexOf("Mac") !== -1 ? OSName = "MacOS" : null;
+        navigator.appVersion.indexOf("X11") !== -1 ? OSName = "UNIX": null;
+        navigator.appVersion.indexOf("Linux") !== -1 ? OSName = "Linux": null;
+
         return (
             <Grid>
                 <div className="Weterynarz">
@@ -122,6 +128,7 @@ class Vet extends React.Component {
                                                             .map (function(visit) {
                                                                 return {
                                                                     ...visit,
+
                                                                     start: new Date(visit.start),
                                                                     end: new Date(visit.end)
                                                                 }
