@@ -96,6 +96,8 @@
 
 .thumb-col {
     display: flex;
+    padding-left:5px;
+    padding-right:5px;
 }
 
 .thumb-col .thumbnail {
