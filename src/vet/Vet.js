@@ -12,6 +12,12 @@ import { activateFilter, saveTheDate, saveTheDateBegin, saveTheDateEnd,
     deleteTheDate, deleteTheDateBegin, deleteTheDateEnd } from './actionCreators'
 import filters from './filters'
 
+function reformatDate(dateStr)
+{
+    var dArr = dateStr.split(".");  // ex input "01.18.2010"
+    return dArr[1]+ "." + dArr[0]+ "." + dArr[2]; //ex out: "18.01.2010"
+}
+
 const mapStateToProps = (state) => ({
     vets: state.vetsData.vets,
     fetchingVets: state.vetsData.fetchingVets,
@@ -67,6 +73,12 @@ class Vet extends React.Component {
                 return office.vetIds.indexOf(vet.id) !== -1;
             });
 
+        let OSName = "Unknown OS";
+        navigator.appVersion.indexOf("Win") !== -1 ? OSName = "Windows" : null;
+        navigator.appVersion.indexOf("Mac") !== -1 ? OSName = "MacOS" : null;
+        navigator.appVersion.indexOf("X11") !== -1 ? OSName = "UNIX": null;
+        navigator.appVersion.indexOf("Linux") !== -1 ? OSName = "Linux": null;
+
         return (
             <Grid>
                 <div className="Weterynarz">
@@ -109,6 +121,7 @@ class Vet extends React.Component {
                                         <h4 className="info">Aby zarezerwować wizytę kliknij w wolne miejse w kalendarzu. Aby anulować wybraną wizytę kliknij na nią.</h4>
 
                                             {fetchingVisits ? "Ładuję kalendarz..." :
+                                                OSName === "Linux" ?
                                                 <BigCalendar
                                                     step={60}
                                                     views={['week']}
@@ -129,7 +142,29 @@ class Vet extends React.Component {
                                                     }
                                                     onSelectSlot={(slotInfo) => saveTheDateBegin(slotInfo.start.toLocaleString(), slotInfo.end.toLocaleString())}
                                                     onSelectEvent={event => deleteTheDateBegin(event.id)}
-                                        />
+                                                />
+                                                    :
+                                                <BigCalendar
+                                                    step={60}
+                                                    views={['week']}
+                                                    timeslots={1}
+                                                    defaultView='week'
+                                                    selectable={true}
+                                                    defaultDate={new Date()}
+                                                    events={
+                                                        appointments
+                                                            .filter(visit => visit.vetId === vet.id)
+                                                            .map (function(visit) {
+                                                                return {
+                                                                    ...visit,
+                                                                    start: new Date(reformatDate(visit.start)),
+                                                                    end: new Date(reformatDate(visit.end))
+                                                                }
+                                                            })
+                                                    }
+                                                    onSelectSlot={(slotInfo) => saveTheDateBegin(slotInfo.start.toLocaleString(), slotInfo.end.toLocaleString())}
+                                                    onSelectEvent={event => deleteTheDateBegin(event.id)}
+                                                />
                                         }
 
                                             <Modal show={showModal} bsSize="large" onHide={() => saveTheDateEnd()}>
