@@ -33,30 +33,38 @@ class Thumbnails extends React.Component {
             favouriteVetIds
         } = this.props;
 
+        function fullName(firstName, lastName) {
+            return (firstName + ' ' + lastName).toLowerCase();
+        }
+
+        function reversedFullName(firstName, lastName) {
+            return (lastName + ' ' + firstName).toLowerCase();
+        }
+
+        let vetsCheck = vets.filter(function (vet) {
+            return fullName(vet.firstName, vet.lastName).indexOf(matchName.toLowerCase()) !== -1
+                || reversedFullName(vet.firstName, vet.lastName).indexOf(matchName.toLowerCase()) !== -1
+        })
+
         return (
 
             <Grid>
                 <Row className="flexbox thumb-row">
-                    {fetchingVets ? <p>Ładuję weterynarzy...</p> : null}
+                    {fetchingVets ? "Ładuję weterynarzy..." : null}
+                    {vetsCheck.length === 0 ?
+                        <h3 key={vetsCheck}>Nie znaleziono weterynarza</h3> : vetsCheck.map((vet, index) => (
 
-                    {vets
-                        .filter(function (vet) {
-                            var fullName = (vet.firstName + ' ' + vet.lastName).toLowerCase();
-                            return fullName.indexOf(matchName.toLowerCase()) !== -1
-                        })
-                        .map((vet, index) => (
-
-                            <Col className="thumb-col"
-                                 key={index} xs={12} sm={6} md={4} lg={3}>
-                                <Thumbnail src={vet.photo}
-                                           alt={vet.firstName}
-                                           className="img-responsive vets-img image-rounded"
-                                           id={vet.firstName}>
-                                    <Link to={`/vets/` + parseInt(index + 1, 10) }>
-                                        <h3>{vet.firstName} {vet.lastName}</h3>
-                                    </Link>
-                                    <p>E-mail: {vet.email}</p>
-                                    <p>Telefon: {vet.phone}</p>
+                        <Col className="thumb-col"
+                             key={index} xs={12} sm={6} md={4} lg={3}>
+                            <Thumbnail src={vet.photo}
+                                       alt={vet.firstName}
+                                       className="img-responsive vets-img image-rounded"
+                                       id={vet.firstName}>
+                                <Link to={`/vets/` + parseInt(index + 1, 10) }>
+                                    <h3>{vet.firstName} {vet.lastName}</h3>
+                                </Link>
+                                <p>E-mail: {vet.email}</p>
+                                <p>Telefon: {vet.phone}</p>
 
                                     <p>Przychodnie:</p>
                                     {fetchingOffices ? <p>Ładuję przychodnie...</p> : null}

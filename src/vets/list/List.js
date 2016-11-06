@@ -19,40 +19,48 @@ class List extends React.Component {
             matchName,
         } = this.props;
 
+        function fullName(firstName, lastName) {
+            return (firstName + ' ' + lastName).toLowerCase();
+        }
+
+        function reversedFullName(firstName, lastName) {
+            return (lastName + ' ' + firstName).toLowerCase();
+        }
+
+        let vetsCheck = vets.filter(function (vet) {
+            return fullName(vet.firstName, vet.lastName).indexOf(matchName.toLowerCase()) !== -1
+                || reversedFullName(vet.firstName, vet.lastName).indexOf(matchName.toLowerCase()) !== -1
+        })
+
+        console.debug(vetsCheck)
+
         return (
 
-            <Grid>
-                <Row className="flexbox">
-                    {fetchingVets ? <p>Ładuję weterynarzy...</p> : null}
 
-                    {vets
-                        .filter(function(vet) {
-                            var fullName = (vet.firstName + ' ' + vet.lastName).toLowerCase();
-                            var reversedFullName = (vet.lastName + ' ' + vet.firstName).toLowerCase();
-                            return fullName.indexOf(matchName.toLowerCase()) !== -1 || reversedFullName.indexOf(matchName.toLowerCase()) !== -1
-                        })
-                        .map((vet, index) => (
+        <Grid>
+            <Row className="flexbox">
+                {fetchingVets ? "Ładuję weterynarzy..." : null}
+                {vetsCheck.length === 0 ?
+                    <h3 key={vetsCheck}>Nie znaleziono weterynarza</h3> : vetsCheck.map((vet, index) => (
+                    <Col xs={12} key={vet.id}>
+                        <Media className="vets-list">
+                            <Media.Left>
+                                <img width={100} src={vet.photo} alt={vet.lastName}/>
+                            </Media.Left>
+                            <Media.Body>
+                                <Media.Heading>
+                                    <Link to={`/vets/` + parseInt(index + 1, 10) }>
+                                        <h3>{vet.firstName} {vet.lastName}</h3>
+                                    </Link>
+                                </Media.Heading>
+                                <p><Glyphicon glyph="phone-alt"/> {vet.phone}</p>
+                            </Media.Body>
+                        </Media>
+                    </Col>
+                ))}
+            </Row>
+        </Grid>
 
-                            <Col xs={12} key={vet.id}>
-                                    <Media className="vets-list">
-                                        <Media.Left>
-                                            <img width={100} src={vet.photo} alt={vet.lastName}/>
-                                        </Media.Left>
-                                        <Media.Body>
-                                            <Media.Heading>
-                                                <Link to={`/vets/` + parseInt(index + 1, 10) }>
-                                                    <h3>{vet.firstName} {vet.lastName}</h3>
-                                                </Link>
-                                            </Media.Heading>
-                                            <p><Glyphicon glyph="phone-alt"/> {vet.phone}</p>
-                                        </Media.Body>
-                                    </Media>
-                            </Col>
-                        ))
-                    }
-
-                </Row>
-            </Grid>
         )
     }
 }
