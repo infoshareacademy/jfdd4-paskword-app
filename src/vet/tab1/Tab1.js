@@ -3,7 +3,9 @@ import '../Vet.css';
 import {Link} from 'react-router';
 import {
     ListGroup,
-    ListGroupItem
+    ListGroupItem,
+    Glyphicon,
+    Button
 }
     from 'react-bootstrap';
 export default class Tab1 extends React.Component {
