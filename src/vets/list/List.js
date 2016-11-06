@@ -41,7 +41,7 @@ class List extends React.Component {
             <Row className="flexbox">
                 {fetchingVets ? "Ładuję weterynarzy..." : null}
                 {vetsCheck.length === 0 ?
-                    <p key={vetsCheck}>Nie znaleziono weterynarza</p> : vetsCheck.map((vet, index) => (
+                    <h3 key={vetsCheck}>Nie znaleziono weterynarza</h3> : vetsCheck.map((vet, index) => (
                     <Col xs={12} key={vet.id}>
                         <Media className="vets-list">
                             <Media.Left>

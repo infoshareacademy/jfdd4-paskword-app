@@ -52,7 +52,7 @@ class Thumbnails extends React.Component {
                 <Row className="flexbox thumb-row">
                     {fetchingVets ? "Ładuję weterynarzy..." : null}
                     {vetsCheck.length === 0 ?
-                        <p key={vetsCheck}>Nie znaleziono weterynarza</p> : vetsCheck.map((vet, index) => (
+                        <h3 key={vetsCheck}>Nie znaleziono weterynarza</h3> : vetsCheck.map((vet, index) => (
 
                         <Col className="thumb-col"
                              key={index} xs={12} sm={6} md={4} lg={3}>
