@@ -1,17 +1,16 @@
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 import './Vet.css'
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import moment from 'moment';
 BigCalendar.momentLocalizer(moment);
 import React from 'react';
 import BigCalendar from 'react-big-calendar';
-import {Grid, Row, Col, Panel, Tabs, Tab, Modal, Glyphicon, ButtonGroup, ButtonToolbar} from 'react-bootstrap';
+import {Grid, Row, Col, Panel, Tabs, Tab, Modal, Glyphicon, ButtonGroup, ButtonToolbar, Button} from 'react-bootstrap';
 import Tab1 from './tab1/Tab1'
 import Tab2 from './tab2/Tab2'
 import { activateFilter, saveTheDate, saveTheDateBegin, saveTheDateEnd,
     deleteTheDate, deleteTheDateBegin, deleteTheDateEnd } from './actionCreators'
 import filters from './filters'
-import {Button} from 'react-bootstrap'
 
 const mapStateToProps = (state) => ({
     vets: state.vetsData.vets,
@@ -57,7 +56,8 @@ class Vet extends React.Component {
             appointments, saveTheDate,
             showModal, startData, endData, saveTheDateBegin, saveTheDateEnd,
             showDeleteModal, deleteTheDate, deleteTheDateBegin, deleteTheDateEnd, dateId,
-            fetchingAppointments
+            fetchingAppointments,
+            favouriteVet
         } = this.props;
 
         let vet = vets[this.props.params.vetId - 1];

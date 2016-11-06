@@ -1,8 +1,9 @@
 import React from 'react';
 import '../Vets.css';
-import {Grid, Col, Row, Thumbnail, ListGroup, ListGroupItem} from 'react-bootstrap';
+import {Grid, Col, Row, Thumbnail, ListGroup, ListGroupItem, Button, Glyphicon} from 'react-bootstrap';
 import {Link} from 'react-router';
 import {connect} from 'react-redux'
+import {markVetAsFavourite, deleteFromFavourite} from '../../app/actionCreators'
 
 const mapStateToProps = (state) => ({
     vets: state.vetsData.vets,
@@ -10,7 +11,13 @@ const mapStateToProps = (state) => ({
     offices: state.officesData.offices,
     fetchingOffices: state.officesData.fetchingOffices,
     matchName: state.vetsData.matchName,
+    favouriteVetIds: state.favourites.favouriteVetIds
 });
+
+const mapDispatchToProps = (dispatch) => ({
+    favouriteVet: (vetId) => dispatch(markVetAsFavourite(vetId)),
+    deleteFromFavourite: (vetId) => dispatch(deleteFromFavourite(vetId))
+})
 
 class Thumbnails extends React.Component {
 
@@ -21,6 +28,9 @@ class Thumbnails extends React.Component {
             offices,
             fetchingOffices,
             matchName,
+            favouriteVet,
+            deleteFromFavourite,
+            favouriteVetIds
         } = this.props;
 
         return (
@@ -64,22 +74,30 @@ class Thumbnails extends React.Component {
 
                                                     <Link key={office.officeName}
                                                           to={`/offices/` + parseInt(office.id, 10)}>
-                                                        <ListGroupItem className='single-list-element'>{office.officeName}</ListGroupItem >
+                                                        <ListGroupItem
+                                                            className='single-list-element'>{office.officeName}</ListGroupItem >
                                                     </Link>
-
                                                 )
                                             })}
                                     </ListGroup>
                                     <p>Liczba porad lekarza: {vet.advices.length}</p>
+                                    {favouriteVetIds.indexOf(vet.id) > -1 ?
+                                        <Button onClick={() => deleteFromFavourite(vet.id)}>
+                                            <Glyphicon glyph="minus"/>
+                                        </Button>
+                                        :
+                                        <Button onClick={() => favouriteVet(vet.id)}>
+                                            <Glyphicon glyph="heart"/>
+                                        </Button>
+                                    }
                                 </Thumbnail>
                             </Col>
                         ))
                     }
-
                 </Row>
             </Grid>
         )
     }
 }
 
-export default connect(mapStateToProps)(Thumbnails)
+export default connect(mapStateToProps, mapDispatchToProps)(Thumbnails)
